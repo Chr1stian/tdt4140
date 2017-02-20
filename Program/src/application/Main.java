@@ -17,12 +17,23 @@ public class Main extends Application{
 	public void start(Stage primaryStage) throws Exception{
 		this.primaryStage = primaryStage;
 		this.primaryStage .setTitle("Prodo Login");
-		showLogin();
+		System.out.println(System.getProperties());
+		showMain();
 	}
 	
 	private void showLogin() throws IOException{
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Main.class.getResource("Login.fxml"));
+		mainLayout = loader.load();
+		Scene scene = new Scene(mainLayout);
+		primaryStage.setScene(scene);
+		primaryStage.show();
+		primaryStage.setResizable(false);
+	}
+	
+	private void showMain() throws IOException{
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(Main.class.getResource("Main.fxml"));
 		mainLayout = loader.load();
 		Scene scene = new Scene(mainLayout);
 		primaryStage.setScene(scene);
