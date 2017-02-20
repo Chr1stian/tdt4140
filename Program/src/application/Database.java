@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Database {
 	private static String mysqlAddr = "jdbc:mysql://mysql.stud.ntnu.no:3306/prodoteam_db?allowMultiQueries=true";
@@ -53,6 +55,22 @@ public class Database {
             ResultSet rs = stmt.executeQuery();
             if(rs.next())
                 return rs.getString(2);
+            return null;
+        }
+        catch(SQLException e){
+            return null;
+        }
+    }
+    
+    public static String subjectsDB(String string){
+        try{
+            Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM course");
+
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+            		System.out.println(rs.getString(2) + rs.getString(3));
+            	}
             return null;
         }
         catch(SQLException e){

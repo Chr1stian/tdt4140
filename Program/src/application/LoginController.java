@@ -7,8 +7,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
 public class LoginController {
-	@FXML
-	private Button btn_login;
+	//@FXML
+	//private Button btn_login;
 	
 	//enter fxml and java code for a login function here
 	@FXML
