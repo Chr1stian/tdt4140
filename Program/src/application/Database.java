@@ -77,4 +77,23 @@ public class Database {
             return null;
         }
     }
+    
+    public static ArrayList<String> courseCodes(){
+    	ArrayList<String> course = new ArrayList<String>();
+    	try{
+            Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
+            PreparedStatement stmt = conn.prepareStatement("SELECT code FROM course");
+
+            ResultSet rs = stmt.executeQuery();
+            int i = 0;
+            while(rs.next()){
+            	course.add(rs.getString(1));
+            	}
+            return course;
+        }
+        catch(SQLException e){
+        	System.out.println(e);
+            return null;
+        }	
+    }
 }

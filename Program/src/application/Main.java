@@ -16,7 +16,7 @@ public class Main extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception{
 		this.primaryStage = primaryStage;
-		this.primaryStage .setTitle("Prodo Login");
+		this.primaryStage .setTitle("Prodo");
 		System.out.println(System.getProperties());
 		showMain();
 	}
@@ -33,12 +33,14 @@ public class Main extends Application{
 	
 	private void showMain() throws IOException{
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Main.class.getResource("Main.fxml"));
+		loader.setLocation(Main.class.getResource("Program.fxml"));
 		mainLayout = loader.load();
 		Scene scene = new Scene(mainLayout);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		primaryStage.setResizable(false);
+		//prints array with coursecodes from Database to console
+		System.out.println(Database.courseCodes());
 	}
 	
 	public static void main(String[] args) {
