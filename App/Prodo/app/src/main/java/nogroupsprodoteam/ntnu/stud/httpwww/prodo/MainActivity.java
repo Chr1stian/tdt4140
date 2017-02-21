@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         btn_ok.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //sendMessage();
-                try {
+               /* try {
 
                     Class.forName("com.mysql.jdbc.Driver");
                     java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no:3306/prodoteam_db?user=chrisnyv_demo&password=rM48DmzH");
@@ -60,8 +60,9 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                     txt_name.setText(e.toString());
                 }
+                */
 
-                //txt_name.setText(db.test());
+                txt_name.setText(db.test());
                 //txt_name.setText("Hallaballa");
             }
         });
