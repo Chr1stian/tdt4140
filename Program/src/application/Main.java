@@ -17,7 +17,6 @@ public class Main extends Application{
 	public void start(Stage primaryStage) throws Exception{
 		this.primaryStage = primaryStage;
 		this.primaryStage .setTitle("Prodo");
-		System.out.println(System.getProperties());
 		showMain();
 	}
 	
@@ -40,7 +39,7 @@ public class Main extends Application{
 		primaryStage.show();
 		primaryStage.setResizable(false);
 		//prints array with coursecodes from Database to console
-		System.out.println(Database.courseCodes());
+		//System.out.println(Database.courseCodes());
 	}
 	
 	public static void main(String[] args) {
