@@ -40,30 +40,13 @@ public class MainActivity extends AppCompatActivity {
         Button btn_ok = (Button) findViewById(R.id.btn_ok);
         btn_ok.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //sendMessage();
-               /* try {
-
+                try {
                     Class.forName("com.mysql.jdbc.Driver");
-                    java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no:3306/prodoteam_db?user=chrisnyv_demo&password=rM48DmzH");
-
-                    String result = "Database connection success\n";
-                    Statement st = con.createStatement();
-
-                    ResultSet rs = st.executeQuery("select * from bruker ");
-                    while (rs.next()) {
-
-                        result += rs.getString(2) + "\n";
-
-                    }
-                    txt_name.setText(result);
-                } catch (Exception e) {
+                } catch (ClassNotFoundException e) {
                     e.printStackTrace();
-                    txt_name.setText(e.toString());
                 }
-                */
-
-                txt_name.setText(db.test());
-                //txt_name.setText("Hallaballa");
+                sendMessage();
+                //txt_name.setText(db.test());
             }
         });
 
