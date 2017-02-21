@@ -20,7 +20,7 @@
         android:layout_marginLeft="63dp"
         android:layout_marginStart="63dp"
         android:layout_marginTop="61dp"
-        android:id="@+id/lbl_head"
+        android:id="@+id/lbl_name"
         android:textAppearance="@android:style/TextAppearance.Material.Notification.Title"
         android:textSize="20sp" />
 
@@ -28,20 +28,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Name"
         android:ems="10"
-        android:layout_below="@+id/lbl_head"
-        android:layout_alignLeft="@+id/lbl_head"
-        android:layout_alignStart="@+id/lbl_head"
+        android:layout_below="@+id/lbl_name"
+        android:layout_alignLeft="@+id/lbl_name"
+        android:layout_alignStart="@+id/lbl_name"
         android:layout_marginTop="52dp"
-        android:id="@+id/editText" />
+        android:id="@+id/txt_name"
+        android:hint="Name" />
 
     <Button
         android:text="Ok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/editText"
-        android:layout_toRightOf="@+id/editText"
-        android:layout_toEndOf="@+id/editText"
-        android:id="@+id/button" />
+        android:layout_alignTop="@+id/txt_name"
+        android:layout_toRightOf="@+id/txt_name"
+        android:layout_toEndOf="@+id/txt_name"
+        android:id="@+id/btn_ok" />
 </RelativeLayout>
