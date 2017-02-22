@@ -8,6 +8,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 public class Database {
 	private static String mysqlAddr = "jdbc:mysql://mysql.stud.ntnu.no:3306/prodoteam_db?allowMultiQueries=true";
     private static String mysqlUser = "chrisnyv_demo";
@@ -78,19 +81,22 @@ public class Database {
         }
     }
     
-    public static ArrayList<ArrayList<String>> courses(){
-    	ArrayList<ArrayList<String>> courseList = new ArrayList<ArrayList<String>>();
+    public static ObservableList<Course> courses(){
+    	// Makes a new observable list
+    	ObservableList<Course> courseList = FXCollections.observableArrayList();
     	try{
             Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM course");
-
+            
+            //
             ResultSet rs = stmt.executeQuery();
+            
+            // While the
             while(rs.next()){
             	ArrayList<String> course = new ArrayList<String>();
             	for(int i = 1; i < 4; i++){
             		course.add(rs.getString(i));
-            	}courseList.add(course);
-            	System.out.println(courseList);
+            	}courseList.add(new Course(course.get(0), course.get(1), course.get(2)));
             }
             return courseList;
         }

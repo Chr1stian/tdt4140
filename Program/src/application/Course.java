@@ -10,12 +10,26 @@ import javafx.beans.property.StringProperty;
  */
 public class Course {
 
+	private final StringProperty DBID;
 	private final StringProperty courseID;
 	private final StringProperty courseName;
 
-	public Course(String courseID, String courseName) {
+	public Course(String DBID, String courseID, String courseName) {
+		this.DBID = new SimpleStringProperty(DBID);
 		this.courseID = new SimpleStringProperty(courseID);
 		this.courseName = new SimpleStringProperty(courseName);
+	}
+	
+	public String getDBID() {
+		return courseID.get();
+	}
+
+	public void setDBID(String courseID) {
+		this.courseID.set(courseID);
+	}
+	
+	public StringProperty DBIDProperty() {
+		return courseID;
 	}
 	
 	public String getcourseID() {
