@@ -78,18 +78,21 @@ public class Database {
         }
     }
     
-    public static ArrayList<String> courses(){
-    	ArrayList<String> course = new ArrayList<String>();
+    public static ArrayList<ArrayList<String>> courses(){
+    	ArrayList<ArrayList<String>> courseList = new ArrayList<ArrayList<String>>();
     	try{
             Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
-            PreparedStatement stmt = conn.prepareStatement("SELECT code, name FROM course");
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM course");
 
             ResultSet rs = stmt.executeQuery();
-            int i = 0;
             while(rs.next()){
-            	course.add(rs.getString(1) + " - " + rs.getString(2));
-            	}
-            return course;
+            	ArrayList<String> course = new ArrayList<String>();
+            	for(int i = 1; i < 4; i++){
+            		course.add(rs.getString(i));
+            	}courseList.add(course);
+            	System.out.println(courseList);
+            }
+            return courseList;
         }
         catch(SQLException e){
         	System.out.println(e);

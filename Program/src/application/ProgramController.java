@@ -12,6 +12,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
 public class ProgramController implements Initializable{
@@ -30,12 +33,26 @@ public class ProgramController implements Initializable{
 	
 	private int toggleLeft = 0; 
 	
+	@FXML
+	private TextField search_leftPane;
+	
+	@FXML
+	private TableView<Course> courseTable;
+	
+	@FXML
+	private TableColumn<Course, String> courseID;
+	
+	@FXML
+	private TableColumn<Course, String> courseName;
+
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		//List<String> values = Arrays.asList("one", "two", "three");
 		//list_leftPane.setItems(FXCollections.observableList(values));
-		list_leftPane.setItems(FXCollections.observableList(Database.courses()));
+		//list_leftPane.setItems(FXCollections.observableList(Database.courses()));
+		FXCollections.observableList(Database.courses());
+		
 	}
 	
 	@FXML
