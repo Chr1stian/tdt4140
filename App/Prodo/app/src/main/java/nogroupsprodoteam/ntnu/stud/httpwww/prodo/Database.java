@@ -59,6 +59,7 @@ public class Database {
         }
         catch(SQLException e){
             System.out.println(e);
+            course.add("No courses");
             return course;
         }
     }
@@ -84,6 +85,7 @@ public class Database {
         }
         catch(SQLException e){
             System.out.println(e);
+            lectures.add("No lectures");
             return lectures;
         }
     }
@@ -107,6 +109,7 @@ public class Database {
         }
         catch(SQLException e){
             System.out.println(e);
+            lectureID = 999;
             return lectureID;
         }
     }
@@ -129,6 +132,7 @@ public class Database {
         }
         catch(SQLException e){
             System.out.println(e);
+            numberOfLectures = 9;
             return numberOfLectures;
         }
     }
