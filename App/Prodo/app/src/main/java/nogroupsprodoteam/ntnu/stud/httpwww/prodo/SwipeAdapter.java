@@ -24,7 +24,8 @@ public class SwipeAdapter extends FragmentStatePagerAdapter {
 
         Fragment fragment = new PageFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt("count",position+1);
+        String topic = "emne";
+        bundle.putString("topic",topic);
         fragment.setArguments(bundle);
         return fragment;
     }

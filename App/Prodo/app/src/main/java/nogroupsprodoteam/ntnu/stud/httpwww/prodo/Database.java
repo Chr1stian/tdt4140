@@ -136,5 +136,33 @@ public class Database {
             return numberOfLectures;
         }
     }
+    /*
+    public static String topic(Integer number){
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        String numberOfLectures = null;
+
+        try{
+            Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
+            PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) FROM topic WHERE lectureID = " + lectureID.toString());
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                numberOfLectures = Integer.parseInt(rs.getString(1));
+            }
+            return numberOfLectures;
+        }
+        catch(SQLException e){
+            System.out.println(e);
+            numberOfLectures = 9;
+            return numberOfLectures;
+        }
+
+
+    }
+    */
+
 
 }

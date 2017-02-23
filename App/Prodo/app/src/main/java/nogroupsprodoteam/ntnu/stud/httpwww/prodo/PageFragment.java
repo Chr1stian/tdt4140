@@ -32,8 +32,8 @@ public class PageFragment extends Fragment {
         View view = inflater.inflate(R.layout.page_fragment, container, false);
         textView = (TextView)view.findViewById(R.id.lbl_page);
         Bundle bundle = getArguments();
-        String message = Integer.toString(bundle.getInt("count"));
-        textView.setText("Page number " + message);
+        String message = bundle.getString("topic");
+        textView.setText(message);
 
         Intent intent = getActivity().getIntent();
         Bundle extras = intent.getExtras();
