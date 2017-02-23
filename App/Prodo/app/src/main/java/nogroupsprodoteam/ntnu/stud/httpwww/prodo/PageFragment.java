@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 
@@ -15,7 +16,10 @@ import android.widget.TextView;
  */
 public class PageFragment extends Fragment {
     TextView textView;
-
+    TextView testShowRating;
+    String staus;
+    RatingBar ratingBar;
+    View view;
 
     public PageFragment() {
         // Required empty public constructor
@@ -26,7 +30,7 @@ public class PageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.page_fragment, container, false);
+        view = inflater.inflate(R.layout.page_fragment, container, false);
         textView = (TextView)view.findViewById(R.id.lbl_page);
         Bundle bundle = getArguments();
         String message = bundle.getString("topic");
@@ -39,7 +43,30 @@ public class PageFragment extends Fragment {
         String lecturename = extras.getString("LectureName");
         Integer lectureID = extras.getInt("LectureID");
         Integer numberOfLectures = extras.getInt("NumberOfLectures");
+
+        testShowRating = (TextView)view.findViewById(R.id.lbl_testRatingView);
+        testShowRating.setText("No rating yet..");
+
+        //Listening for changes in rating
+        addListenerOnRatingBar();
+
         return view;
+    }
+
+    private void addListenerOnRatingBar() {
+        ratingBar = (RatingBar) view.findViewById(R.id.ratingBar_understanding);
+
+
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                //showing rating value in testtext display
+                staus = Integer.toString(Math.round(rating));
+                testShowRating.setText(staus);
+
+            }
+        });
+
     }
 
 
