@@ -10,9 +10,14 @@ import android.widget.TextView;
 public class LectureActivity extends FragmentActivity {
     ViewPager viewPager;
     static Integer numberOfLectures;
+    static Integer lectureID;
 
     public static Integer getNumberOfLectures() {
         return numberOfLectures;
+    }
+
+    public static Integer getLectureID(){
+        return lectureID;
     }
 
     @Override
@@ -25,7 +30,7 @@ public class LectureActivity extends FragmentActivity {
         String coursename = extras.getString("CourseName");
         String nickname = extras.getString("NickName");
         String lecturename = extras.getString("LectureName");
-        Integer lectureID = extras.getInt("LectureID");
+        lectureID = extras.getInt("LectureID");
 
         TextView lbl_name = (TextView) findViewById(R.id.lbl_name);
         TextView lbl_course = (TextView) findViewById(R.id.lbl_course);
