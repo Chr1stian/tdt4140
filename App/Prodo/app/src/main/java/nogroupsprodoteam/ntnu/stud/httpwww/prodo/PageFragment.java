@@ -19,6 +19,7 @@ public class PageFragment extends Fragment {
     TextView testShowRating;
     String staus;
     RatingBar ratingBar;
+    View view;
 
     public PageFragment() {
         // Required empty public constructor
@@ -29,7 +30,7 @@ public class PageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.page_fragment, container, false);
+        view = inflater.inflate(R.layout.page_fragment, container, false);
         textView = (TextView)view.findViewById(R.id.lbl_page);
         Bundle bundle = getArguments();
         String message = bundle.getString("topic");
@@ -43,29 +44,30 @@ public class PageFragment extends Fragment {
         Integer lectureID = extras.getInt("LectureID");
         Integer numberOfLectures = extras.getInt("NumberOfLectures");
 
-
-        ratingBar = (RatingBar)view.findViewById(R.id.ratingBar_understanding);
-        ratingBar.setOnClickListener(ratingUpdate);
-
-
-
-       /* staus = Integer.toString(Math.round(ratingBar.getRating()));
-
         testShowRating = (TextView)view.findViewById(R.id.lbl_testRatingView);
-        testShowRating.setText(staus);
-*/
+        testShowRating.setText("No rating yet..");
+
+        //Listening for changes in rating
+        addListenerOnRatingBar();
 
         return view;
     }
 
-    public View.OnClickListener ratingUpdate = new View.OnClickListener() {
-        public void onClick(View view) {
+    private void addListenerOnRatingBar() {
+        ratingBar = (RatingBar) view.findViewById(R.id.ratingBar_understanding);
 
-            RatingBar barUpdate = (RatingBar) view;
-            testShowRating = (TextView)view.findViewById(R.id.lbl_testRatingView);
-            staus = Integer.toString(Math.round(barUpdate.getRating()));
-            testShowRating.setText(staus);
-        }
-    };
+
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                //showing rating value in testtext display
+                staus = Integer.toString(Math.round(rating));
+                testShowRating.setText(staus);
+
+            }
+        });
+
+    }
+
 
 }

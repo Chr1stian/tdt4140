@@ -31,7 +31,7 @@
         android:numStars="5"
         android:stepSize="1"
         android:layout_marginBottom="24dp"
-        android:layout_above="@+id/lbl_testRatingView"
-        android:layout_alignLeft="@+id/lbl_page"
-        android:layout_alignStart="@+id/lbl_page" />
+        android:layout_marginTop="170dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
