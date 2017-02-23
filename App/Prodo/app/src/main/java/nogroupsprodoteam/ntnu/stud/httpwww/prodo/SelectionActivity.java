@@ -13,9 +13,6 @@ import java.util.ArrayList;
 
 public class SelectionActivity extends AppCompatActivity {
 
-    public final static String CourseName = "";
-    public final static String NickName = "";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

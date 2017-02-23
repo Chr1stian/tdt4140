@@ -9,6 +9,11 @@ import android.widget.TextView;
 
 public class LectureActivity extends FragmentActivity {
     ViewPager viewPager;
+    static Integer numberOfLectures;
+
+    public static Integer getNumberOfLectures() {
+        return numberOfLectures;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +34,7 @@ public class LectureActivity extends FragmentActivity {
         lbl_name.setText(nickname);
         lbl_course.setText(coursename);
         lbl_lecture.setText(lecturename);
-        Integer numberOfLectures = Database.countLectures(lectureID);
+        numberOfLectures = Database.countLectures(lectureID);
 
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         SwipeAdapter swipeAdapter = new SwipeAdapter(getSupportFragmentManager());
@@ -42,19 +47,6 @@ public class LectureActivity extends FragmentActivity {
 
     public void sendMessage(String course, String nickname, String lecturename, Integer lectureID, Integer numberOfLectures) {
         Intent intent = new Intent(this, PageFragment.class);
-        Bundle extras = new Bundle();
-
-        extras.putString("CourseName", course);
-        extras.putString("NickName", nickname);
-        extras.putString("LectureName", lecturename);
-        extras.putInt("LectureID", lectureID);
-        extras.putInt("NumberOfLectures", numberOfLectures);
-        intent.putExtras(extras);
-        startActivity(intent);
-    }
-
-    public void sendMessage2(String course, String nickname, String lecturename, Integer lectureID, Integer numberOfLectures) {
-        Intent intent = new Intent(this, SwipeAdapter.class);
         Bundle extras = new Bundle();
 
         extras.putString("CourseName", course);

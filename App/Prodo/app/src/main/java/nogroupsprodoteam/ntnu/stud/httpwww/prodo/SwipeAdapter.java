@@ -11,6 +11,9 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 public class SwipeAdapter extends FragmentStatePagerAdapter {
 
+
+
+
     public SwipeAdapter(FragmentManager fm) {
         super(fm);
     }
@@ -28,6 +31,7 @@ public class SwipeAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 5;
+        Integer dataFromActivity = LectureActivity.getNumberOfLectures();
+        return dataFromActivity;
     }
 }

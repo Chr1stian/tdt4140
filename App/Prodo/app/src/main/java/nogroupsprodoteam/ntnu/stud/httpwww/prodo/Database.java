@@ -59,7 +59,7 @@ public class Database {
         }
         catch(SQLException e){
             System.out.println(e);
-            return null;
+            return course;
         }
     }
 
@@ -84,7 +84,7 @@ public class Database {
         }
         catch(SQLException e){
             System.out.println(e);
-            return null;
+            return lectures;
         }
     }
     public static Integer getLectureID(Integer courseID, Integer number){
@@ -107,7 +107,7 @@ public class Database {
         }
         catch(SQLException e){
             System.out.println(e);
-            return null;
+            return lectureID;
         }
     }
 
@@ -129,7 +129,7 @@ public class Database {
         }
         catch(SQLException e){
             System.out.println(e);
-            return null;
+            return numberOfLectures;
         }
     }
 
