@@ -17,18 +17,24 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="798.0" prefWidth="266.0">
                <children>
-                  <AnchorPane layoutX="20.0" layoutY="124.0" prefHeight="613.0" prefWidth="315.0">
+                  <AnchorPane layoutX="27.0" layoutY="129.0" prefHeight="603.0" prefWidth="302.0">
                      <children>
-                        <TableView fx:id="courseTable" layoutX="7.0" layoutY="6.0" prefHeight="602.0" prefWidth="302.0" tableMenuButtonVisible="false">
+                        <TableView fx:id="courseTable" layoutX="7.0" layoutY="6.0" prefHeight="608.0" prefWidth="309.0" tableMenuButtonVisible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <columns>
-                            <TableColumn fx:id="courseID" maxWidth="5000.0" minWidth="10.0" prefWidth="151.0" resizable="false" text="Course ID" />
-                            <TableColumn fx:id="courseName" maxWidth="5000.0" minWidth="0.0" prefWidth="151.0" resizable="false" text="Course Name" />
+                            <TableColumn fx:id="courseID" maxWidth="5000.0" minWidth="10.0" prefWidth="76.0" resizable="false" text="Course ID" />
+                            <TableColumn fx:id="courseName" maxWidth="5000.0" minWidth="0.0" prefWidth="227.0" resizable="false" text="Course Name" />
+                          </columns>
+                        </TableView>
+                        <TableView fx:id="lectureTable" layoutX="75.0" layoutY="66.0" onMouseClicked="#displayTopics" prefHeight="608.0" prefWidth="302.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <columns>
+                            <TableColumn fx:id="lectureNumber" prefWidth="75.0" text="Number" />
+                            <TableColumn fx:id="lectureName" prefWidth="226.0" text="Lecture name" />
                           </columns>
                         </TableView>
                      </children>
                   </AnchorPane>
                   <TextField fx:id="search_leftPane" layoutX="27.0" layoutY="87.0" prefHeight="37.0" prefWidth="302.0" promptText="Search..." />
-                  <Text fx:id="title_leftPane" layoutX="14.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Find subject">
+                  <Text fx:id="title_leftPane" layoutX="14.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Find course">
                      <font>
                         <Font size="36.0" />
                      </font>
@@ -37,19 +43,58 @@
                </children></AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <TabPane layoutX="268.0" layoutY="94.0" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" tabMinWidth="256.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TabPane layoutX="268.0" layoutY="94.0" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" tabMinWidth="188.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <tabs>
-                      <Tab text="Questions">
+                        <Tab fx:id="lectureTab" text="Lecture">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <TableView fx:id="lectureCourseTable" layoutX="20.0" layoutY="89.0" prefHeight="602.0" prefWidth="454.0" tableMenuButtonVisible="false">
+                                       <columns>
+                                          <TableColumn fx:id="lectureCourseNumber" maxWidth="5000.0" minWidth="10.0" prefWidth="74.0" resizable="false" text="Number" />
+                                          <TableColumn fx:id="lectureCourseTopic" maxWidth="5000.0" minWidth="0.0" prefWidth="379.0" resizable="false" text="Topics" />
+                                       </columns>
+                                    </TableView>
+                                    <Text fx:id="courseNameDisplay" layoutX="22.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Course" textAlignment="CENTER" wrappingWidth="450.99998569488525">
+                                       <font>
+                                          <Font size="36.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="544.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Opprett ny forelesning" wrappingWidth="221.6708984375">
+                                       <font>
+                                          <Font size="21.0" />
+                                       </font>
+                                    </Text>
+                                    <Button fx:id="deleteButton" layoutX="701.0" layoutY="375.0" mnemonicParsing="false" text="Delete" />
+                                    <TextField fx:id="dateTimeInput" layoutX="545.0" layoutY="172.0" promptText="DD/MM/YYYY" />
+                                    <TextField fx:id="topicInput" layoutX="545.0" layoutY="263.0" promptText="Topic" />
+                                    <Button fx:id="updateButton" layoutX="614.0" layoutY="375.0" mnemonicParsing="false" text="Update" />
+                                    <Button fx:id="addButton" layoutX="544.0" layoutY="375.0" mnemonicParsing="false" text="Add" />
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                      <Tab fx:id="questionTab" text="Questions">
+                        <content>
+                          <AnchorPane fx:id="questionTab" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <TableView fx:id="courseTableQ" layoutX="14.0" layoutY="45.0" prefHeight="631.0" prefWidth="787.0" tableMenuButtonVisible="false">
+                                       <columns>
+                                          <TableColumn fx:id="dateTimeTableQ" maxWidth="5000.0" minWidth="10.0" prefWidth="97.0" resizable="false" text="Time" />
+                                          <TableColumn fx:id="pointTableQuestion" maxWidth="5000.0" minWidth="10.0" prefWidth="97.0" resizable="false" text="Points" />
+                                          <TableColumn fx:id="questionTable" maxWidth="5000.0" minWidth="0.0" prefWidth="591.0" resizable="false" text="Questions" />
+                                       </columns>
+                                    </TableView>
+                                    <Button fx:id="refreshButton" layoutX="731.0" layoutY="687.0" mnemonicParsing="false" text="Refresh" />
+                                 </children></AnchorPane>
+                        </content>
+                      </Tab>
+                      <Tab fx:id="feedbackTab" text="Feedback">
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                         </content>
                       </Tab>
-                      <Tab text="Feedback">
-                        <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                        </content>
-                      </Tab>
-                      <Tab text="Statistics">
+                      <Tab fx:id="statisticsTab" text="Statistics">
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                         </content>

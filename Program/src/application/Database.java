@@ -65,16 +65,43 @@ public class Database {
         }
     }
     
-    public static String subjectsDB(String string){
-        try{
+    public static ObservableList<Topic> Topic(String lectureID){
+    	ObservableList<Topic> topicList = FXCollections.observableArrayList();
+    	if(lectureID == "empty"){
+    		return topicList;
+    	}
+    	try{
             Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM course");
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM topic WHERE lectureID = " + lectureID);
 
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
-            		System.out.println(rs.getString(2) + rs.getString(3));
-            	}
+            	ArrayList<String> topic = new ArrayList<String>();
+            	for(int i = 1; i < 5; i++){
+            		topic.add(rs.getString(i));
+            	}topicList.add(new Topic(topic.get(0), topic.get(1), topic.get(2), topic.get(3)));
+            }
+            return topicList;
+        }
+        catch(SQLException e){
             return null;
+        }
+    }
+    
+    public static ObservableList<Lecture> lectures(String id){
+    	ObservableList<Lecture> lectureList = FXCollections.observableArrayList();
+    	try{
+            Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM lecture WHERE courseID = " + id);
+
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+            	ArrayList<String> lecture = new ArrayList<String>();
+            	for(int i = 1; i < 5; i++){
+            		lecture.add(rs.getString(i));
+            	}lectureList.add(new Lecture(lecture.get(0), lecture.get(1), lecture.get(2), lecture.get(3)));
+            }
+            return lectureList;
         }
         catch(SQLException e){
             return null;

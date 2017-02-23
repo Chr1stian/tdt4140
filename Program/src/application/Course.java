@@ -21,15 +21,15 @@ public class Course {
 	}
 	
 	public String getDBID() {
-		return courseID.get();
+		return DBID.get();
 	}
 
-	public void setDBID(String courseID) {
-		this.courseID.set(courseID);
+	public void setDBID(String DBID) {
+		this.DBID.set(DBID);
 	}
 	
 	public StringProperty DBIDProperty() {
-		return courseID;
+		return DBID;
 	}
 	
 	public String getcourseID() {
