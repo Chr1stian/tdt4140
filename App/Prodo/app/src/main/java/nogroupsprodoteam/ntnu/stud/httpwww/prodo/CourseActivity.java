@@ -10,6 +10,8 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class CourseActivity extends AppCompatActivity {
 
     @Override
@@ -21,6 +23,7 @@ public class CourseActivity extends AppCompatActivity {
         Bundle extras = intent.getExtras();
         final String coursename = extras.getString("CourseName");
         final String nickname = extras.getString("NickName");
+        final Integer courseNumber = extras.getInt("CourseNumber");
 
         TextView lbl_course = (TextView) findViewById(R.id.lbl_course);
         lbl_course.setText(coursename);
@@ -28,15 +31,14 @@ public class CourseActivity extends AppCompatActivity {
         TextView lbl_name = (TextView) findViewById(R.id.lbl_name);
         lbl_name.setText(nickname);
 
+        ArrayList<String> ListViewArray = Database.lectures(courseNumber);
 
         final ListView list = (ListView) findViewById(R.id.list_lecture);
         // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.lectures_array, android.R.layout.simple_selectable_list_item);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_selectable_list_item, ListViewArray);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
-        list.setAdapter(adapter);
+        list.setAdapter(arrayAdapter);
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

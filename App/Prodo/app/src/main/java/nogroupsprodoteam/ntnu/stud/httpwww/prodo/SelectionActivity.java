@@ -21,7 +21,9 @@ public class SelectionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.selection_activity);
 
-        ArrayList<String> spinnerArray = Database.courseCodes();
+        //pulls array with courses from database
+        ArrayList<String> spinnerArray = Database.courses();
+        //creates spinner and loads it with the array provided
         final Spinner spinner = (Spinner) findViewById(R.id.spinner_course);
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinnerArray); //selected item will look like a spinner set from XML
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -30,24 +32,26 @@ public class SelectionActivity extends AppCompatActivity {
         Intent intent = getIntent();
         final String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
 
-        TextView lbl_name = (TextView) findViewById(R.id.lbl_name);
+        final TextView lbl_name = (TextView) findViewById(R.id.lbl_name);
         lbl_name.setText(message);
 
         Button btn_go = (Button) findViewById(R.id.btn_go);
         btn_go.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 final String course = spinner.getSelectedItem().toString();
-                sendMessage(course, message);
+                final Integer courseNumber = spinner.getSelectedItemPosition() + 1;
+                sendMessage(course, message, courseNumber);
             }
         });
     }
 
-    public void sendMessage(String course, String nickname) {
+    public void sendMessage(String course, String nickname, Integer courseNumber) {
         Intent intent = new Intent(this, CourseActivity.class);
         Bundle extras = new Bundle();
 
         extras.putString("CourseName", course);
         extras.putString("NickName", nickname);
+        extras.putInt("CourseNumber", courseNumber);
         intent.putExtras(extras);
         startActivity(intent);
     }

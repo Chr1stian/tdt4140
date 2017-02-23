@@ -40,7 +40,7 @@ public class Database {
         }
     }
 
-    public static ArrayList<String> courseCodes(){
+    public static ArrayList<String> courses(){
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) {
@@ -49,12 +49,11 @@ public class Database {
         ArrayList<String> course = new ArrayList<String>();
         try{
             Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
-            PreparedStatement stmt = conn.prepareStatement("SELECT code FROM course");
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM course");
 
             ResultSet rs = stmt.executeQuery();
-            int i = 0;
             while(rs.next()){
-                course.add(rs.getString(1));
+                course.add(rs.getString(2) + " " + rs.getString(3));
             }
             return course;
         }
@@ -64,4 +63,26 @@ public class Database {
         }
     }
 
+    public static ArrayList<String> lectures(Integer ID){
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        ArrayList<String> lectures = new ArrayList<String>();
+        try{
+            Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
+            PreparedStatement stmt = conn.prepareStatement("SELECT name FROM lecture WHERE courseID = " + ID.toString());
+
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                lectures.add(rs.getString(1));
+            }
+            return lectures;
+        }
+        catch(SQLException e){
+            System.out.println(e);
+            return null;
+        }
+    }
 }
