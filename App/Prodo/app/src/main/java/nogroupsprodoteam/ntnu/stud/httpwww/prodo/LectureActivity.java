@@ -35,7 +35,7 @@ public class LectureActivity extends FragmentActivity {
         SwipeAdapter swipeAdapter = new SwipeAdapter(getSupportFragmentManager());
         viewPager.setAdapter(swipeAdapter);
 
-        sendMessage(coursename, nickname, lecturename, lectureID, numberOfLectures);
+        //sendMessage(coursename, nickname, lecturename, lectureID, numberOfLectures);
         //sendMessage2(coursename, nickname, lecturename, lectureID, numberOfLectures);
 
     }
