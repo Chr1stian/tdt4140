@@ -1,6 +1,7 @@
 package nogroupsprodoteam.ntnu.stud.httpwww.prodo;
 
-
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -30,8 +31,16 @@ public class PageFragment extends Fragment {
         Bundle bundle = getArguments();
         String message = Integer.toString(bundle.getInt("count"));
         textView.setText("Page number " + message);
-        return view;
 
+        Intent intent = getActivity().getIntent();
+        Bundle extras = intent.getExtras();
+        String coursename = extras.getString("CourseName");
+        String nickname = extras.getString("NickName");
+        String lecturename = extras.getString("LectureName");
+        Integer lectureID = extras.getInt("LectureID");
+        Integer numberOfLectures = extras.getInt("NumberOfLectures");
+        return view;
     }
+
 
 }

@@ -44,18 +44,20 @@ public class CourseActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Object lecture = list.getItemAtPosition(position);
-                sendMessage(coursename, nickname, lecture.toString());
+                Integer lectureID = Database.getLectureID(courseNumber, position + 1);
+                sendMessage(coursename, nickname, lecture.toString(), lectureID);
             }
         });
     }
 
-    public void sendMessage(String course, String nickname, String lecture) {
+    public void sendMessage(String course, String nickname, String lecture, Integer lectureID) {
         Intent intent = new Intent(this, LectureActivity.class);
         Bundle extras = new Bundle();
 
         extras.putString("CourseName", course);
         extras.putString("NickName", nickname);
         extras.putString("LectureName", lecture);
+        extras.putInt("LectureID", lectureID);
         intent.putExtras(extras);
         startActivity(intent);
     }

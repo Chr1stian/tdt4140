@@ -70,13 +70,15 @@ public class Database {
             e.printStackTrace();
         }
         ArrayList<String> lectures = new ArrayList<String>();
+        //Integer lectureID;
         try{
             Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
-            PreparedStatement stmt = conn.prepareStatement("SELECT name FROM lecture WHERE courseID = " + ID.toString());
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM lecture WHERE courseID = " + ID.toString());
 
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
-                lectures.add(rs.getString(1));
+                lectures.add(rs.getString(3) + " " + rs.getString(4));
+                //lectureID = Integer.parseInt(rs.getString(1));
             }
             return lectures;
         }
@@ -85,4 +87,50 @@ public class Database {
             return null;
         }
     }
+    public static Integer getLectureID(Integer courseID, Integer number){
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+       Integer lectureID = null;
+        try{
+            Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
+            PreparedStatement stmt = conn.prepareStatement("SELECT lectureID FROM lecture WHERE courseID = " + courseID.toString() +
+                    " AND number = " + number.toString());
+
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                lectureID = Integer.parseInt(rs.getString(1));
+            }
+            return lectureID;
+        }
+        catch(SQLException e){
+            System.out.println(e);
+            return null;
+        }
+    }
+
+    public static Integer countLectures(Integer lectureID){
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        Integer numberOfLectures = null;
+        try{
+            Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
+            PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) FROM topic WHERE lectureID = " + lectureID.toString());
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                numberOfLectures = Integer.parseInt(rs.getString(1));
+            }
+            return numberOfLectures;
+        }
+        catch(SQLException e){
+            System.out.println(e);
+            return null;
+        }
+    }
+
 }
