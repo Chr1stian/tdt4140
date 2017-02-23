@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 
@@ -15,7 +16,9 @@ import android.widget.TextView;
  */
 public class PageFragment extends Fragment {
     TextView textView;
-
+    TextView testShowRating;
+    String staus;
+    RatingBar ratingBar;
 
     public PageFragment() {
         // Required empty public constructor
@@ -39,8 +42,30 @@ public class PageFragment extends Fragment {
         String lecturename = extras.getString("LectureName");
         Integer lectureID = extras.getInt("LectureID");
         Integer numberOfLectures = extras.getInt("NumberOfLectures");
+
+
+        ratingBar = (RatingBar)view.findViewById(R.id.ratingBar_understanding);
+        ratingBar.setOnClickListener(ratingUpdate);
+
+
+
+       /* staus = Integer.toString(Math.round(ratingBar.getRating()));
+
+        testShowRating = (TextView)view.findViewById(R.id.lbl_testRatingView);
+        testShowRating.setText(staus);
+*/
+
         return view;
     }
 
+    public View.OnClickListener ratingUpdate = new View.OnClickListener() {
+        public void onClick(View view) {
+
+            RatingBar barUpdate = (RatingBar) view;
+            testShowRating = (TextView)view.findViewById(R.id.lbl_testRatingView);
+            staus = Integer.toString(Math.round(barUpdate.getRating()));
+            testShowRating.setText(staus);
+        }
+    };
 
 }
