@@ -28,7 +28,7 @@ public class Lecture {
 		return lectureID;
 	}
 	
-	public String getCourseIDD() {
+	public String getCourseID() {
 		return courseID.get();
 	}
 

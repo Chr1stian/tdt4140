@@ -31,11 +31,11 @@ public class CourseTableController {
 	/**
 	 * Test data since while we figure out the connection to the database
 	 */
-	public CourseTableController() {
-		masterData.add(new Course("TDT4140", "Software Engineering"));
-		masterData.add(new Course("TDT4145", "Databases"));
-		masterData.add(new Course("TDT4180", "Human-Computer Interaction"));
-	}
+//	public CourseTableController() {
+//		masterData.add(new Course("TDT4140", "Software Engineering"));
+//		masterData.add(new Course("TDT4145", "Databases"));
+//		masterData.add(new Course("TDT4180", "Human-Computer Interaction"));
+//	}
 
 	/**
 	 * Initializes the controller class. This method is automatically called

@@ -132,4 +132,19 @@ public class Database {
             return null;
         }	
     }
+    public static void createLecture(Lecture lecture){
+    	try{
+            Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO lecture (courseID, number, name) VALUES (?,?,?)");
+            stmt.setInt(1, Integer.parseInt(lecture.getCourseID()));
+            stmt.setInt(2, Integer.parseInt(lecture.getlectureNumber()));
+            stmt.setString(3, lecture.getlectureName());
+            
+            //
+            stmt.executeUpdate();
+    	}
+        catch(SQLException e){
+        	System.out.println(e);
+        }
+    }
 }

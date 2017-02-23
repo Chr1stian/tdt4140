@@ -65,6 +65,12 @@ public class ProgramController implements Initializable{
 	
 	@FXML
 	private TableColumn<Topic, String> lectureCourseTopic;
+	
+	@FXML
+	private TextField lectureIDInput;
+	
+	@FXML
+	private TextField lectureNameInput;
 
 	
 	@Override
@@ -232,5 +238,15 @@ public class ProgramController implements Initializable{
 			lastClicked = lectureTable.getSelectionModel().getSelectedItem().getlectureNumber();
 			updateLectureCourseTable(Database.Topic(lectureTable.getSelectionModel().getSelectedItem().getLectureID()));
 		}
+	}
+	
+	@FXML
+	private void addLecture(){
+		String id = lectureIDInput.getText();
+		String name = lectureNameInput.getText();
+		String courseID = courseTable.getSelectionModel().getSelectedItem().getDBID();
+		
+		Lecture lecture = new Lecture(null, courseID, id, name);
+		Database.createLecture(lecture);
 	}
 }

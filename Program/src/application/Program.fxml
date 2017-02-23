@@ -11,11 +11,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ProgramController">
+<AnchorPane prefHeight="901.0" prefWidth="1332.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ProgramController">
    <children>
       <SplitPane dividerPositions="0.3" layoutX="285.0" layoutY="187.0" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="798.0" prefWidth="266.0">
+          <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="867.0" prefWidth="438.0">
                <children>
                   <AnchorPane layoutX="27.0" layoutY="129.0" prefHeight="603.0" prefWidth="302.0">
                      <children>
@@ -49,7 +49,7 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <TableView fx:id="lectureCourseTable" layoutX="20.0" layoutY="89.0" prefHeight="602.0" prefWidth="454.0" tableMenuButtonVisible="false">
+                                    <TableView fx:id="lectureCourseTable" layoutX="20.0" layoutY="89.0" prefHeight="424.0" prefWidth="447.0" tableMenuButtonVisible="false">
                                        <columns>
                                           <TableColumn fx:id="lectureCourseNumber" maxWidth="5000.0" minWidth="10.0" prefWidth="74.0" resizable="false" text="Number" />
                                           <TableColumn fx:id="lectureCourseTopic" maxWidth="5000.0" minWidth="0.0" prefWidth="379.0" resizable="false" text="Topics" />
@@ -60,16 +60,27 @@
                                           <Font size="36.0" />
                                        </font>
                                     </Text>
-                                    <Text layoutX="544.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Opprett ny forelesning" wrappingWidth="221.6708984375">
+                                    <Text layoutX="152.0" layoutY="567.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create new lecture" wrappingWidth="191.6708984375">
                                        <font>
                                           <Font size="21.0" />
                                        </font>
                                     </Text>
-                                    <Button fx:id="deleteButton" layoutX="701.0" layoutY="375.0" mnemonicParsing="false" text="Delete" />
-                                    <TextField fx:id="dateTimeInput" layoutX="545.0" layoutY="172.0" promptText="DD/MM/YYYY" />
-                                    <TextField fx:id="topicInput" layoutX="545.0" layoutY="263.0" promptText="Topic" />
-                                    <Button fx:id="updateButton" layoutX="614.0" layoutY="375.0" mnemonicParsing="false" text="Update" />
-                                    <Button fx:id="addButton" layoutX="544.0" layoutY="375.0" mnemonicParsing="false" text="Add" />
+                                    <Button fx:id="deleteButtonLecture" layoutX="292.0" layoutY="778.0" mnemonicParsing="false" text="Delete" />
+                                    <TextField fx:id="lectureNameInput" layoutX="150.0" layoutY="646.0" promptText="Lecture Name" />
+                                    <Button fx:id="updateButtonLecture" layoutX="209.0" layoutY="778.0" mnemonicParsing="false" text="Update" />
+                                    <Button fx:id="addButtonLecture" layoutX="133.0" layoutY="778.0" mnemonicParsing="false" onAction="#addLecture" text="Add" />
+                                    <TextField fx:id="lectureIDInput" layoutX="150.0" layoutY="606.0" promptText="Lecture Number" />
+                                    <Text layoutX="566.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add new topic" textAlignment="CENTER" wrappingWidth="182.44338297843933">
+                                       <font>
+                                          <Font size="21.0" />
+                                       </font>
+                                    </Text>
+                                    <TextField fx:id="topicNumber" layoutX="564.0" layoutY="155.0" promptText="Topic Number" />
+                                    <TextField fx:id="topicInput1" layoutX="564.0" layoutY="218.0" promptText="Topic" />
+                                    <TextField fx:id="topicInput11" layoutX="564.0" layoutY="279.0" promptText="Course ID" text="Course ID" />
+                                    <Button fx:id="addButton1" layoutX="555.0" layoutY="366.0" mnemonicParsing="false" text="Add" />
+                                    <Button fx:id="updateButton1" layoutX="623.0" layoutY="366.0" mnemonicParsing="false" text="Update" />
+                                    <Button fx:id="deleteButton1" layoutX="706.0" layoutY="366.0" mnemonicParsing="false" text="Delete" />
                                  </children>
                               </AnchorPane>
                            </content>
@@ -78,14 +89,21 @@
                         <content>
                           <AnchorPane fx:id="questionTab" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <TableView fx:id="courseTableQ" layoutX="14.0" layoutY="45.0" prefHeight="631.0" prefWidth="787.0" tableMenuButtonVisible="false">
+                                    <TableView fx:id="courseTableQ" layoutX="312.0" layoutY="45.0" prefHeight="631.0" prefWidth="489.0" tableMenuButtonVisible="false">
                                        <columns>
                                           <TableColumn fx:id="dateTimeTableQ" maxWidth="5000.0" minWidth="10.0" prefWidth="97.0" resizable="false" text="Time" />
-                                          <TableColumn fx:id="pointTableQuestion" maxWidth="5000.0" minWidth="10.0" prefWidth="97.0" resizable="false" text="Points" />
-                                          <TableColumn fx:id="questionTable" maxWidth="5000.0" minWidth="0.0" prefWidth="591.0" resizable="false" text="Questions" />
+                                          <TableColumn fx:id="pointTableQuestion" maxWidth="5000.0" minWidth="0.0" prefWidth="0.0" resizable="false" text="Points" />
+                                          <TableColumn fx:id="questionTable" maxWidth="5000.0" minWidth="0.0" prefWidth="391.0" resizable="false" text="Questions" />
                                        </columns>
                                     </TableView>
-                                    <Button fx:id="refreshButton" layoutX="731.0" layoutY="687.0" mnemonicParsing="false" text="Refresh" />
+                                    <TableView fx:id="lectureCourseTable1" layoutX="14.0" layoutY="45.0" prefHeight="630.0" prefWidth="267.0" tableMenuButtonVisible="false">
+                                       <columns>
+                                          <TableColumn fx:id="lectureCourseNumber1" maxWidth="5000.0" minWidth="10.0" prefWidth="74.0" resizable="false" text="Number" />
+                                          <TableColumn fx:id="lectureCourseTopic1" maxWidth="5000.0" minWidth="0.0" prefWidth="192.0" resizable="false" text="Topics" />
+                                       </columns>
+                                    </TableView>
+                                    <TextField layoutX="118.0" layoutY="687.0" prefHeight="117.0" prefWidth="616.0" promptText="Write your answer to the selected question here..." />
+                                    <Button layoutX="614.0" layoutY="804.0" mnemonicParsing="false" text="Submit Answer" />
                                  </children></AnchorPane>
                         </content>
                       </Tab>
