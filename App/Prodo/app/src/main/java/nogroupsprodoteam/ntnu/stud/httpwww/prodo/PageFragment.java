@@ -20,6 +20,7 @@ public class PageFragment extends Fragment {
     String staus;
     RatingBar ratingBar;
     View view;
+    Integer topicID;
 
     public PageFragment() {
         // Required empty public constructor
@@ -34,7 +35,7 @@ public class PageFragment extends Fragment {
         textView = (TextView)view.findViewById(R.id.lbl_page);
         Bundle bundle = getArguments();
         String message = bundle.getString("topic");
-        Integer topicID = bundle.getInt("topicID");
+        topicID = bundle.getInt("topicID");
         textView.setText(message);
 
         Intent intent = getActivity().getIntent();
@@ -44,6 +45,8 @@ public class PageFragment extends Fragment {
         String lecturename = extras.getString("LectureName");
         Integer lectureID = extras.getInt("LectureID");
         Integer numberOfLectures = extras.getInt("NumberOfLectures");
+
+
 
         testShowRating = (TextView)view.findViewById(R.id.lbl_testRatingView);
         testShowRating.setText("No rating yet..");
@@ -63,8 +66,9 @@ public class PageFragment extends Fragment {
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                 //showing rating value in testtext display
                 staus = Integer.toString(Math.round(rating));
-                testShowRating.setText(staus);
 
+                String errorMessage = Database.setRating(topicID,Math.round(rating));
+                testShowRating.setText(staus + errorMessage);
             }
         });
 
