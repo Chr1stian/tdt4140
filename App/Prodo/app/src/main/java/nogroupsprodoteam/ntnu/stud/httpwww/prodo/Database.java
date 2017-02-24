@@ -190,5 +190,29 @@ public class Database {
 
     }
 
+    //Uploading the rating to the database
+    public static String setRating(Integer topicID, Integer stars){
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        Integer rating = null;  //OBS Ikkje sikkert det går
+        Integer userID = 1;
+        String error ="All good";
+        try{
+            Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO rating(topicID,userID,stars) VALUES ('" + topicID.toString() + "','" + userID.toString() + "','" + stars.toString() + "')");
+            stmt.execute();
+            conn.close();
+        }
+        catch(SQLException e){
+            System.out.println(e);
+            error = "Database error:" + e;
+            return error;
+        }
+        return error;
+    }
+
 
 }
