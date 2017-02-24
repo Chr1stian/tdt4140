@@ -3,17 +3,16 @@ package nogroupsprodoteam.ntnu.stud.httpwww.prodo;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
 public class LectureActivity extends FragmentActivity {
     ViewPager viewPager;
-    static Integer numberOfLectures;
+    static Integer numberOfTopics;
     static Integer lectureID;
 
-    public static Integer getNumberOfLectures() {
-        return numberOfLectures;
+    public static Integer getNumberOfTopics() {
+        return numberOfTopics;
     }
 
     public static Integer getLectureID(){
@@ -25,6 +24,7 @@ public class LectureActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lecture_activity);
 
+        //gets values from CourseActivity
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         String coursename = extras.getString("CourseName");
@@ -39,17 +39,18 @@ public class LectureActivity extends FragmentActivity {
         lbl_name.setText(nickname);
         lbl_course.setText(coursename);
         lbl_lecture.setText(lecturename);
-        numberOfLectures = Database.countLectures(lectureID);
 
+        //gets number of topics for the selected lecture
+        numberOfTopics = Database.countTopics(lectureID);
+
+        //sets the fragment to be swiped between and its adapter/controller
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         SwipeAdapter swipeAdapter = new SwipeAdapter(getSupportFragmentManager());
         viewPager.setAdapter(swipeAdapter);
 
         //sendMessage(coursename, nickname, lecturename, lectureID, numberOfLectures);
-        //sendMessage2(coursename, nickname, lecturename, lectureID, numberOfLectures);
-
     }
-
+    //unused method to send values to fragment
     public void sendMessage(String course, String nickname, String lecturename, Integer lectureID, Integer numberOfLectures) {
         Intent intent = new Intent(this, PageFragment.class);
         Bundle extras = new Bundle();

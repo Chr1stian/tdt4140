@@ -15,13 +15,13 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
     EditText txt_name;
     TextView lbl_name;
-    public final static String EXTRA_MESSAGE = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //needed for database connection
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
@@ -60,12 +60,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
+    //opens new activity and passes values
     public void sendMessage() {
         Intent intent = new Intent(this, SelectionActivity.class);
         EditText editText = (EditText) findViewById(R.id.txt_name);
-        String message = editText.getText().toString();
-        intent.putExtra(EXTRA_MESSAGE, message);
+        String nickname = editText.getText().toString();
+        intent.putExtra("NickName", nickname);
         startActivity(intent);
     }
 }

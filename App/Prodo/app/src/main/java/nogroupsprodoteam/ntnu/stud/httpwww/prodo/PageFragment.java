@@ -1,6 +1,5 @@
 package nogroupsprodoteam.ntnu.stud.httpwww.prodo;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -35,10 +34,13 @@ public class PageFragment extends Fragment {
         view = inflater.inflate(R.layout.page_fragment, container, false);
         textView = (TextView)view.findViewById(R.id.lbl_page);
         Bundle bundle = getArguments();
-        String message = bundle.getString("topic");
+        //gets values from adapter
+        String topic = bundle.getString("topic");
         topicID = bundle.getInt("topicID");
-        textView.setText(message);
+        textView.setText(topic);
 
+        //currently unused and unreachable code for getting values from LectureActivity
+        //use SendMessage in LectureActivity first
         Intent intent = getActivity().getIntent();
         Bundle extras = intent.getExtras();
         String coursename = extras.getString("CourseName");

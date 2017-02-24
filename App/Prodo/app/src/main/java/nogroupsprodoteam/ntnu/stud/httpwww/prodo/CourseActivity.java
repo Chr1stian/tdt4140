@@ -19,6 +19,7 @@ public class CourseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.course_activity);
 
+        //gets values from SelectionActivity
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         final String coursename = extras.getString("CourseName");
@@ -31,25 +32,29 @@ public class CourseActivity extends AppCompatActivity {
         TextView lbl_name = (TextView) findViewById(R.id.lbl_name);
         lbl_name.setText(nickname);
 
-        ArrayList<String> ListViewArray = Database.lectures(courseNumber);
+        //creates ArrayList with Lectures on selected course from Database
+        ArrayList<String> ListViewArray = Database.getLectures(courseNumber);
 
         final ListView list = (ListView) findViewById(R.id.list_lecture);
-        // Create an ArrayAdapter using the string array and a default spinner layout
+        // Create an ArrayAdapter using the ArrayList
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_selectable_list_item, ListViewArray);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         list.setAdapter(arrayAdapter);
 
+
+        //function to run when lecture is selected from list
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Object lecture = list.getItemAtPosition(position);
+                //gets lectureID from database based on selected lecture in list
                 Integer lectureID = Database.getLectureID(courseNumber, position + 1);
                 sendMessage(coursename, nickname, lecture.toString(), lectureID);
             }
         });
     }
-
+    //send values to and opens LectureActivity
     public void sendMessage(String course, String nickname, String lecture, Integer lectureID) {
         Intent intent = new Intent(this, LectureActivity.class);
         Bundle extras = new Bundle();
