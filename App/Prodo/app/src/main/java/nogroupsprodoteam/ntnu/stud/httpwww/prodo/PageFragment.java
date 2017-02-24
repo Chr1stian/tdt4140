@@ -34,6 +34,7 @@ public class PageFragment extends Fragment {
         textView = (TextView)view.findViewById(R.id.lbl_page);
         Bundle bundle = getArguments();
         String message = bundle.getString("topic");
+        Integer topicID = bundle.getInt("topicID");
         textView.setText(message);
 
         Intent intent = getActivity().getIntent();

@@ -163,7 +163,32 @@ public class Database {
 
 
     }
+    public static Integer getTopicID(Integer number, Integer lectureID){
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        Integer topicID = null;
 
+        try{
+            Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
+            PreparedStatement stmt = conn.prepareStatement("SELECT topicID FROM topic WHERE number = " + number.toString() +
+                    " AND lectureID = " + lectureID);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                topicID = Integer.parseInt(rs.getString(1));
+            }
+            return topicID;
+        }
+        catch(SQLException e){
+            System.out.println(e);
+            topicID = null;
+            return topicID;
+        }
+
+
+    }
 
 
 }
