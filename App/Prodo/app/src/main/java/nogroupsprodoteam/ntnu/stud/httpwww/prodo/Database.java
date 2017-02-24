@@ -199,7 +199,7 @@ public class Database {
         }
         Integer rating = null;  //OBS Ikkje sikkert det går
         Integer userID = 1;
-        String error ="All good";
+        String error ="Rating submitted";
         try{
             Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO rating(topicID,userID,stars) VALUES ('" + topicID.toString() + "','" + userID.toString() + "','" + stars.toString() + "')");
@@ -213,6 +213,49 @@ public class Database {
         }
         return error;
     }
+    //Checks if nickname is already registered in database
+    public static boolean checkNickname(String nickname){
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        boolean exists = false;
+        Integer check = null;
 
+        try{
+            Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
+            PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) FROM user WHERE name = '" + nickname + "'") ;
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                check = Integer.parseInt(rs.getString(1));
+                }
+            if(check > 0){
+                exists = false;
+            }
+            else{
+                exists = true;
+            }
+            return exists;
+        }
+        catch(SQLException e){
+            return false;
+        }
+    }
+    //registers username to database
+    public static void registerNickname(String nickname){
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        try{
+            Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO user(name) VALUES ('" + nickname + "')");
+            stmt.execute();
 
+        }
+        catch(SQLException e){
+        }
+    }
 }
