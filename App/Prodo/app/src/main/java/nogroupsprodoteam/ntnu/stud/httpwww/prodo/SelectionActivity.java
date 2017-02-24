@@ -9,46 +9,48 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-public class SelectionActivity extends AppCompatActivity {
+import java.util.ArrayList;
 
-    public final static String CourseName = "";
-    public final static String NickName = "";
+public class SelectionActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.selection_activity);
 
+        //pulls array with courses from database
+        ArrayList<String> spinnerArray = Database.getCourses();
+        //creates spinner and loads it with the array provided
         final Spinner spinner = (Spinner) findViewById(R.id.spinner_course);
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.courses_array, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        spinner.setAdapter(adapter);
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinnerArray); //selected item will look like a spinner set from XML
+        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(spinnerArrayAdapter);
 
+        //collects values from MainActivity
         Intent intent = getIntent();
-        final String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+        final String nickname = intent.getStringExtra("NickName");
 
-        TextView lbl_name = (TextView) findViewById(R.id.lbl_name);
-        lbl_name.setText(message);
+        final TextView lbl_name = (TextView) findViewById(R.id.lbl_name);
+        lbl_name.setText(nickname);
 
         Button btn_go = (Button) findViewById(R.id.btn_go);
         btn_go.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                //gets selected course
                 final String course = spinner.getSelectedItem().toString();
-                sendMessage(course, message);
+                final Integer courseNumber = spinner.getSelectedItemPosition() + 1;
+                sendMessage(course, nickname, courseNumber);
             }
         });
     }
-
-    public void sendMessage(String course, String nickname) {
+    //Sends values to and opens CourseActivity
+    public void sendMessage(String course, String nickname, Integer courseNumber) {
         Intent intent = new Intent(this, CourseActivity.class);
         Bundle extras = new Bundle();
 
         extras.putString("CourseName", course);
         extras.putString("NickName", nickname);
+        extras.putInt("CourseNumber", courseNumber);
         intent.putExtras(extras);
         startActivity(intent);
     }

@@ -10,4 +10,39 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="nogroupsprodoteam.ntnu.stud.httpwww.prodo.LectureActivity">
 
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_height="500dp"
+        android:layout_width="match_parent"
+        />
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:id="@+id/lbl_name"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lbl_course"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/lbl_name" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lbl_course"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/lbl_lecture" />
 </RelativeLayout>
