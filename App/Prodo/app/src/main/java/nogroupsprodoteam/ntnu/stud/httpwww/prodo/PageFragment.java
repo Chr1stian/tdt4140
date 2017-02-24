@@ -17,6 +17,7 @@ import android.widget.TextView;
 public class PageFragment extends Fragment {
     TextView textView;
     TextView testShowRating;
+    TextView ratingDescription;
     String staus;
     RatingBar ratingBar;
     View view;
@@ -51,6 +52,10 @@ public class PageFragment extends Fragment {
         testShowRating = (TextView)view.findViewById(R.id.lbl_testRatingView);
         testShowRating.setText("No rating yet..");
 
+        ratingDescription = (TextView)view.findViewById(R.id.lbl_ratingDescription);
+        ratingDescription.setText("How well do you understand the current topic?");
+
+
         //Listening for changes in rating
         addListenerOnRatingBar();
 
@@ -68,7 +73,7 @@ public class PageFragment extends Fragment {
                 staus = Integer.toString(Math.round(rating));
 
                 String errorMessage = Database.setRating(topicID,Math.round(rating));
-                testShowRating.setText(staus + errorMessage);
+                testShowRating.setText(errorMessage);
             }
         });
 
