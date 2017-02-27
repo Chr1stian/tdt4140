@@ -65,7 +65,7 @@
                                           <Font size="21.0" />
                                        </font>
                                     </Text>
-                                    <Button fx:id="deleteButtonLecture" layoutX="292.0" layoutY="778.0" mnemonicParsing="false" text="Delete" />
+                                    <Button fx:id="deleteButtonLecture" layoutX="292.0" layoutY="778.0" mnemonicParsing="false" onAction="#deleteLecture" text="Delete" />
                                     <TextField fx:id="lectureNameInput" layoutX="150.0" layoutY="646.0" promptText="Lecture Name" />
                                     <Button fx:id="updateButtonLecture" layoutX="209.0" layoutY="778.0" mnemonicParsing="false" text="Update" />
                                     <Button fx:id="addButtonLecture" layoutX="133.0" layoutY="778.0" mnemonicParsing="false" onAction="#addLecture" text="Add" />
@@ -76,9 +76,9 @@
                                        </font>
                                     </Text>
                                     <TextField fx:id="topicNumber" layoutX="564.0" layoutY="155.0" promptText="Topic Number" />
-                                    <TextField fx:id="topicInput1" layoutX="564.0" layoutY="218.0" promptText="Topic" />
-                                    <TextField fx:id="topicInput11" layoutX="564.0" layoutY="279.0" promptText="Course ID" text="Course ID" />
-                                    <Button fx:id="addButton1" layoutX="555.0" layoutY="366.0" mnemonicParsing="false" text="Add" />
+                                    <TextField fx:id="topicNameInput" layoutX="564.0" layoutY="218.0" promptText="Topic" />
+                                    <TextField fx:id="topicCourseID" layoutX="564.0" layoutY="279.0" promptText="Course ID" text="Course ID" />
+                                    <Button fx:id="addTopicButton" layoutX="555.0" layoutY="366.0" mnemonicParsing="false" onAction="#addTopic" text="Add" />
                                     <Button fx:id="updateButton1" layoutX="623.0" layoutY="366.0" mnemonicParsing="false" text="Update" />
                                     <Button fx:id="deleteButton1" layoutX="706.0" layoutY="366.0" mnemonicParsing="false" text="Delete" />
                                  </children>

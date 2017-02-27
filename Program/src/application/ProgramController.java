@@ -71,6 +71,15 @@ public class ProgramController implements Initializable{
 	
 	@FXML
 	private TextField lectureNameInput;
+	
+	@FXML
+	private TextField topicNameInput;
+	
+	@FXML
+	private TextField topicNumber;
+	
+	@FXML
+	private TextField topicCourseID;
 
 	
 	@Override
@@ -240,6 +249,10 @@ public class ProgramController implements Initializable{
 		}
 	}
 	
+	/*
+	 * LECTURE ADD - DELETE - UPDATE
+	 */
+	
 	@FXML
 	private void addLecture(){
 		String id = lectureIDInput.getText();
@@ -248,5 +261,31 @@ public class ProgramController implements Initializable{
 		
 		Lecture lecture = new Lecture(null, courseID, id, name);
 		Database.createLecture(lecture);
+		lectureIDInput.setText("");
+		lectureNameInput.setText("");
+	}
+	
+	@FXML
+	private void deleteLecture(){
+		
+		Lecture lecture = lectureTable.getSelectionModel().getSelectedItem();
+		Database.deleteLecture(lecture);
+		System.out.println(lecture.getLectureID());
+		
+	}
+	
+	/*
+	 *  TOPIC ADD - DELETE - UPDATE
+	 */
+	
+	@FXML
+	private void addTopic(){
+		String number = topicNumber.getText();
+		String name = topicNameInput.getText();
+		String lectureID = courseTable.getSelectionModel().getSelectedItem().getDBID();
+		
+		Topic topic = new Topic(null, number , name, lectureID);
+		
+		Database.createTopic(topic);
 	}
 }

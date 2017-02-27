@@ -132,6 +132,12 @@ public class Database {
             return null;
         }	
     }
+    
+    /*
+     * Database metoder og querys for Lecture add-delete-update
+     */
+    
+    //Legge til lecture
     public static void createLecture(Lecture lecture){
     	try{
             Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
@@ -140,6 +146,20 @@ public class Database {
             stmt.setInt(2, Integer.parseInt(lecture.getlectureNumber()));
             stmt.setString(3, lecture.getlectureName());
             
+            stmt.executeUpdate();
+    	}
+        catch(SQLException e){
+        	System.out.println(e);
+        }
+    }
+    
+    //Slette lecture
+    public static void deleteLecture(Lecture lecture){
+    	try{
+            Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
+            PreparedStatement stmt = conn.prepareStatement("DELETE FROM lecture WHERE lectureID = ?");
+            //DELETE FROM 'prodoteam_db'.'lecture'WHERE 'lecture'.'lectureID' = 15
+            stmt.setInt(1, Integer.parseInt(lecture.getLectureID()));
             //
             stmt.executeUpdate();
     	}
@@ -147,4 +167,23 @@ public class Database {
         	System.out.println(e);
         }
     }
+    
+    /*
+     * Database metoder og querys for Topic add-delete-update
+     */
+    public static void createTopic(Topic topic){
+    	try{
+            Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO topic (lectureID, number, name) VALUES (?,?,?)");
+            stmt.setInt(1, Integer.parseInt(topic.getNumber()));
+            stmt.setString(2, topic.getName());
+            stmt.setString(3, topic.getLectureID());
+            
+            stmt.executeUpdate();
+    	}
+        catch(SQLException e){
+        	System.out.println(e);
+        }
+    }
+    
 }
