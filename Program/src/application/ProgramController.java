@@ -23,6 +23,10 @@ import javafx.scene.text.Text;
 
 public class ProgramController implements Initializable{
 	
+	private int toggleLeft = 0;
+	
+	String lastClicked = "";
+	
 	@FXML
 	private SplitPane divider;
 	
@@ -32,63 +36,36 @@ public class ProgramController implements Initializable{
 	@FXML
 	private Button btn_leftPane;
 	
-	private int toggleLeft = 0; 
-	
-	String lastClicked = "";
-	
-	@FXML
-	private TextField search_leftPane;
-	
 	@FXML
 	private TableView<Course> courseTable;
 	
 	@FXML
-	private TableColumn<Course, String> courseID;
-	
-	@FXML
-	private TableColumn<Course, String> courseName;
+	private TableColumn<Course, String> courseID, courseName;
 	
 	@FXML
 	private TableView<Lecture> lectureTable;
 	
 	@FXML
-	private TableColumn<Lecture, String> lectureNumber;
-	
-	@FXML
-	private TableColumn<Lecture, String> lectureName;
+	private TableColumn<Lecture, String> lectureNumber, lectureName;
 	
 	@FXML
 	private TableView<Topic> lectureCourseTable;
 	
 	@FXML
-	private TableColumn<Topic, String> lectureCourseNumber;
+	private TableColumn<Topic, String> lectureCourseNumber, lectureCourseTopic;
 	
 	@FXML
-	private TableColumn<Topic, String> lectureCourseTopic;
-	
-	@FXML
-	private TextField lectureIDInput;
-	
-	@FXML
-	private TextField lectureNameInput;
-	
-	@FXML
-	private TextField topicNameInput;
-	
-	@FXML
-	private TextField topicNumber;
-	
-	@FXML
-	private TextField topicCourseID;
+	private TextField lectureIDInput, lectureNameInput, topicNameInput, topicNumber, search_leftPane;
 
 	
+	// Initializes the program by showing the correct table (CourseTable in the sidebar)
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		lectureTable.setVisible(false);
 		updateCourseTable();
 	}
 	
-	// Method for filling the leftside table with courses
+	// Method for filling the table in the sidebar with courses
 	private void updateCourseTable(){
 		// 0. Initialize the columns.
 		courseID.setCellValueFactory(cellData -> cellData.getValue().courseIDProperty());
@@ -128,10 +105,9 @@ public class ProgramController implements Initializable{
 		courseTable.setItems(sortedData);
 	}
 	
-	// Method for filling the leftside table with lectures
+	// Method for filling the table in the sidebar with lectures (Same idea as updateCourseTable)
 	private void updateLectureTable(ObservableList<Lecture> lectureList){
 		// 0. Initialize the columns.
-		// Må kanskje ha en ny tabell?
 		lectureNumber.setCellValueFactory(cellData -> cellData.getValue().lectureNumberProperty());
 		lectureName.setCellValueFactory(cellData -> cellData.getValue().lectureNameProperty());
 		
@@ -170,36 +146,15 @@ public class ProgramController implements Initializable{
 	}
 
 	
-	// Method for filling the leftside table with lectures
+	// Method for filling the table in the "Lecture" tab with topics
 	private void updateLectureCourseTable(ObservableList<Topic> topicList){
 		// 0. Initialize the columns.
-		// Må kanskje ha en ny tabell?
 		lectureCourseNumber.setCellValueFactory(cellData -> cellData.getValue().numberProperty());
 		lectureCourseTopic.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
 		
+		/* This is all unnecessary
 		// 1. Wrap the ObservableList in a FilteredList (initially display all data).
 		FilteredList<Topic> filteredData = new FilteredList<>(topicList, p -> true);
-		
-		/*// Don't need search for this table
-		// 2. Set the filter Predicate whenever the filter changes.
-		search_leftPane.textProperty().addListener((observable, oldValue, newValue) -> {
-			filteredData.setPredicate(Lecture -> {
-				// If filter text is empty, display all Courses.
-				if (newValue == null || newValue.isEmpty()) {
-					return true;
-				}
-				
-				// Compare course id and course name of every Course with filter text.
-				String lowerCaseFilter = newValue.toLowerCase();
-				
-				if (Lecture.getlectureNumber().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-					return true; // Filter matches course ID.
-				} else if (Lecture.getlectureName().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-					return true; // Filter matches course name.
-				}
-				return false; // Does not match.
-			});
-		});*/
 		
 		// 3. Wrap the FilteredList in a SortedList. 
 		SortedList<Topic> sortedData = new SortedList<>(filteredData);
@@ -207,15 +162,17 @@ public class ProgramController implements Initializable{
 		// 4. Bind the SortedList comparator to the TableView comparator.
 		// 	  Otherwise, sorting the TableView would have no effect.
 		sortedData.comparatorProperty().bind(lectureCourseTable.comparatorProperty());
+		*/
 		
-		// 5. Add sorted (and filtered) data to the table.
-		lectureCourseTable.setItems(sortedData);
+		// 1. Add data to the table.
+		lectureCourseTable.setItems(topicList);
 	}
 	
+	
+	// Method for going back and forth between showing courses or lectures in the sidebar	
 	@FXML
 	private void subjectNext(ActionEvent e) throws IOException{
-		//updateLectureTable(Database.lectures(courseTable.getSelectionModel().getSelectedItem().getDBID()));
-		//Database.lectures(courseTable.getSelectionModel().getSelectedItem().getDBID());
+		// If we're showing courses, toggleLeft = 0
 		if (toggleLeft == 0){
 			if(courseTable.getSelectionModel().getSelectedItem() != null){
 				toggleLeft = 1;
@@ -228,18 +185,23 @@ public class ProgramController implements Initializable{
 			}else{
 				System.out.println("Lag en eller annen feilmelding her som ber brukeren velge ett emne");
 			}
-		}else{
+		}
+		// If the courses are not showing, the lectures are. toggleLeft = 1
+		else{
 			toggleLeft = 0;
 			lastClicked = "";
 			updateLectureCourseTable(Database.Topic("empty"));
 			lectureTable.setVisible(false);
 			courseTable.setVisible(true);
-			//updateCourseTable();
 			title_leftPane.setText("Find course");
 			btn_leftPane.setText("Next");
 			courseNameDisplay.setText("Course");
 		}
 	}
+	
+	/*
+	 * Show topics after clicking a lecture
+	 */
 	
 	@FXML
 	private void displayTopics() throws IOException{
@@ -263,15 +225,15 @@ public class ProgramController implements Initializable{
 		Database.createLecture(lecture);
 		lectureIDInput.setText("");
 		lectureNameInput.setText("");
+		updateLectureTable(Database.lectures(courseID));
 	}
 	
 	@FXML
 	private void deleteLecture(){
-		
 		Lecture lecture = lectureTable.getSelectionModel().getSelectedItem();
+		String courseID = courseTable.getSelectionModel().getSelectedItem().getDBID();
 		Database.deleteLecture(lecture);
-		System.out.println(lecture.getLectureID());
-		
+		updateLectureTable(Database.lectures(courseID));
 	}
 	
 	/*
@@ -282,10 +244,21 @@ public class ProgramController implements Initializable{
 	private void addTopic(){
 		String number = topicNumber.getText();
 		String name = topicNameInput.getText();
-		String lectureID = courseTable.getSelectionModel().getSelectedItem().getDBID();
+		String lectureID = lectureTable.getSelectionModel().getSelectedItem().getLectureID();
 		
-		Topic topic = new Topic(null, number , name, lectureID);
-		
+		Topic topic = new Topic(null, lectureID, number , name);
 		Database.createTopic(topic);
+		topicNumber.setText("");
+		topicNameInput.setText("");
+		updateLectureCourseTable(Database.Topic(lectureID));
+	}
+	
+	@FXML
+	private void deleteTopic(){
+		Topic topic = lectureCourseTable.getSelectionModel().getSelectedItem();
+		String lectureID = lectureTable.getSelectionModel().getSelectedItem().getLectureID();
+		Database.deleteTopic(topic);
+		updateLectureCourseTable(Database.Topic(lectureID));
+
 	}
 }

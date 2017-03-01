@@ -31,6 +31,7 @@ public class Database {
         }
     }
     
+    /* Not used
     public static String loadSingleValue(String query, String... args){
         try{
             Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
@@ -48,23 +49,9 @@ public class Database {
         catch(SQLException e){
             return null;
         }
-    }
+    }*/
     
-    public static String test(){
-        try{
-            Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM bruker");
-
-            ResultSet rs = stmt.executeQuery();
-            if(rs.next())
-                return rs.getString(2);
-            return null;
-        }
-        catch(SQLException e){
-            return null;
-        }
-    }
-    
+    // Finds all topics from a given lecture (lectureID)
     public static ObservableList<Topic> Topic(String lectureID){
     	ObservableList<Topic> topicList = FXCollections.observableArrayList();
     	if(lectureID == "empty"){
@@ -88,6 +75,7 @@ public class Database {
         }
     }
     
+    // Finds all lectures from a given course (id)
     public static ObservableList<Lecture> lectures(String id){
     	ObservableList<Lecture> lectureList = FXCollections.observableArrayList();
     	try{
@@ -108,6 +96,7 @@ public class Database {
         }
     }
     
+    // Finds all courses from the database
     public static ObservableList<Course> courses(){
     	// Makes a new observable list
     	ObservableList<Course> courseList = FXCollections.observableArrayList();
@@ -171,13 +160,28 @@ public class Database {
     /*
      * Database metoder og querys for Topic add-delete-update
      */
+    // Legge til topic
     public static void createTopic(Topic topic){
     	try{
             Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO topic (lectureID, number, name) VALUES (?,?,?)");
-            stmt.setInt(1, Integer.parseInt(topic.getNumber()));
-            stmt.setString(2, topic.getName());
-            stmt.setString(3, topic.getLectureID());
+            stmt.setInt(1, Integer.parseInt(topic.getLectureID()));
+            stmt.setInt(2, Integer.parseInt(topic.getNumber()));
+            stmt.setString(3, topic.getName());
+            
+            stmt.executeUpdate();
+    	}
+        catch(SQLException e){
+        	System.out.println(e);
+        }
+    }
+    
+    // Slette topic
+    public static void deleteTopic(Topic topic){
+    	try{
+            Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
+            PreparedStatement stmt = conn.prepareStatement("DELETE FROM topic WHERE topicID = ?");
+            stmt.setInt(1, Integer.parseInt(topic.getTopicID()));
             
             stmt.executeUpdate();
     	}

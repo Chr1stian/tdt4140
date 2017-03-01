@@ -77,10 +77,9 @@
                                     </Text>
                                     <TextField fx:id="topicNumber" layoutX="564.0" layoutY="155.0" promptText="Topic Number" />
                                     <TextField fx:id="topicNameInput" layoutX="564.0" layoutY="218.0" promptText="Topic" />
-                                    <TextField fx:id="topicCourseID" layoutX="564.0" layoutY="279.0" promptText="Course ID" text="Course ID" />
-                                    <Button fx:id="addTopicButton" layoutX="555.0" layoutY="366.0" mnemonicParsing="false" onAction="#addTopic" text="Add" />
-                                    <Button fx:id="updateButton1" layoutX="623.0" layoutY="366.0" mnemonicParsing="false" text="Update" />
-                                    <Button fx:id="deleteButton1" layoutX="706.0" layoutY="366.0" mnemonicParsing="false" text="Delete" />
+                                    <Button fx:id="addTopicButton" layoutX="555.0" layoutY="292.0" mnemonicParsing="false" onAction="#addTopic" text="Add" />
+                                    <Button fx:id="updateButton1" layoutX="623.0" layoutY="292.0" mnemonicParsing="false" text="Update" />
+                                    <Button fx:id="deleteButton1" layoutX="708.0" layoutY="292.0" mnemonicParsing="false" onAction="#deleteTopic" text="Delete" />
                                  </children>
                               </AnchorPane>
                            </content>
