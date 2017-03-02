@@ -49,13 +49,13 @@ public class ProgramController implements Initializable{
 	private TableColumn<Lecture, String> lectureNumber, lectureName;
 	
 	@FXML
-	private TableView<Topic> lectureCourseTable;
+	private TableView<Topic> topicTable;
 	
 	@FXML
-	private TableColumn<Topic, String> lectureCourseNumber, lectureCourseTopic;
+	private TableColumn<Topic, String> topicNumber, topicName;
 	
 	@FXML
-	private TextField lectureIDInput, lectureNameInput, topicNameInput, topicNumber, search_leftPane;
+	private TextField lectureIDInput, lectureNameInput, topicNameInput, topicNumberInput, search_leftPane;
 
 	
 	// Initializes the program by showing the correct table (CourseTable in the sidebar)
@@ -147,10 +147,10 @@ public class ProgramController implements Initializable{
 
 	
 	// Method for filling the table in the "Lecture" tab with topics
-	private void updateLectureCourseTable(ObservableList<Topic> topicList){
+	private void updateTopicTable(ObservableList<Topic> topicList){
 		// 0. Initialize the columns.
-		lectureCourseNumber.setCellValueFactory(cellData -> cellData.getValue().numberProperty());
-		lectureCourseTopic.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+		topicNumber.setCellValueFactory(cellData -> cellData.getValue().numberProperty());
+		topicName.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
 		
 		/* This is all unnecessary
 		// 1. Wrap the ObservableList in a FilteredList (initially display all data).
@@ -165,7 +165,7 @@ public class ProgramController implements Initializable{
 		*/
 		
 		// 1. Add data to the table.
-		lectureCourseTable.setItems(topicList);
+		topicTable.setItems(topicList);
 	}
 	
 	
@@ -190,7 +190,7 @@ public class ProgramController implements Initializable{
 		else{
 			toggleLeft = 0;
 			lastClicked = "";
-			updateLectureCourseTable(Database.Topic("empty"));
+			updateTopicTable(Database.Topic("empty"));
 			lectureTable.setVisible(false);
 			courseTable.setVisible(true);
 			title_leftPane.setText("Find course");
@@ -207,7 +207,7 @@ public class ProgramController implements Initializable{
 	private void displayTopics() throws IOException{
 		if(lectureTable.getSelectionModel().getSelectedItem() != null & lectureTable.getSelectionModel().getSelectedItem().getlectureNumber() != lastClicked){
 			lastClicked = lectureTable.getSelectionModel().getSelectedItem().getlectureNumber();
-			updateLectureCourseTable(Database.Topic(lectureTable.getSelectionModel().getSelectedItem().getLectureID()));
+			updateTopicTable(Database.Topic(lectureTable.getSelectionModel().getSelectedItem().getLectureID()));
 		}
 	}
 	
@@ -250,15 +250,15 @@ public class ProgramController implements Initializable{
 		Database.createTopic(topic);
 		topicNumber.setText("");
 		topicNameInput.setText("");
-		updateLectureCourseTable(Database.Topic(lectureID));
+		updateTopicTable(Database.Topic(lectureID));
 	}
 	
 	@FXML
 	private void deleteTopic(){
-		Topic topic = lectureCourseTable.getSelectionModel().getSelectedItem();
+		Topic topic = topicTable.getSelectionModel().getSelectedItem();
 		String lectureID = lectureTable.getSelectionModel().getSelectedItem().getLectureID();
 		Database.deleteTopic(topic);
-		updateLectureCourseTable(Database.Topic(lectureID));
+		updateTopicTable(Database.Topic(lectureID));
 
 	}
 }
