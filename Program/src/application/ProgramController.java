@@ -239,7 +239,6 @@ public class ProgramController implements Initializable{
 	/*
 	 *  TOPIC ADD - DELETE - UPDATE
 	 */
-	
 	@FXML
 	private void addTopic(){
 		String number = topicNumber.getText();
