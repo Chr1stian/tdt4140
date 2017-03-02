@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="App/Prodo/app/src/androidTest/java"/>
+	<classpathentry kind="src" path="App/Prodo/app/src/main/java"/>
+	<classpathentry kind="src" path="App/Prodo/app/src/test/java"/>
+	<classpathentry kind="src" path="Program/src"/>
+	<classpathentry kind="lib" path="App/Prodo/gradle/wrapper/gradle-wrapper.jar"/>
+	<classpathentry kind="lib" path="Program/lib/mysql-connector-java-5.1.39-bin.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
