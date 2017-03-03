@@ -126,7 +126,7 @@ public class Database {
      * Database metoder og querys for Lecture add-delete-update
      */
     
-    //Legge til lecture
+    // Add lecture
     public static void createLecture(Lecture lecture){
     	try{
             Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
@@ -142,7 +142,7 @@ public class Database {
         }
     }
     
-    //Slette lecture
+    // Delete lecture
     public static void deleteLecture(Lecture lecture){
     	try{
             Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
@@ -160,7 +160,7 @@ public class Database {
     /*
      * Database metoder og querys for Topic add-delete-update
      */
-    // Legge til topic
+    // Add topic
     public static void createTopic(Topic topic){
     	try{
             Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
@@ -176,7 +176,7 @@ public class Database {
         }
     }
     
-    // Slette topic
+    // Delete topic
     public static void deleteTopic(Topic topic){
     	try{
             Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);

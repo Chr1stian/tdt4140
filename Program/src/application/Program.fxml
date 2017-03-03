@@ -49,10 +49,10 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <TableView fx:id="lectureCourseTable" layoutX="20.0" layoutY="89.0" prefHeight="424.0" prefWidth="447.0" tableMenuButtonVisible="false">
+                                    <TableView fx:id="topicTable" layoutX="20.0" layoutY="89.0" prefHeight="424.0" prefWidth="447.0" tableMenuButtonVisible="false">
                                        <columns>
-                                          <TableColumn fx:id="lectureCourseNumber" maxWidth="5000.0" minWidth="10.0" prefWidth="74.0" resizable="false" text="Number" />
-                                          <TableColumn fx:id="lectureCourseTopic" maxWidth="5000.0" minWidth="0.0" prefWidth="379.0" resizable="false" text="Topics" />
+                                          <TableColumn fx:id="topicNumber" maxWidth="5000.0" minWidth="10.0" prefWidth="74.0" resizable="false" text="Number" />
+                                          <TableColumn fx:id="topicName" maxWidth="5000.0" minWidth="0.0" prefWidth="379.0" resizable="false" text="Topics" />
                                        </columns>
                                     </TableView>
                                     <Text fx:id="courseNameDisplay" layoutX="22.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Course" textAlignment="CENTER" wrappingWidth="450.99998569488525">
@@ -75,7 +75,7 @@
                                           <Font size="21.0" />
                                        </font>
                                     </Text>
-                                    <TextField fx:id="topicNumber" layoutX="564.0" layoutY="155.0" promptText="Topic Number" />
+                                    <TextField fx:id="topicNumberInput" layoutX="564.0" layoutY="155.0" promptText="Topic Number" />
                                     <TextField fx:id="topicNameInput" layoutX="564.0" layoutY="218.0" promptText="Topic" />
                                     <Button fx:id="addTopicButton" layoutX="555.0" layoutY="292.0" mnemonicParsing="false" onAction="#addTopic" text="Add" />
                                     <Button fx:id="updateButton1" layoutX="623.0" layoutY="292.0" mnemonicParsing="false" text="Update" />
