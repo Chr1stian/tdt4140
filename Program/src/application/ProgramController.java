@@ -85,9 +85,9 @@ public class ProgramController implements Initializable{
 				// Compare course id and course name of every Course with filter text.
 				String lowerCaseFilter = newValue.toLowerCase();
 				
-				if (Course.getcourseID().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+				if (Course.getCourseID().toLowerCase().indexOf(lowerCaseFilter) != -1) {
 					return true; // Filter matches course ID.
-				} else if (Course.getcourseName().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+				} else if (Course.getCourseName().toLowerCase().indexOf(lowerCaseFilter) != -1) {
 					return true; // Filter matches course name.
 				}
 				return false; // Does not match.
@@ -149,21 +149,9 @@ public class ProgramController implements Initializable{
 	// Method for filling the table in the "Lecture" tab with topics
 	private void updateTopicTable(ObservableList<Topic> topicList){
 		// 0. Initialize the columns.
-		topicNumber.setCellValueFactory(cellData -> cellData.getValue().numberProperty());
-		topicName.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-		
-		/* This is all unnecessary
-		// 1. Wrap the ObservableList in a FilteredList (initially display all data).
-		FilteredList<Topic> filteredData = new FilteredList<>(topicList, p -> true);
-		
-		// 3. Wrap the FilteredList in a SortedList. 
-		SortedList<Topic> sortedData = new SortedList<>(filteredData);
-		
-		// 4. Bind the SortedList comparator to the TableView comparator.
-		// 	  Otherwise, sorting the TableView would have no effect.
-		sortedData.comparatorProperty().bind(lectureCourseTable.comparatorProperty());
-		*/
-		
+		topicNumber.setCellValueFactory(cellData -> cellData.getValue().topicNumberProperty());
+		topicName.setCellValueFactory(cellData -> cellData.getValue().topicNameProperty());
+			
 		// 1. Add data to the table.
 		topicTable.setItems(topicList);
 	}
@@ -176,12 +164,12 @@ public class ProgramController implements Initializable{
 		if (toggleLeft == 0){
 			if(courseTable.getSelectionModel().getSelectedItem() != null){
 				toggleLeft = 1;
-				updateLectureTable(Database.lectures(courseTable.getSelectionModel().getSelectedItem().getDBID()));
+				updateLectureTable(Database.lectures(courseTable.getSelectionModel().getSelectedItem().getCourseID()));
 				courseTable.setVisible(false);
 				lectureTable.setVisible(true);
 				title_leftPane.setText("Find lecture");
 				btn_leftPane.setText("Back");
-				courseNameDisplay.setText(courseTable.getSelectionModel().getSelectedItem().getcourseID());
+				courseNameDisplay.setText(courseTable.getSelectionModel().getSelectedItem().getCourseCode());
 			}else{
 				System.out.println("Lag en eller annen feilmelding her som ber brukeren velge ett emne");
 			}
@@ -219,7 +207,7 @@ public class ProgramController implements Initializable{
 	private void addLecture(){
 		String id = lectureIDInput.getText();
 		String name = lectureNameInput.getText();
-		String courseID = courseTable.getSelectionModel().getSelectedItem().getDBID();
+		String courseID = courseTable.getSelectionModel().getSelectedItem().getCourseID();
 		
 		Lecture lecture = new Lecture(null, courseID, id, name);
 		Database.createLecture(lecture);
@@ -231,7 +219,7 @@ public class ProgramController implements Initializable{
 	@FXML
 	private void deleteLecture(){
 		Lecture lecture = lectureTable.getSelectionModel().getSelectedItem();
-		String courseID = courseTable.getSelectionModel().getSelectedItem().getDBID();
+		String courseID = courseTable.getSelectionModel().getSelectedItem().getCourseID();
 		Database.deleteLecture(lecture);
 		updateLectureTable(Database.lectures(courseID));
 	}

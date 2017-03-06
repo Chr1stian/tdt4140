@@ -4,16 +4,17 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Topic {
+	
 	private final StringProperty topicID;
 	private final StringProperty lectureID;
-	private final StringProperty number;
-	private final StringProperty name;
+	private final StringProperty topicNumber;
+	private final StringProperty topicName;
 
-	public Topic(String topicID, String lectureID, String number, String name) {
+	public Topic(String topicID, String lectureID, String topicNumber, String topicName) {
 		this.topicID = new SimpleStringProperty(topicID);
 		this.lectureID = new SimpleStringProperty(lectureID);
-		this.number = new SimpleStringProperty(number);
-		this.name = new SimpleStringProperty(name);
+		this.topicNumber = new SimpleStringProperty(topicNumber);
+		this.topicName = new SimpleStringProperty(topicName);
 	}
 	
 	public String getTopicID() {
@@ -40,27 +41,27 @@ public class Topic {
 		return lectureID;
 	}
 	
-	public String getNumber() {
-		return number.get();
+	public String getTopicNumber() {
+		return topicNumber.get();
 	}
 
-	public void setNumber(String number) {
-		this.number.set(number);
+	public void setTopicNumber(String topicNumber) {
+		this.topicNumber.set(topicNumber);
 	}
 	
-	public StringProperty numberProperty() {
-		return number;
+	public StringProperty topicNumberProperty() {
+		return topicNumber;
 	}
 
-	public String getName() {
-		return name.get();
+	public String getTopicName() {
+		return topicName.get();
 	}
 
-	public void setName(String name) {
-		this.name.set(name);
+	public void setTopicName(String topicName) {
+		this.topicName.set(topicName);
 	}
 	
-	public StringProperty nameProperty() {
-		return name;
+	public StringProperty topicNameProperty() {
+		return topicName;
 	}
 }

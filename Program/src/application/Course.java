@@ -3,52 +3,47 @@ package application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-/**
- * Temporary class for the course untill database connection and javafx display is functional.
- * 
- * @author Trygve Karlsrud
- */
 public class Course {
 
-	private final StringProperty DBID;
 	private final StringProperty courseID;
+	private final StringProperty courseCode;
 	private final StringProperty courseName;
 
-	public Course(String DBID, String courseID, String courseName) {
-		this.DBID = new SimpleStringProperty(DBID);
+	public Course(String courseID, String courseCode, String courseName) {
 		this.courseID = new SimpleStringProperty(courseID);
+		this.courseCode = new SimpleStringProperty(courseCode);
 		this.courseName = new SimpleStringProperty(courseName);
 	}
 	
-	public String getDBID() {
-		return DBID.get();
-	}
-
-	public void setDBID(String DBID) {
-		this.DBID.set(DBID);
-	}
-	
-	public StringProperty DBIDProperty() {
-		return DBID;
-	}
-	
-	public String getcourseID() {
+	public String getCourseID() {
 		return courseID.get();
 	}
 
-	public void setcourseID(String courseID) {
+	public void setCourseID(String courseID) {
 		this.courseID.set(courseID);
 	}
 	
 	public StringProperty courseIDProperty() {
 		return courseID;
 	}
+	
+	public String getCourseCode() {
+		return courseCode.get();
+	}
 
-	public String getcourseName() {
+	public void setCourseCode(String courseCode) {
+		this.courseCode.set(courseCode);
+	}
+	
+	public StringProperty courseCodeProperty() {
+		return courseCode;
+	}
+
+	public String getCourseName() {
 		return courseName.get();
 	}
 
-	public void setcourseName(String courseName) {
+	public void setCourseName(String courseName) {
 		this.courseName.set(courseName);
 	}
 	

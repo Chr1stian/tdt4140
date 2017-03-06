@@ -4,6 +4,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Lecture {
+	
 	private final StringProperty lectureID;
 	private final StringProperty courseID;
 	private final StringProperty lectureNumber;
