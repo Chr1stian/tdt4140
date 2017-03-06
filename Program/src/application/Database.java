@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,26 +29,6 @@ public class Database {
             return false;
         }
     }
-    
-    /* Not used
-    public static String loadSingleValue(String query, String... args){
-        try{
-            Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
-            PreparedStatement stmt = conn.prepareStatement(query);
-
-            int i = 0;
-            for(String arg : args)
-                stmt.setString(++i, arg);
-
-            ResultSet rs = stmt.executeQuery();
-            if(rs.next())
-                return rs.getString(1);
-            return null;
-        }
-        catch(SQLException e){
-            return null;
-        }
-    }*/
     
     // Finds all topics from a given lecture (lectureID)
     public static ObservableList<Topic> Topic(String lectureID){
@@ -166,8 +145,8 @@ public class Database {
             Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO topic (lectureID, number, name) VALUES (?,?,?)");
             stmt.setInt(1, Integer.parseInt(topic.getLectureID()));
-            stmt.setInt(2, Integer.parseInt(topic.getNumber()));
-            stmt.setString(3, topic.getName());
+            stmt.setInt(2, Integer.parseInt(topic.getTopicNumber()));
+            stmt.setString(3, topic.getTopicName());
             
             stmt.executeUpdate();
     	}
