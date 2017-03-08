@@ -57,10 +57,10 @@ public class ProgramController implements Initializable{
 	private TableColumn<Topic, String> topicNumber, topicName;
 	
 	@FXML
-	private TableView<Question> courseTableQ;
+	private TableView<Question> questionTable;
 	
 	@FXML
-	private TableColumn<Question, String> dateTimeTableQ, questionTable; 
+	private TableColumn<Question, String> questionTableQuestion; 
 	
 	
 	@FXML
@@ -296,19 +296,27 @@ public class ProgramController implements Initializable{
 	}
 	
 	/*
-<<<<<<< HEAD
 	 * QUESTION SECTION - Display questions
 	 */
+	
 	// Method for filling the table in the "Lecture" tab with topics
-	@FXML
-	private void updateQuestionTable(ObservableList<Topic> questionList){
+	private void updateQuestionTable(ObservableList<Question> questionList){
 		// 0. Initialize the columns.
-		dateTimeTableQ.setCellValueFactory(cellData -> cellData.getValue().questionNumberProperty());
-		topicName.setCellValueFactory(cellData -> cellData.getValue().topicNameProperty());
-			
+		questionTableQuestion.setCellValueFactory(cellData -> cellData.getValue().questionNameProperty());
 		// 1. Add data to the table.
-		topicTable.setItems(questionList);
+		questionTable.setItems(questionList);
 	}
+	
+	// Method for finding questions from the clicked topic
+	@FXML
+	private void displayQuestions() throws IOException{
+		if(sidebarTable == "topic"){
+			if(topicTable.getSelectionModel().getSelectedItem() != null){
+				updateQuestionTable(Database.Question(topicTable.getSelectionModel().getSelectedItem().getTopicID()));
+			}
+		}
+	}
+	
 	/*
 	 * SIDEBAR BACK - NEXT BUTTONS
 	 */

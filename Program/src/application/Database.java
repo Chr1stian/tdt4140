@@ -102,7 +102,7 @@ public class Database {
     }
     
     /*
-     * Database metoder og querys for Lecture add-delete-update
+     * Database methods and queries for Lecture add-delete-update
      */
     
     // Add lecture
@@ -137,7 +137,7 @@ public class Database {
     }
     
     /*
-     * Database metoder og querys for Topic add-delete-update
+     * Database methods and queries for Topic add-delete-update
      */
     // Add topic
     public static void createTopic(Topic topic){
@@ -172,22 +172,21 @@ public class Database {
     /*
      * Display questions from students
      */
-    // Finds all topics from a given lecture (lectureID)
-    public static ObservableList<Topic> Question(String topicID){
-    	ObservableList<Topic> questionList = FXCollections.observableArrayList();
-    	if(topicID == "empty"){
-    		return questionList;
-    	}
+    // Finds all questions from a given topic (topicID)
+    
+    // Currently the only question path:	Database -> Introduksjon til faget og databaser -> fagintroduksjon
+    
+    public static ObservableList<Question> Question(String topicID){
+    	ObservableList<Question> questionList = FXCollections.observableArrayList();
     	try{
-            Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM question WHERE topicID = " + topicID);
-
+    		Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
+           	PreparedStatement stmt = conn.prepareStatement("SELECT * FROM question WHERE topicID = " + topicID);
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
             	ArrayList<String> question = new ArrayList<String>();
             	for(int i = 1; i < 5; i++){
             		question.add(rs.getString(i));
-            	}questionList.add(new Topic(question.get(0), question.get(1), question.get(2), question.get(3)));
+            	}questionList.add(new Question(question.get(0), question.get(1), question.get(2), question.get(3)));
             }
             return questionList;
         }
