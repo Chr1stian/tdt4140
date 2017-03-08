@@ -23,15 +23,17 @@ import javafx.scene.text.Text;
 
 public class ProgramController implements Initializable{
 	
-	private int toggleLeft = 0;
+	//private int toggleLeft = 0;
 	
 	String lastClicked = "";
+	
+	String sidebarTable = "course";
 	
 	@FXML
 	private SplitPane divider;
 	
 	@FXML
-	private Text title_leftPane, courseNameDisplay;
+	private Text title_leftPane, courseNameDisplay, courseIdText, lectureNumberText;
 	
 	@FXML
 	private Button btn_leftPane;
@@ -40,7 +42,7 @@ public class ProgramController implements Initializable{
 	private TableView<Course> courseTable;
 	
 	@FXML
-	private TableColumn<Course, String> courseID, courseName;
+	private TableColumn<Course, String> courseCode, courseName;
 	
 	@FXML
 	private TableView<Lecture> lectureTable;
@@ -65,10 +67,14 @@ public class ProgramController implements Initializable{
 		updateCourseTable();
 	}
 	
+	/*
+	 * FILL SIDEBAR TABLE WITH COURSES - LECTURES - TOPICS
+	 * ADD THE ABILITY TO SEARCH IN THE TABLES
+	 */
 	// Method for filling the table in the sidebar with courses
 	private void updateCourseTable(){
 		// 0. Initialize the columns.
-		courseID.setCellValueFactory(cellData -> cellData.getValue().courseIDProperty());
+		courseCode.setCellValueFactory(cellData -> cellData.getValue().courseCodeProperty());
 		courseName.setCellValueFactory(cellData -> cellData.getValue().courseNameProperty());
 		
 		// 1. Wrap the ObservableList in a FilteredList (initially display all data).
@@ -85,7 +91,7 @@ public class ProgramController implements Initializable{
 				// Compare course id and course name of every Course with filter text.
 				String lowerCaseFilter = newValue.toLowerCase();
 				
-				if (Course.getCourseID().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+				if (Course.getCourseCode().toLowerCase().indexOf(lowerCaseFilter) != -1) {
 					return true; // Filter matches course ID.
 				} else if (Course.getCourseName().toLowerCase().indexOf(lowerCaseFilter) != -1) {
 					return true; // Filter matches course name.
@@ -146,17 +152,49 @@ public class ProgramController implements Initializable{
 	}
 
 	
-	// Method for filling the table in the "Lecture" tab with topics
+	// Method for filling the table in sidebar with topics
 	private void updateTopicTable(ObservableList<Topic> topicList){
 		// 0. Initialize the columns.
 		topicNumber.setCellValueFactory(cellData -> cellData.getValue().topicNumberProperty());
 		topicName.setCellValueFactory(cellData -> cellData.getValue().topicNameProperty());
-			
-		// 1. Add data to the table.
+		
+		// 1. Wrap the ObservableList in a FilteredList (initially display all data).
+		FilteredList<Topic> filteredData = new FilteredList<>(topicList, p -> true);
+		
+		// 2. Set the filter Predicate whenever the filter changes.
+		search_leftPane.textProperty().addListener((observable, oldValue, newValue) -> {
+			filteredData.setPredicate(Topic -> {
+				// If filter text is empty, display all Courses.
+				if (newValue == null || newValue.isEmpty()) {
+					return true;
+				}
+				
+				// Compare course id and course name of every Course with filter text.
+				String lowerCaseFilter = newValue.toLowerCase();
+				
+				if (Topic.getTopicNumber().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+					return true; // Filter matches course ID.
+				} else if (Topic.getTopicName().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+					return true; // Filter matches course name.
+				}
+				return false; // Does not match.
+			});
+		});
+		
+		// 3. Wrap the FilteredList in a SortedList. 
+		SortedList<Topic> sortedData = new SortedList<>(filteredData);
+		
+		// 4. Bind the SortedList comparator to the TableView comparator.
+		// 	  Otherwise, sorting the TableView would have no effect.
+		sortedData.comparatorProperty().bind(topicTable.comparatorProperty());
+		
+		// 5. Add data to the table.
 		topicTable.setItems(topicList);
 	}
 	
 	
+	// I think this is unneeded, but I'll keep it just in case.
+	/*
 	// Method for going back and forth between showing courses or lectures in the sidebar	
 	@FXML
 	private void subjectNext(ActionEvent e) throws IOException{
@@ -185,19 +223,20 @@ public class ProgramController implements Initializable{
 			btn_leftPane.setText("Next");
 			courseNameDisplay.setText("Course");
 		}
-	}
+	}*/
 	
 	/*
 	 * Show topics after clicking a lecture
 	 */
-	
+	/*
 	@FXML
 	private void displayTopics() throws IOException{
 		if(lectureTable.getSelectionModel().getSelectedItem() != null & lectureTable.getSelectionModel().getSelectedItem().getlectureNumber() != lastClicked){
 			lastClicked = lectureTable.getSelectionModel().getSelectedItem().getlectureNumber();
 			updateTopicTable(Database.Topic(lectureTable.getSelectionModel().getSelectedItem().getLectureID()));
 		}
-	}
+	}*/
+	
 	
 	/*
 	 * LECTURE ADD - DELETE - UPDATE
@@ -248,4 +287,55 @@ public class ProgramController implements Initializable{
 		updateTopicTable(Database.Topic(lectureID));
 
 	}
+	
+	/*
+	 * SIDEBAR BACK - NEXT BUTTONS
+	 */
+	@FXML
+	private void nextButton(){
+		if(sidebarTable == "course"){
+			if(courseTable.getSelectionModel().getSelectedItem() != null){
+				search_leftPane.clear();
+				sidebarTable = "lecture";
+				updateLectureTable(Database.lectures(courseTable.getSelectionModel().getSelectedItem().getCourseID()));
+				courseTable.setVisible(false);
+				lectureTable.setVisible(true);
+				title_leftPane.setText("Lectures");
+				courseIdText.setText(courseTable.getSelectionModel().getSelectedItem().getCourseCode());
+			}
+		}else if(sidebarTable == "lecture"){
+			if(lectureTable.getSelectionModel().getSelectedItem() != null){
+				search_leftPane.clear();
+				sidebarTable = "topic";
+				updateTopicTable(Database.Topic(lectureTable.getSelectionModel().getSelectedItem().getLectureID()));
+				lectureTable.setVisible(false);
+				topicTable.setVisible(true);
+				title_leftPane.setText("Topics");
+				lectureNumberText.setText(lectureTable.getSelectionModel().getSelectedItem().getlectureNumber());
+			}
+		}
+	}
+	
+	@FXML
+	private void backButton(){
+		search_leftPane.clear();
+		if(sidebarTable == "topic"){
+			sidebarTable = "lecture";
+			lectureNumberText.setText("Not selected");
+			title_leftPane.setText("Lectures");
+			topicTable.setVisible(false);
+			lectureTable.setVisible(true);
+			
+		}else if(sidebarTable == "lecture"){
+			sidebarTable = "course";
+			title_leftPane.setText("Courses");
+			courseIdText.setText("Not selected");
+			lectureTable.setVisible(false);
+			courseTable.setVisible(true);
+		}
+	}
+	
+	/*
+	 * SIDEBAR ADD - EDIT - DELETE
+	 */
 }
