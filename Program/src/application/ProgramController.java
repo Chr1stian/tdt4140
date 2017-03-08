@@ -55,6 +55,13 @@ public class ProgramController implements Initializable{
 	private TableColumn<Topic, String> topicNumber, topicName;
 	
 	@FXML
+	private TableView<Question> courseTableQ;
+	
+	@FXML
+	private TableColumn<Question, String> dateTimeTableQ, questionTable; 
+	
+	
+	@FXML
 	private TextField lectureIDInput, lectureNameInput, topicNameInput, topicNumberInput, search_leftPane;
 
 	
@@ -247,5 +254,19 @@ public class ProgramController implements Initializable{
 		Database.deleteTopic(topic);
 		updateTopicTable(Database.Topic(lectureID));
 
+	}
+	
+	/*
+	 * QUESTION SECTION - Display questions
+	 */
+	// Method for filling the table in the "Lecture" tab with topics
+	@FXML
+	private void updateQuestionTable(ObservableList<Topic> questionList){
+		// 0. Initialize the columns.
+		dateTimeTableQ.setCellValueFactory(cellData -> cellData.getValue().questionNumberProperty());
+		topicName.setCellValueFactory(cellData -> cellData.getValue().topicNameProperty());
+			
+		// 1. Add data to the table.
+		topicTable.setItems(questionList);
 	}
 }
