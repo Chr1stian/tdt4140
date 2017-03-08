@@ -34,7 +34,11 @@
                      </children>
                   </AnchorPane>
                   <TextField fx:id="search_leftPane" layoutX="27.0" layoutY="87.0" prefHeight="37.0" prefWidth="302.0" promptText="Search..." />
+<<<<<<< Updated upstream
                   <Text fx:id="title_leftPane" layoutX="14.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Find course">
+=======
+                  <Text fx:id="title_leftPane" fill="WHITE" layoutX="27.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label-header" text="Find course" textAlignment="CENTER" wrappingWidth="302.0000184774399">
+>>>>>>> Stashed changes
                      <font>
                         <Font size="36.0" />
                      </font>
@@ -55,24 +59,29 @@
                                           <TableColumn fx:id="topicName" maxWidth="5000.0" minWidth="0.0" prefWidth="379.0" resizable="false" text="Topics" />
                                        </columns>
                                     </TableView>
-                                    <Text fx:id="courseNameDisplay" layoutX="22.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Course" textAlignment="CENTER" wrappingWidth="450.99998569488525">
+                                    <Text fx:id="courseNameDisplay" fill="WHITE" layoutX="22.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font: Segoe UI Light;" text="Course" textAlignment="CENTER" wrappingWidth="450.99998569488525">
                                        <font>
-                                          <Font size="36.0" />
+                                          <Font name="Segoe UI Light" size="29.0" />
                                        </font>
                                     </Text>
-                                    <Text layoutX="152.0" layoutY="567.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create new lecture" wrappingWidth="191.6708984375">
+                                    <Text fill="WHITE" layoutX="152.0" layoutY="567.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create new lecture" wrappingWidth="191.6708984375">
                                        <font>
-                                          <Font size="21.0" />
+                                          <Font name="Segoe UI Light" size="22.0" />
                                        </font>
                                     </Text>
                                     <Button fx:id="deleteButtonLecture" layoutX="292.0" layoutY="778.0" mnemonicParsing="false" onAction="#deleteLecture" text="Delete" />
                                     <TextField fx:id="lectureNameInput" layoutX="150.0" layoutY="646.0" promptText="Lecture Name" />
                                     <Button fx:id="updateButtonLecture" layoutX="209.0" layoutY="778.0" mnemonicParsing="false" text="Update" />
+<<<<<<< Updated upstream
                                     <Button fx:id="addButtonLecture" layoutX="133.0" layoutY="778.0" mnemonicParsing="false" onAction="#addLecture" text="Add" />
                                     <TextField fx:id="lectureIDInput" layoutX="150.0" layoutY="606.0" promptText="Lecture Number" />
                                     <Text layoutX="566.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add new topic" textAlignment="CENTER" wrappingWidth="182.44338297843933">
+=======
+                                    <Button fx:id="deleteButtonLecture" layoutX="292.0" layoutY="778.0" mnemonicParsing="false" onAction="#deleteLecture" text="Delete" />
+                                    <Text fill="WHITE" layoutX="569.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add new topic" textAlignment="CENTER" wrappingWidth="204.44338297843933">
+>>>>>>> Stashed changes
                                        <font>
-                                          <Font size="21.0" />
+                                          <Font name="Segoe UI Light" size="22.0" />
                                        </font>
                                     </Text>
                                     <TextField fx:id="topicNumberInput" layoutX="564.0" layoutY="155.0" promptText="Topic Number" />
