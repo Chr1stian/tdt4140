@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -12,13 +13,17 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
 public class ProgramController implements Initializable{
@@ -28,6 +33,9 @@ public class ProgramController implements Initializable{
 	String lastClicked = "";
 	
 	String sidebarTable = "course";
+	
+	@FXML
+	private AnchorPane mainPane;
 	
 	@FXML
 	private SplitPane divider;
@@ -73,6 +81,39 @@ public class ProgramController implements Initializable{
 		lectureTable.setVisible(false);
 		updateCourseTable();
 	}
+	
+	@FXML
+    public void showNewItemDialog() {
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.initOwner(mainPane.getScene().getWindow());
+        dialog.setTitle("Add New Todo Item");
+        dialog.setHeaderText("Use this dialog to create a new todo item");
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("Program.fxml"));
+        try {
+            dialog.getDialogPane().setContent(fxmlLoader.load());
+
+        } catch(IOException e) {
+            System.out.println("Couldn't load the dialog");
+            e.printStackTrace();
+            return;
+        }
+
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
+
+        Optional<ButtonType> result = dialog.showAndWait();
+        /*if(result.isPresent() && result.get() == ButtonType.OK) {
+            DialogController controller = fxmlLoader.getController();
+            TodoItem newItem = controller.processResults();
+            todoListView.getItems().setAll(TodoData.getInstance().getTodoItems());
+            todoListView.getSelectionModel().select(newItem);
+            System.out.println("OK pressed");
+        } else {
+            System.out.println("Cancel pressed");
+        }*/
+    }
+	
 	
 	/*
 	 * FILL SIDEBAR TABLE WITH COURSES - LECTURES - TOPICS
