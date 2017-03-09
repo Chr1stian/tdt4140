@@ -10,7 +10,7 @@ import javafx.scene.control.Dialog;
 
 public class PopupController {
 	
-    @FXML
+    /*@FXML
     public void addNewLecture() {
         Dialog<ButtonType> dialog = new Dialog<>();
         //dialog.initOwner(mainBorderPane.getScene().getWindow());
@@ -18,6 +18,5 @@ public class PopupController {
         dialog.setHeaderText("Use this window to add a new lecture to your course");
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("PopUpWindow.fxml"));
-
-    }
+    }*/
 }
