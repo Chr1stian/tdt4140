@@ -45,7 +45,7 @@
                         <Button fx:id="sidebarBackButton" disable="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#backButton" prefHeight="37.0" prefWidth="154.0" text="Back" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="37.0" />
                         <Button mnemonicParsing="false" onAction="#showNewItemDialog" prefHeight="37.0" prefWidth="104.0" text="Add" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
                         <Button mnemonicParsing="false" onAction="#showNewItemDialog" prefHeight="37.0" prefWidth="104.0" text="Edit" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="102.0" AnchorPane.rightAnchor="102.0" />
-                        <Button mnemonicParsing="false" onAction="#showNewItemDialog" prefHeight="37.0" prefWidth="104.0" text="Delete" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />        
+                        <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteItem" prefHeight="37.0" prefWidth="104.0" text="Delete" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />        
                      </children>
                   </AnchorPane>
                   <GridPane layoutX="27.0" layoutY="59.0" prefHeight="65.0" prefWidth="306.0">
@@ -114,7 +114,7 @@
                                     <TextField fx:id="lectureNameInput" layoutX="150.0" layoutY="646.0" promptText="Lecture Name" />
                                     <Button fx:id="addButtonLecture" layoutX="133.0" layoutY="778.0" mnemonicParsing="false" onAction="#addLecture" text="Add" />
                                     <Button fx:id="updateButtonLecture" layoutX="209.0" layoutY="778.0" mnemonicParsing="false" text="Update" />
-                                    <Button fx:id="deleteButtonLecture" layoutX="292.0" layoutY="778.0" mnemonicParsing="false" onAction="#deleteLecture" text="Delete" />
+                                    <Button fx:id="deleteButtonLecture" layoutX="292.0" layoutY="778.0" mnemonicParsing="false" onAction="#deleteItem" text="Delete" />
                                     <Text fill="WHITE" layoutX="569.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add new topic" textAlignment="CENTER" wrappingWidth="204.44338297843933">
                                        <font>
                                           <Font name="Segoe UI Light" size="22.0" />
@@ -124,7 +124,7 @@
                                     <TextField fx:id="topicNameInput" layoutX="564.0" layoutY="218.0" promptText="Topic" />
                                     <Button fx:id="addTopicButton" layoutX="555.0" layoutY="292.0" mnemonicParsing="false" onAction="#addTopic" text="Add" />
                                     <Button fx:id="updateButton1" layoutX="623.0" layoutY="292.0" mnemonicParsing="false" text="Update" />
-                                    <Button fx:id="deleteButton1" layoutX="708.0" layoutY="292.0" mnemonicParsing="false" onAction="#deleteTopic" text="Delete" />
+                                    <Button fx:id="deleteButton1" layoutX="708.0" layoutY="292.0" mnemonicParsing="false" onAction="#deleteItem" text="Delete" />
                                  </children>
                               </AnchorPane>
                            </content>
