@@ -307,6 +307,19 @@ public class ProgramController implements Initializable{
 	}
 	
 	@FXML
+	private void editLecture(){
+		String id = lectureTable.getSelectionModel().getSelectedItem().getLectureID();
+		String name = lectureTable.getSelectionModel().getSelectedItem().getlectureName();
+		String courseID = courseTable.getSelectionModel().getSelectedItem().getCourseID();
+		
+		Lecture lecture = new Lecture(null, courseID, id, name);
+		Database.editLecture(lecture);
+		lectureIDInput.setText(id);
+		lectureNameInput.setText(name);
+		updateLectureTable(Database.lectures(courseID));
+	}
+	
+	@FXML
 	private void deleteLecture(){
 		Lecture lecture = lectureTable.getSelectionModel().getSelectedItem();
 		String courseID = courseTable.getSelectionModel().getSelectedItem().getCourseID();
@@ -328,6 +341,19 @@ public class ProgramController implements Initializable{
 		topicNumber.setText("");
 		topicNameInput.setText("");
 		updateTopicTable(Database.Topic(lectureID));
+	}
+	
+	@FXML
+	private void editTopic(){
+		String number = topicTable.getSelectionModel().getSelectedItem().getTopicNumber();
+		String name = topicTable.getSelectionModel().getSelectedItem().getTopicName();
+		String topicID = topicTable.getSelectionModel().getSelectedItem().getLectureID();
+		
+		Topic topic = new Topic(null, topicID, number , name);
+		Database.editTopic(topic);
+		topicNumber.setText(number);
+		topicNameInput.setText(name);
+		updateTopicTable(Database.Topic(topicID));
 	}
 	
 	@FXML
