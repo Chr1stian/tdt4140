@@ -15,6 +15,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
@@ -46,7 +48,7 @@ public class ProgramController implements Initializable{
 	private Text title_leftPane, courseNameDisplay, courseIdText, lectureNumberText;
 	
 	@FXML
-	private Button btn_leftPane, sidebarNextButton, sidebarBackButton;
+	private Button btn_leftPane, sidebarNextButton, sidebarBackButton, deleteButton;
 	
 	@FXML
 	private TableView<Course> courseTable;
@@ -319,13 +321,50 @@ public class ProgramController implements Initializable{
 		updateLectureTable(Database.lectures(courseID));
 	}
 	
+	/*
+	 * Makes it possible to delete the selected Lecture or Topic
+	 */
+	
 	@FXML
-	private void deleteLecture(){
-		Lecture lecture = lectureTable.getSelectionModel().getSelectedItem();
-		String courseID = courseTable.getSelectionModel().getSelectedItem().getCourseID();
-		Database.deleteLecture(lecture);
-		updateLectureTable(Database.lectures(courseID));
-	}
+	private void deleteItem(){
+		
+		if(sidebarTable == "lecture"){
+		
+			Lecture lecture = lectureTable.getSelectionModel().getSelectedItem();
+			String courseID = courseTable.getSelectionModel().getSelectedItem().getCourseID();
+		
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Delete Lecture: " + lecture);
+			alert.setHeaderText("Are you sure you want to delete this lecture?" + lecture); 
+		
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK){
+				// ... user chose OK
+				Database.deleteLecture(lecture);
+				updateLectureTable(Database.lectures(courseID));
+			} else {
+				alert.close();// ... user chose CANCEL or closed the dialog
+			}
+		}
+		else if(sidebarTable == "topic"){
+			
+		    	Topic topic = topicTable.getSelectionModel().getSelectedItem();
+		    	String lectureID = lectureTable.getSelectionModel().getSelectedItem().getLectureID();
+				
+				Alert alert = new Alert(AlertType.CONFIRMATION);
+				alert.setTitle("Delete Topic: " + topic);
+				alert.setHeaderText("Are you sure you want to delete this topic?" + topic);
+
+				Optional<ButtonType> result = alert.showAndWait();
+				if (result.get() == ButtonType.OK){
+				    // ... user chose OK
+		        	Database.deleteTopic(topic);
+		        	updateTopicTable(Database.Topic(lectureID));
+				} else {
+					alert.close();// ... user chose CANCEL or closed the dialog
+				}
+			}
+		}
 	
 	/*
 	 *  TOPIC ADD - DELETE - UPDATE
@@ -354,15 +393,6 @@ public class ProgramController implements Initializable{
 		topicNumber.setText(number);
 		topicNameInput.setText(name);
 		updateTopicTable(Database.Topic(topicID));
-	}
-	
-	@FXML
-	private void deleteTopic(){
-		Topic topic = topicTable.getSelectionModel().getSelectedItem();
-		String lectureID = lectureTable.getSelectionModel().getSelectedItem().getLectureID();
-		Database.deleteTopic(topic);
-		updateTopicTable(Database.Topic(lectureID));
-
 	}
 	
 	/*
