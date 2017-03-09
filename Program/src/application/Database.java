@@ -121,6 +121,22 @@ public class Database {
         }
     }
     
+    // Edit lecture
+    public static void editLecture(Lecture lecture){
+    	try{
+            Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO lecture (courseID, number, name) VALUES (?,?,?)");
+            stmt.setInt(1, Integer.parseInt(lecture.getCourseID()));
+            stmt.setInt(2, Integer.parseInt(lecture.getlectureNumber()));
+            stmt.setString(3, lecture.getlectureName());
+            
+            stmt.executeUpdate();
+    	}
+        catch(SQLException e){
+        	System.out.println(e);
+        }
+    }
+    
     // Delete lecture
     public static void deleteLecture(Lecture lecture){
     	try{
@@ -141,6 +157,22 @@ public class Database {
      */
     // Add topic
     public static void createTopic(Topic topic){
+    	try{
+            Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO topic (lectureID, number, name) VALUES (?,?,?)");
+            stmt.setInt(1, Integer.parseInt(topic.getLectureID()));
+            stmt.setInt(2, Integer.parseInt(topic.getTopicNumber()));
+            stmt.setString(3, topic.getTopicName());
+            
+            stmt.executeUpdate();
+    	}
+        catch(SQLException e){
+        	System.out.println(e);
+        }
+    }
+    
+    //Edit topic
+    public static void editTopic(Topic topic){
     	try{
             Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO topic (lectureID, number, name) VALUES (?,?,?)");
