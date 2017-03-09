@@ -178,6 +178,9 @@ public class Database {
     
     public static ObservableList<Question> Question(String topicID){
     	ObservableList<Question> questionList = FXCollections.observableArrayList();
+    	if(topicID == "empty"){
+    		return questionList;
+    	}
     	try{
     		Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
            	PreparedStatement stmt = conn.prepareStatement("SELECT * FROM question WHERE topicID = " + topicID);
