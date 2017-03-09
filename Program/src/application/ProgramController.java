@@ -25,6 +25,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import javafx.util.Pair;
 
 public class ProgramController implements Initializable{
 	
@@ -85,11 +87,12 @@ public class ProgramController implements Initializable{
 	@FXML
     public void showNewItemDialog() {
         Dialog<ButtonType> dialog = new Dialog<>();
-        dialog.initOwner(mainPane.getScene().getWindow());
-        dialog.setTitle("Add New Todo Item");
-        dialog.setHeaderText("Use this dialog to create a new todo item");
+        //Stage popupStage = new Stage();
+        //dialog.initOwner(mainPane.getScene().getWindow());
+        //dialog.setTitle("Wololololo");
+        //dialog.setHeaderText("Use this dialog to do incredible things");
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("Program.fxml"));
+        fxmlLoader.setLocation(getClass().getResource("PopUpWindow.fxml"));
         try {
             dialog.getDialogPane().setContent(fxmlLoader.load());
 
@@ -104,8 +107,8 @@ public class ProgramController implements Initializable{
 
         Optional<ButtonType> result = dialog.showAndWait();
         /*if(result.isPresent() && result.get() == ButtonType.OK) {
-            DialogController controller = fxmlLoader.getController();
-            TodoItem newItem = controller.processResults();
+            PopupController controller = fxmlLoader.getController();
+            /*TodoItem newItem = controller.processResults();
             todoListView.getItems().setAll(TodoData.getInstance().getTodoItems());
             todoListView.getSelectionModel().select(newItem);
             System.out.println("OK pressed");
