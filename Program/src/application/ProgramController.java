@@ -36,7 +36,7 @@ public class ProgramController implements Initializable{
 	private Text title_leftPane, courseNameDisplay, courseIdText, lectureNumberText;
 	
 	@FXML
-	private Button btn_leftPane;
+	private Button btn_leftPane, sidebarNextButton, sidebarBackButton;
 	
 	@FXML
 	private TableView<Course> courseTable;
@@ -343,6 +343,7 @@ public class ProgramController implements Initializable{
 				lectureNumberText.setText(lectureTable.getSelectionModel().getSelectedItem().getlectureNumber());
 			}
 		}
+		enableDisableButton();
 	}
 	
 	@FXML
@@ -354,6 +355,7 @@ public class ProgramController implements Initializable{
 			title_leftPane.setText("Lectures");
 			topicTable.setVisible(false);
 			lectureTable.setVisible(true);
+			updateQuestionTable(Database.Question("empty"));
 			
 		}else if(sidebarTable == "lecture"){
 			sidebarTable = "course";
@@ -361,6 +363,19 @@ public class ProgramController implements Initializable{
 			courseIdText.setText("Not selected");
 			lectureTable.setVisible(false);
 			courseTable.setVisible(true);
+			updateQuestionTable(Database.Question("empty"));
+		}
+		enableDisableButton();
+	}
+	
+	private void enableDisableButton(){
+		if(sidebarTable == "topic"){
+			sidebarNextButton.setDisable(true);
+		}else if(sidebarTable == "course"){
+			sidebarBackButton.setDisable(true);
+		}else{
+			sidebarNextButton.setDisable(false);
+			sidebarBackButton.setDisable(false);
 		}
 	}
 	
