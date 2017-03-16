@@ -334,12 +334,14 @@ public class ProgramController implements Initializable{
 			String courseID = courseTable.getSelectionModel().getSelectedItem().getCourseID();
 		
 			Alert alert = new Alert(AlertType.CONFIRMATION);
-			alert.setTitle("Delete Lecture: " + lecture);
-			alert.setHeaderText("Are you sure you want to delete this lecture?" + lecture); 
+			alert.setTitle("Delete Lecture");
+			alert.setHeaderText("Are you sure you want to delete the selected lecture?"); 
 		
 			Optional<ButtonType> result = alert.showAndWait();
 			if (result.get() == ButtonType.OK){
 				// ... user chose OK
+				lecture = lectureTable.getSelectionModel().getSelectedItem();
+				courseID = courseTable.getSelectionModel().getSelectedItem().getCourseID();
 				Database.deleteLecture(lecture);
 				updateLectureTable(Database.lectures(courseID));
 			} else {
@@ -352,12 +354,15 @@ public class ProgramController implements Initializable{
 		    	String lectureID = lectureTable.getSelectionModel().getSelectedItem().getLectureID();
 				
 				Alert alert = new Alert(AlertType.CONFIRMATION);
-				alert.setTitle("Delete Topic: " + topic);
-				alert.setHeaderText("Are you sure you want to delete this topic?" + topic);
+				alert.setTitle("Delete Topic");
+				alert.setHeaderText("Are you sure you want to delete the selected topic?");
+
 
 				Optional<ButtonType> result = alert.showAndWait();
 				if (result.get() == ButtonType.OK){
 				    // ... user chose OK
+			    	topic = topicTable.getSelectionModel().getSelectedItem();
+			    	lectureID = lectureTable.getSelectionModel().getSelectedItem().getLectureID();
 		        	Database.deleteTopic(topic);
 		        	updateTopicTable(Database.Topic(lectureID));
 				} else {
