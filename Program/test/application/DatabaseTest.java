@@ -113,8 +113,6 @@ public class DatabaseTest {
 		Database.deleteTopic(topic);
 		ObservableList<Topic> testTopics = Database.topics(testLectureID);
 		int size = testTopics.size();
-		assertEquals(size, 1);
-		
+		assertEquals(size, 1);	
 	}
-
 }
