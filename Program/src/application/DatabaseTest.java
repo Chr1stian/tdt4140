@@ -12,6 +12,8 @@ import javafx.collections.ObservableList;
 public class DatabaseTest {
 	String testLectureID = "3";
 	String testCourseID = "3";
+	String testLectureNumber = "5";
+	String testLectureName = "testLecture";
 
 	@Test
 	public void testTopics() {
@@ -46,6 +48,44 @@ public class DatabaseTest {
 		assertEquals(testLecture.getLectureID(), lecture.getLectureID());
 		assertEquals(testLecture.getlectureName(), lecture.getlectureName());
 		assertEquals(testLecture.getlectureNumber(), lecture.getlectureNumber());
+	}
+	
+	@Test
+	public void testCourses() {
+		ObservableList<Course> test = FXCollections.observableArrayList();
+		ArrayList<String> testArray = new ArrayList<String>();
+		ObservableList<Course> courses = Database.courses();
+		Course course = courses.get(0);
+		testArray.add("1");
+		testArray.add("TDT4140");
+		testArray.add("Software Engineering");
+		test.add(new Course(testArray.get(0), testArray.get(1), testArray.get(2)));
+		Course testCourse = test.get(0);
+		assertEquals(testCourse.getCourseID(), course.getCourseID());
+		assertEquals(testCourse.getCourseID(), course.getCourseID());
+		assertEquals(testCourse.getCourseName(), course.getCourseName());
+	}
+	
+	@Test
+	public void testCreateLecture(){
+		Lecture testLecture = new Lecture(null, testCourseID, testLectureNumber, testLectureName);
+		Database.createLecture(testLecture);
+		ObservableList<Lecture> lectures = Database.lectures(testCourseID);
+		Lecture lecture = lectures.get(4);
+		assertEquals(testLecture.getCourseID(), lecture.getCourseID());
+		assertEquals(testLecture.getlectureName(), lecture.getlectureName());
+		assertEquals(testLecture.getlectureNumber(), lecture.getlectureNumber());
+	}
+	
+	@Test
+	public void testDeleteLecture(){
+		ObservableList<Lecture> lectures = Database.lectures(testCourseID);
+		Lecture lecture = lectures.get(4);
+		Database.deleteLecture(lecture);
+		ObservableList<Lecture> testLectures = Database.lectures(testCourseID);
+		int size = testLectures.size();
+		assertEquals(size, 4);
+		
 	}
 
 }
