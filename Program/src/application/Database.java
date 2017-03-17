@@ -31,7 +31,7 @@ public class Database {
     }
     
     // Finds all topics from a given lecture (lectureID)
-    public static ObservableList<Topic> Topic(String lectureID){
+    public static ObservableList<Topic> topics(String lectureID){
     	ObservableList<Topic> topicList = FXCollections.observableArrayList();
     	if(lectureID == "empty"){
     		return topicList;
@@ -54,12 +54,12 @@ public class Database {
         }
     }
     
-    // Finds all lectures from a given course (id)
-    public static ObservableList<Lecture> lectures(String id){
+    // Finds all lectures from a given course (courseID)
+    public static ObservableList<Lecture> lectures(String courseID){
     	ObservableList<Lecture> lectureList = FXCollections.observableArrayList();
     	try{
             Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM lecture WHERE courseID = " + id);
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM lecture WHERE courseID = " + courseID);
 
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
