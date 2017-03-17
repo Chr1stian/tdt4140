@@ -1,3 +1,13 @@
 language: java
 
-before_script: cd Program
+jdk:
+  - oraclejdk8
+
+addons:
+  apt:
+    packages:
+      - oracle-java8-installer
+      
+before_install: cd Program
+
+script: ./gradlew check
