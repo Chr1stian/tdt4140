@@ -364,7 +364,7 @@ public class ProgramController implements Initializable{
 			    	topic = topicTable.getSelectionModel().getSelectedItem();
 			    	lectureID = lectureTable.getSelectionModel().getSelectedItem().getLectureID();
 		        	Database.deleteTopic(topic);
-		        	updateTopicTable(Database.Topic(lectureID));
+		        	updateTopicTable(Database.topics(lectureID));
 				} else {
 					alert.close();// ... user chose CANCEL or closed the dialog
 				}
@@ -384,7 +384,7 @@ public class ProgramController implements Initializable{
 		Database.createTopic(topic);
 		topicNumber.setText("");
 		topicNameInput.setText("");
-		updateTopicTable(Database.Topic(lectureID));
+		updateTopicTable(Database.topics(lectureID));
 	}
 	
 	@FXML
@@ -397,7 +397,7 @@ public class ProgramController implements Initializable{
 		Database.editTopic(topic);
 		topicNumber.setText(number);
 		topicNameInput.setText(name);
-		updateTopicTable(Database.Topic(topicID));
+		updateTopicTable(Database.topics(topicID));
 	}
 	
 	/*
@@ -441,7 +441,7 @@ public class ProgramController implements Initializable{
 			if(lectureTable.getSelectionModel().getSelectedItem() != null){
 				search_leftPane.clear();
 				sidebarTable = "topic";
-				updateTopicTable(Database.Topic(lectureTable.getSelectionModel().getSelectedItem().getLectureID()));
+				updateTopicTable(Database.topics(lectureTable.getSelectionModel().getSelectedItem().getLectureID()));
 				lectureTable.setVisible(false);
 				topicTable.setVisible(true);
 				title_leftPane.setText("Topics");
