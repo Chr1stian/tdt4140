@@ -14,6 +14,8 @@ public class DatabaseTest {
 	String testCourseID = "3";
 	String testLectureNumber = "5";
 	String testLectureName = "testLecture";
+	String testTopicNumber = "2";
+	String testTopicName = "testTopic";
 
 	@Test
 	public void testTopics() {
@@ -75,16 +77,43 @@ public class DatabaseTest {
 		assertEquals(testLecture.getCourseID(), lecture.getCourseID());
 		assertEquals(testLecture.getlectureName(), lecture.getlectureName());
 		assertEquals(testLecture.getlectureNumber(), lecture.getlectureNumber());
+		Database.deleteLecture(lecture);
 	}
 	
 	@Test
 	public void testDeleteLecture(){
+		Lecture testLecture = new Lecture(null, testCourseID, testLectureNumber, testLectureName);
+		Database.createLecture(testLecture);
 		ObservableList<Lecture> lectures = Database.lectures(testCourseID);
 		Lecture lecture = lectures.get(4);
 		Database.deleteLecture(lecture);
 		ObservableList<Lecture> testLectures = Database.lectures(testCourseID);
 		int size = testLectures.size();
 		assertEquals(size, 4);
+	}
+	@Test
+	public void testCreateTopic(){
+		Topic testTopic = new Topic(null, testLectureID, testTopicNumber, testTopicName);
+		Database.createTopic(testTopic);
+		ObservableList<Topic> topics = Database.topics(testLectureID);
+		Topic topic = topics.get(1);
+		assertEquals(testTopic.getLectureID(), topic.getLectureID());
+		assertEquals(testTopic.getTopicName(), topic.getTopicName());
+		assertEquals(testTopic.getTopicNumber(), topic.getTopicNumber());
+		Database.deleteTopic(topic);
+	}
+	
+	@Test
+	public void testDeleteTopic(){
+		Topic testTopic = new Topic(null, testLectureID, testTopicNumber, testTopicName);
+		Database.createTopic(testTopic);
+		ObservableList<Topic> topics = Database.topics(testLectureID);
+		Topic topic = topics.get(1);
+		System.out.println(topic.getTopicID());
+		Database.deleteTopic(topic);
+		ObservableList<Topic> testTopics = Database.topics(testLectureID);
+		int size = testTopics.size();
+		assertEquals(size, 1);
 		
 	}
 
