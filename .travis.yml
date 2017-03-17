@@ -1,0 +1,4 @@
+language: java
+
+before_script: cd program
+before_install: cd program
