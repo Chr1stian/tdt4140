@@ -7,8 +7,7 @@ addons:
   apt:
     packages:
       - oracle-java8-installer
-
-before_script: cd Program
+      
 before_install: cd Program
 
 script: ./gradlew check
