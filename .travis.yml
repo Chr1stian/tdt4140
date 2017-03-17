@@ -2,3 +2,5 @@ language: java
 
 before_script: cd Program
 before_install: cd Program
+
+./gradlew check
