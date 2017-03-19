@@ -1,22 +1,52 @@
 package application;
 
-import java.io.IOException;
-import java.util.Optional;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
-public class PopupController {
+public class PopupController implements Initializable{
 	
-    /*@FXML
-    public void addNewLecture() {
-        Dialog<ButtonType> dialog = new Dialog<>();
-        //dialog.initOwner(mainBorderPane.getScene().getWindow());
-        dialog.setTitle("Add New Lecture");
-        dialog.setHeaderText("Use this window to add a new lecture to your course");
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("PopUpWindow.fxml"));
-    }*/
+	private Boolean submitClicked = false;
+	
+	@FXML
+	private Text popupTitle, popupTopText, popupBotText;
+	
+	@FXML
+	private TextField popupTopInput, popupBotInput;
+	
+	@FXML
+	private Button popupSubmit;
+	
+	@FXML
+	private Stage popupStage;
+	
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		System.out.println("Sup");
+	}
+	
+	public void changeText(String s){
+		if(s == "course"){
+			popupTitle.setText("Course");
+		}
+	}
+	
+	public Boolean isSubmitClicked(){
+		return submitClicked;
+	}
+	
+	public void setStage(Stage popupStage){
+		this.popupStage = popupStage;
+	}
+	
+	public void setLecture(Lecture lecture){
+		popupTitle.setText("LOL");
+	}
+	
 }
