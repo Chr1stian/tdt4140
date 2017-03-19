@@ -43,6 +43,7 @@ topicID INT NOT NULL,
 userID INT NOT NULL,
 question TEXT NOT NULL,
 answer TEXT,
+rating INT NOT NULL,
 CONSTRAINT Question_PK PRIMARY KEY(questionID),
 CONSTRAINT QuestionTopic_FK FOREIGN KEY(topicID) REFERENCES topic(topicID) ON DELETE CASCADE ON UPDATE CASCADE,
 CONSTRAINT QuestionUser_FK FOREIGN KEY(userID) REFERENCES user(userID) ON DELETE CASCADE ON UPDATE CASCADE
@@ -137,9 +138,9 @@ VALUES
 (32, 13, 1, 'MMI-historie'),
 (39, 20, 1, 'Tull');
 
-INSERT INTO question(questionID, topicID, userID, question)
+INSERT INTO question(questionID, topicID, userID, question, rating)
 VALUES
-(1, 10, 1, 'Hvor mange øvinger må man ha godkjent');
+(1, 10, 1, 'Hvor mange øvinger må man ha godkjent', 0);
 
 INSERT INTO rating(ratingID, topicID, userID, stars)
 VALUES

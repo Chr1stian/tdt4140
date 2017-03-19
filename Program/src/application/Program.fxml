@@ -43,9 +43,9 @@
                         <TextField fx:id="search_leftPane" prefHeight="37.0" prefWidth="302.0" promptText="Search..." AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 						<Button fx:id="sidebarNextButton" mnemonicParsing="false" onAction="#nextButton" prefHeight="37.0" prefWidth="154.0" text="Next" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="37.0" />
                         <Button fx:id="sidebarBackButton" disable="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#backButton" prefHeight="37.0" prefWidth="154.0" text="Back" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="37.0" />
-                        <Button mnemonicParsing="false" onAction="#showNewItemDialog" prefHeight="37.0" prefWidth="104.0" text="Add" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
-                        <Button mnemonicParsing="false" onAction="#showNewItemDialog" prefHeight="37.0" prefWidth="104.0" text="Edit" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="102.0" AnchorPane.rightAnchor="102.0" />
-                        <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteItem" prefHeight="37.0" prefWidth="104.0" text="Delete" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />        
+                        <Button mnemonicParsing="false" prefHeight="37.0" prefWidth="104.0" text="Add" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
+                        <Button mnemonicParsing="false" onAction="#edit" prefHeight="37.0" prefWidth="104.0" text="Edit" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="102.0" AnchorPane.rightAnchor="102.0" />
+                        <Button mnemonicParsing="false" prefHeight="37.0" prefWidth="104.0" text="Delete" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />        
                      </children>
                   </AnchorPane>
                   <GridPane layoutX="27.0" layoutY="59.0" prefHeight="65.0" prefWidth="306.0">
@@ -133,6 +133,7 @@
                         <content>
                           <AnchorPane fx:id="questionTab" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
+<<<<<<< 5455c08b1f8f30551e99a9f9195ac6ec293a92ee
                                     <TableView fx:id="questionTable" layoutX="62.0" layoutY="45.0" prefHeight="631.0" prefWidth="739.0" tableMenuButtonVisible="false">
                                        <columns>
                                           <TableColumn fx:id="questionTableQuestion" maxWidth="5000.0" minWidth="0.0" prefWidth="402.0" resizable="false" text="Question" />
@@ -141,6 +142,15 @@
                                     </TableView>
                                     <TextField fx:id="answerInput" layoutX="118.0" layoutY="687.0" prefHeight="117.0" prefWidth="616.0" promptText="Write your answer to the selected question here..." />
                                     <Button fx:id="submitAnswer" layoutX="588.0" layoutY="804.0" mnemonicParsing="false" onAction="#answerQuestion" text="Submit Answer" />
+=======
+                                    <TableView fx:id="questionTable" layoutX="118.0" layoutY="37.0" prefHeight="616.0" prefWidth="534.0" tableMenuButtonVisible="false">
+                                       <columns>
+                                          <TableColumn fx:id="questionTableQuestion" maxWidth="5000.0" minWidth="0.0" prefWidth="529.0" resizable="false" text="Questions" />
+                                       </columns>
+                                    </TableView>
+                                    <TextField layoutX="118.0" layoutY="687.0" prefHeight="117.0" prefWidth="616.0" promptText="Write your answer to the selected question here..." />
+                                    <Button layoutX="614.0" layoutY="804.0" mnemonicParsing="false" text="Submit Answer" />
+>>>>>>> Testing
                                  </children></AnchorPane>
                         </content>
                       </Tab>

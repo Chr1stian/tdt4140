@@ -17,6 +17,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
@@ -27,6 +28,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
@@ -34,9 +36,11 @@ public class ProgramController implements Initializable{
 	
 	//private int toggleLeft = 0;
 	
-	String lastClicked = "";
+	private String lastClicked = "";
 	
-	String sidebarTable = "course";
+	private String sidebarTable = "course";
+	
+	private Main main;
 	
 	@FXML
 	private AnchorPane mainPane;
@@ -82,43 +86,47 @@ public class ProgramController implements Initializable{
 	// Initializes the program by showing the correct table (CourseTable in the sidebar)
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		lectureTable.setVisible(false);
 		updateCourseTable();
 	}
 	
+	 public void setMain(Main main) {
+	    this.main = main;
+	 }
+	
+	 @FXML
+	 public void edit(){
+		 if(sidebarTable == "lecture"){
+			 System.out.println("Hey man, whats up! Lecture here");
+			 main.showPopup(lectureTable.getSelectionModel().getSelectedItem());
+		 }else if(sidebarTable == "topic"){
+			 System.out.println("topic bro");
+		 }
+	 }
+	 
+	 /*
 	@FXML
-    public void showNewItemDialog() {
-        Dialog<ButtonType> dialog = new Dialog<>();
-        //Stage popupStage = new Stage();
+    public void showPopup() {
+       // Dialog<ButtonType> dialog = new Dialog<>();
+        Stage popupStage = new Stage();
         //dialog.initOwner(mainPane.getScene().getWindow());
         //dialog.setTitle("Wololololo");
         //dialog.setHeaderText("Use this dialog to do incredible things");
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("PopUpWindow.fxml"));
+        fxmlLoader.setLocation(Main.class.getResource("Popup.fxml"));
         try {
-            dialog.getDialogPane().setContent(fxmlLoader.load());
+            //dialog.getDialogPane().setContent(fxmlLoader.load());
+        	Scene popupScene = new Scene(fxmlLoader.load());
+        	popupStage.setScene(popupScene);
 
         } catch(IOException e) {
             System.out.println("Couldn't load the dialog");
             e.printStackTrace();
             return;
         }
-
-        dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
-        dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
-
-        Optional<ButtonType> result = dialog.showAndWait();
-        /*if(result.isPresent() && result.get() == ButtonType.OK) {
-            PopupController controller = fxmlLoader.getController();
-            /*TodoItem newItem = controller.processResults();
-            todoListView.getItems().setAll(TodoData.getInstance().getTodoItems());
-            todoListView.getSelectionModel().select(newItem);
-            System.out.println("OK pressed");
-        } else {
-            System.out.println("Cancel pressed");
-        }*/
+        //PopupController.changeText(sidebarTable);
+        popupStage.showAndWait();
     }
-	
+	*/
 	
 	/*
 	 * FILL SIDEBAR TABLE WITH COURSES - LECTURES - TOPICS
