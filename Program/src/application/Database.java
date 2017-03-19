@@ -11,9 +11,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Database {
-	private static String mysqlAddr = "jdbc:mysql://mysql.stud.ntnu.no:3306/prodoteam_db?allowMultiQueries=true";
-    private static String mysqlUser = "chrisnyv_demo";
-    private static String mysqlPass = "rM48DmzH";
+	private static String mysqlAddr = "jdbc:mysql://sql11.freemysqlhosting.net:3306/sql11164632?allowMultiQueries=true";
+    private static String mysqlUser = "sql11164632";
+    private static String mysqlPass = "JKb6SqBp59";
     
     
     public static boolean runQuery(String query, String... args){
