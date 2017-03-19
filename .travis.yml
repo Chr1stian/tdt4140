@@ -9,5 +9,3 @@ addons:
       - oracle-java8-installer
       
 before_install: cd Program
-
-script: ./gradlew check
