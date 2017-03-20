@@ -33,7 +33,7 @@ public class Main extends Application{
 		controller.setMain(this);
 	}
 	
-	public boolean showPopup(Lecture lecture, Topic topic, String LorT) {
+	public boolean showPopup(Lecture lecture, Topic topic, String lecOrTop, String number) {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
@@ -41,7 +41,6 @@ public class Main extends Application{
 
             // Create the dialog Stage.
             Stage popupStage = new Stage();
-            popupStage.setTitle("Edit lecture");
             popupStage.initModality(Modality.WINDOW_MODAL);
             popupStage.initOwner(primaryStage);
             
@@ -52,14 +51,18 @@ public class Main extends Application{
             PopupController controller = loader.getController();
             controller.setStage(popupStage);
             if(lecture != null){
-            	controller.setLecture(lecture);
+            	controller.editLecture(lecture);
+            	popupStage.setTitle("Edit lecture");
             }else if(topic != null){
-            	controller.setTopic(topic);
+            	controller.editTopic(topic);
+            	popupStage.setTitle("Edit topic");
             }else{
-            	if(LorT == "lecture"){
-            		controller.addLecture();
+            	if(lecOrTop == "lecture"){
+            		controller.addLecture(number);
+            		popupStage.setTitle("Add lecture");
             	}else{
-            		controller.addTopic();
+            		controller.addTopic(number);
+            		popupStage.setTitle("Add topic");
             	}
             }
 
@@ -72,28 +75,6 @@ public class Main extends Application{
             return false;
         }
     }
-	/*
-    Stage popupStage = new Stage();
-    //dialog.initOwner(mainPane.getScene().getWindow());
-    //dialog.setTitle("Wololololo");
-    //dialog.setHeaderText("Use this dialog to do incredible things");
-    FXMLLoader fxmlLoader = new FXMLLoader();
-    fxmlLoader.setLocation(Main.class.getResource("Popup.fxml"));
-    try {
-        //dialog.getDialogPane().setContent(fxmlLoader.load());
-    	Scene popupScene = new Scene(fxmlLoader.load());
-    	popupStage.setScene(popupScene);
-
-    } catch(IOException e) {
-        System.out.println("Couldn't load the dialog");
-        e.printStackTrace();
-        return;
-    }
-    //PopupController.changeText(sidebarTable);
-    popupStage.showAndWait();
-}*/
-
-
 	
 	public Stage getStage(){
         return primaryStage;
