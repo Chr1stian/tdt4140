@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class DatabaseTest {
+	String testTopicID = "10";
 	String testLectureID = "3";
 	String testCourseID = "3";
 	String testLectureNumber = "5";
@@ -109,10 +110,35 @@ public class DatabaseTest {
 		Database.createTopic(testTopic);
 		ObservableList<Topic> topics = Database.topics(testLectureID);
 		Topic topic = topics.get(1);
-		System.out.println(topic.getTopicID());
 		Database.deleteTopic(topic);
 		ObservableList<Topic> testTopics = Database.topics(testLectureID);
 		int size = testTopics.size();
 		assertEquals(size, 1);	
+	}
+	
+	@Test
+	public void testQuestion(){
+		String testUserID = "1";
+		String testQuest = "Hvor mange øvinger må man ha godkjent";
+		String testAnswer = "3";
+		Question testQuestion = new Question(null, testTopicID, testUserID, testQuest, testAnswer);
+		ObservableList<Question> questions = Database.Question(testTopicID);
+		Question question = questions.get(0);
+		assertEquals(question.getAnswer(), testQuestion.getAnswer());
+		assertEquals(question.getQuestion(), testQuestion.getQuestion());
+		assertEquals(question.getUserID(), testQuestion.getUserID());
+		assertEquals(question.getTopicID(), testQuestion.getTopicID());
+	}
+	
+	@Test
+	public void testAnswerQuestion(){
+		String testAnswer = "testAnswer";
+		ObservableList<Question> questions = Database.Question(testTopicID);
+		Question question = questions.get(0);
+		Database.answerQuestion(question, testAnswer);
+		ObservableList<Question> testQuestions = Database.Question(testTopicID);
+		Question testQuestion = testQuestions.get(0);
+		assertEquals(testQuestion.getAnswer(), testAnswer);
+		Database.answerQuestion(testQuestion, "3");	
 	}
 }
