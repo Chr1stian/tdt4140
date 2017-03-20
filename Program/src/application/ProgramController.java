@@ -70,7 +70,7 @@ public class ProgramController implements Initializable{
 	private TableView<Question> questionTable;
 	
 	@FXML
-	private TableColumn<Question, String> questionTableQuestion; 
+	private TableColumn<Question, String> questionTableQuestion, questionTableAnswer; 
 	
 	
 	@FXML
@@ -372,7 +372,8 @@ public class ProgramController implements Initializable{
 	// Method for filling the table in the "Lecture" tab with topics
 	private void updateQuestionTable(ObservableList<Question> questionList){
 		// 0. Initialize the columns.
-		questionTableQuestion.setCellValueFactory(cellData -> cellData.getValue().questionNameProperty());
+		questionTableQuestion.setCellValueFactory(cellData -> cellData.getValue().questionProperty());
+		questionTableAnswer.setCellValueFactory(cellData -> cellData.getValue().answerProperty());
 		// 1. Add data to the table.
 		questionTable.setItems(questionList);
 	}
@@ -388,19 +389,17 @@ public class ProgramController implements Initializable{
 	}
 	
 	//Answering questions asked from students
-	
 	@FXML
 	private void answerQuestion(){
-		String questionID = questionTable.getSelectionModel().getSelectedItem().getquestionID();
-		String topicID = topicTable.getSelectionModel().getSelectedItem().getTopicID();
-		String answerQuestion =  answerInput.getText();
-		//String userID = questionTable.getSelectionModel().getSelectedItem.getuserID();
-		
-		//Får en SQLExcepetion: Field "userID" doesn't have a default value....
-		
-		Question question = new Question(questionID, topicID, null, null ,answerQuestion);
-		Database.answerQuestion(question);
+		String answer =  answerInput.getText();
+		Question question = questionTable.getSelectionModel().getSelectedItem();
+		Database.answerQuestion(question, answer);
 		answerInput.setText("");
+		try {
+			displayQuestions();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/*
