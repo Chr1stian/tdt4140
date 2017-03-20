@@ -10,7 +10,6 @@ public class Question {
 	private final StringProperty userID;
 	private final StringProperty question;
 	private final StringProperty answer;
-	//private final StringProperty userID;
 
 	public Question(String questionID, String topicID, String userID, String question, String answer) {
 		this.questionID = new SimpleStringProperty(questionID);
@@ -18,7 +17,6 @@ public class Question {
 		this.userID = new SimpleStringProperty(userID);
 		this.question = new SimpleStringProperty(question);
 		this.answer = new SimpleStringProperty(answer);
-		//this.userID = new SimpleStringProperty(userID);
 	}
 
 	public String getQuestionID() {
@@ -80,18 +78,5 @@ public class Question {
 	public StringProperty answerProperty(){
 		return answer;
 	}
-	/*
-	 * 	public String getUserID(){
-		return userID.get();
-	}
-	
-	public void setUserID(String userID){
-		this.userID.set(userID);
-	}
-	
-	public StringProperty userID(){
-		return userID;
-	}
-	 */
 
 }
