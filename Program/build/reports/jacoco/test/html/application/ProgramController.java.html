@@ -48,7 +48,7 @@ import javafx.util.Pair;
 	private Text title_leftPane, courseNameDisplay, courseIdText, lectureNumberText;
 	
 	@FXML
-	private Button btn_leftPane, sidebarNextButton, sidebarBackButton, deleteButton;
+	private Button btn_leftPane, sidebarNextButton, sidebarBackButton, submitAnswer, deleteButton;
 	
 	@FXML
 	private TableView&lt;Course&gt; courseTable;
@@ -72,11 +72,11 @@ import javafx.util.Pair;
 	private TableView&lt;Question&gt; questionTable;
 	
 	@FXML
-	private TableColumn&lt;Question, String&gt; questionTableQuestion; 
+	private TableColumn&lt;Question, String&gt; questionTableQuestion, questionTableAnswer; 
 	
 	
 	@FXML
-	private TextField lectureIDInput, lectureNameInput, topicNameInput, topicNumberInput, search_leftPane;
+	private TextField lectureIDInput, lectureNameInput, topicNameInput, topicNumberInput, search_leftPane, answerInput;
 
 	
 	// Initializes the program by showing the correct table (CourseTable in the sidebar)
@@ -407,82 +407,97 @@ import javafx.util.Pair;
 	// Method for filling the table in the &quot;Lecture&quot; tab with topics
 	private void updateQuestionTable(ObservableList&lt;Question&gt; questionList){
 		// 0. Initialize the columns.
-<span class="nc" id="L410">		questionTableQuestion.setCellValueFactory(cellData -&gt; cellData.getValue().questionNameProperty());</span>
+<span class="nc" id="L410">		questionTableQuestion.setCellValueFactory(cellData -&gt; cellData.getValue().questionProperty());</span>
+<span class="nc" id="L411">		questionTableAnswer.setCellValueFactory(cellData -&gt; cellData.getValue().answerProperty());</span>
 		// 1. Add data to the table.
-<span class="nc" id="L412">		questionTable.setItems(questionList);</span>
-<span class="nc" id="L413">	}</span>
+<span class="nc" id="L413">		questionTable.setItems(questionList);</span>
+<span class="nc" id="L414">	}</span>
 	
 	// Method for finding questions from the clicked topic
 	@FXML
 	private void displayQuestions() throws IOException{
-<span class="nc bnc" id="L418" title="All 2 branches missed.">		if(sidebarTable == &quot;topic&quot;){</span>
-<span class="nc bnc" id="L419" title="All 2 branches missed.">			if(topicTable.getSelectionModel().getSelectedItem() != null){</span>
-<span class="nc" id="L420">				updateQuestionTable(Database.Question(topicTable.getSelectionModel().getSelectedItem().getTopicID()));</span>
+<span class="nc bnc" id="L419" title="All 2 branches missed.">		if(sidebarTable == &quot;topic&quot;){</span>
+<span class="nc bnc" id="L420" title="All 2 branches missed.">			if(topicTable.getSelectionModel().getSelectedItem() != null){</span>
+<span class="nc" id="L421">				updateQuestionTable(Database.Question(topicTable.getSelectionModel().getSelectedItem().getTopicID()));</span>
 			}
 		}
-<span class="nc" id="L423">	}</span>
+<span class="nc" id="L424">	}</span>
+	
+	//Answering questions asked from students
+	@FXML
+	private void answerQuestion(){
+<span class="nc" id="L429">		String answer =  answerInput.getText();</span>
+<span class="nc" id="L430">		Question question = questionTable.getSelectionModel().getSelectedItem();</span>
+<span class="nc" id="L431">		Database.answerQuestion(question, answer);</span>
+<span class="nc" id="L432">		answerInput.setText(&quot;&quot;);</span>
+		try {
+<span class="nc" id="L434">			displayQuestions();</span>
+<span class="nc" id="L435">		} catch (IOException e) {</span>
+<span class="nc" id="L436">			e.printStackTrace();</span>
+<span class="nc" id="L437">		}</span>
+<span class="nc" id="L438">	}</span>
 	
 	/*
 	 * SIDEBAR BACK - NEXT BUTTONS
 	 */
 	@FXML
 	private void nextButton(){
-<span class="nc bnc" id="L430" title="All 2 branches missed.">		if(sidebarTable == &quot;course&quot;){</span>
-<span class="nc bnc" id="L431" title="All 2 branches missed.">			if(courseTable.getSelectionModel().getSelectedItem() != null){</span>
-<span class="nc" id="L432">				search_leftPane.clear();</span>
-<span class="nc" id="L433">				sidebarTable = &quot;lecture&quot;;</span>
-<span class="nc" id="L434">				updateLectureTable(Database.lectures(courseTable.getSelectionModel().getSelectedItem().getCourseID()));</span>
-<span class="nc" id="L435">				courseTable.setVisible(false);</span>
-<span class="nc" id="L436">				lectureTable.setVisible(true);</span>
-<span class="nc" id="L437">				title_leftPane.setText(&quot;Lectures&quot;);</span>
-<span class="nc" id="L438">				courseIdText.setText(courseTable.getSelectionModel().getSelectedItem().getCourseCode());</span>
+<span class="nc bnc" id="L445" title="All 2 branches missed.">		if(sidebarTable == &quot;course&quot;){</span>
+<span class="nc bnc" id="L446" title="All 2 branches missed.">			if(courseTable.getSelectionModel().getSelectedItem() != null){</span>
+<span class="nc" id="L447">				search_leftPane.clear();</span>
+<span class="nc" id="L448">				sidebarTable = &quot;lecture&quot;;</span>
+<span class="nc" id="L449">				updateLectureTable(Database.lectures(courseTable.getSelectionModel().getSelectedItem().getCourseID()));</span>
+<span class="nc" id="L450">				courseTable.setVisible(false);</span>
+<span class="nc" id="L451">				lectureTable.setVisible(true);</span>
+<span class="nc" id="L452">				title_leftPane.setText(&quot;Lectures&quot;);</span>
+<span class="nc" id="L453">				courseIdText.setText(courseTable.getSelectionModel().getSelectedItem().getCourseCode());</span>
 			}
-<span class="nc bnc" id="L440" title="All 2 branches missed.">		}else if(sidebarTable == &quot;lecture&quot;){</span>
-<span class="nc bnc" id="L441" title="All 2 branches missed.">			if(lectureTable.getSelectionModel().getSelectedItem() != null){</span>
-<span class="nc" id="L442">				search_leftPane.clear();</span>
-<span class="nc" id="L443">				sidebarTable = &quot;topic&quot;;</span>
-<span class="nc" id="L444">				updateTopicTable(Database.topics(lectureTable.getSelectionModel().getSelectedItem().getLectureID()));</span>
-<span class="nc" id="L445">				lectureTable.setVisible(false);</span>
-<span class="nc" id="L446">				topicTable.setVisible(true);</span>
-<span class="nc" id="L447">				title_leftPane.setText(&quot;Topics&quot;);</span>
-<span class="nc" id="L448">				lectureNumberText.setText(lectureTable.getSelectionModel().getSelectedItem().getlectureNumber());</span>
+<span class="nc bnc" id="L455" title="All 2 branches missed.">		}else if(sidebarTable == &quot;lecture&quot;){</span>
+<span class="nc bnc" id="L456" title="All 2 branches missed.">			if(lectureTable.getSelectionModel().getSelectedItem() != null){</span>
+<span class="nc" id="L457">				search_leftPane.clear();</span>
+<span class="nc" id="L458">				sidebarTable = &quot;topic&quot;;</span>
+<span class="nc" id="L459">				updateTopicTable(Database.topics(lectureTable.getSelectionModel().getSelectedItem().getLectureID()));</span>
+<span class="nc" id="L460">				lectureTable.setVisible(false);</span>
+<span class="nc" id="L461">				topicTable.setVisible(true);</span>
+<span class="nc" id="L462">				title_leftPane.setText(&quot;Topics&quot;);</span>
+<span class="nc" id="L463">				lectureNumberText.setText(lectureTable.getSelectionModel().getSelectedItem().getlectureNumber());</span>
 			}
 		}
-<span class="nc" id="L451">		enableDisableButton();</span>
-<span class="nc" id="L452">	}</span>
+<span class="nc" id="L466">		enableDisableButton();</span>
+<span class="nc" id="L467">	}</span>
 	
 	@FXML
 	private void backButton(){
-<span class="nc" id="L456">		search_leftPane.clear();</span>
-<span class="nc bnc" id="L457" title="All 2 branches missed.">		if(sidebarTable == &quot;topic&quot;){</span>
-<span class="nc" id="L458">			sidebarTable = &quot;lecture&quot;;</span>
-<span class="nc" id="L459">			lectureNumberText.setText(&quot;Not selected&quot;);</span>
-<span class="nc" id="L460">			title_leftPane.setText(&quot;Lectures&quot;);</span>
-<span class="nc" id="L461">			topicTable.setVisible(false);</span>
-<span class="nc" id="L462">			lectureTable.setVisible(true);</span>
-<span class="nc" id="L463">			updateQuestionTable(Database.Question(&quot;empty&quot;));</span>
+<span class="nc" id="L471">		search_leftPane.clear();</span>
+<span class="nc bnc" id="L472" title="All 2 branches missed.">		if(sidebarTable == &quot;topic&quot;){</span>
+<span class="nc" id="L473">			sidebarTable = &quot;lecture&quot;;</span>
+<span class="nc" id="L474">			lectureNumberText.setText(&quot;Not selected&quot;);</span>
+<span class="nc" id="L475">			title_leftPane.setText(&quot;Lectures&quot;);</span>
+<span class="nc" id="L476">			topicTable.setVisible(false);</span>
+<span class="nc" id="L477">			lectureTable.setVisible(true);</span>
+<span class="nc" id="L478">			updateQuestionTable(Database.Question(&quot;empty&quot;));</span>
 			
-<span class="nc bnc" id="L465" title="All 2 branches missed.">		}else if(sidebarTable == &quot;lecture&quot;){</span>
-<span class="nc" id="L466">			sidebarTable = &quot;course&quot;;</span>
-<span class="nc" id="L467">			title_leftPane.setText(&quot;Courses&quot;);</span>
-<span class="nc" id="L468">			courseIdText.setText(&quot;Not selected&quot;);</span>
-<span class="nc" id="L469">			lectureTable.setVisible(false);</span>
-<span class="nc" id="L470">			courseTable.setVisible(true);</span>
-<span class="nc" id="L471">			updateQuestionTable(Database.Question(&quot;empty&quot;));</span>
+<span class="nc bnc" id="L480" title="All 2 branches missed.">		}else if(sidebarTable == &quot;lecture&quot;){</span>
+<span class="nc" id="L481">			sidebarTable = &quot;course&quot;;</span>
+<span class="nc" id="L482">			title_leftPane.setText(&quot;Courses&quot;);</span>
+<span class="nc" id="L483">			courseIdText.setText(&quot;Not selected&quot;);</span>
+<span class="nc" id="L484">			lectureTable.setVisible(false);</span>
+<span class="nc" id="L485">			courseTable.setVisible(true);</span>
+<span class="nc" id="L486">			updateQuestionTable(Database.Question(&quot;empty&quot;));</span>
 		}
-<span class="nc" id="L473">		enableDisableButton();</span>
-<span class="nc" id="L474">	}</span>
+<span class="nc" id="L488">		enableDisableButton();</span>
+<span class="nc" id="L489">	}</span>
 	
 	private void enableDisableButton(){
-<span class="nc bnc" id="L477" title="All 2 branches missed.">		if(sidebarTable == &quot;topic&quot;){</span>
-<span class="nc" id="L478">			sidebarNextButton.setDisable(true);</span>
-<span class="nc bnc" id="L479" title="All 2 branches missed.">		}else if(sidebarTable == &quot;course&quot;){</span>
-<span class="nc" id="L480">			sidebarBackButton.setDisable(true);</span>
+<span class="nc bnc" id="L492" title="All 2 branches missed.">		if(sidebarTable == &quot;topic&quot;){</span>
+<span class="nc" id="L493">			sidebarNextButton.setDisable(true);</span>
+<span class="nc bnc" id="L494" title="All 2 branches missed.">		}else if(sidebarTable == &quot;course&quot;){</span>
+<span class="nc" id="L495">			sidebarBackButton.setDisable(true);</span>
 		}else{
-<span class="nc" id="L482">			sidebarNextButton.setDisable(false);</span>
-<span class="nc" id="L483">			sidebarBackButton.setDisable(false);</span>
+<span class="nc" id="L497">			sidebarNextButton.setDisable(false);</span>
+<span class="nc" id="L498">			sidebarBackButton.setDisable(false);</span>
 		}
-<span class="nc" id="L485">	}</span>
+<span class="nc" id="L500">	}</span>
 	
 	/*
 	 * SIDEBAR ADD - EDIT - DELETE
