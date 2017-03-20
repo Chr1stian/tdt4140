@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -21,6 +23,11 @@ public class PageFragment extends Fragment {
     RatingBar ratingBar;
     View view;
     Integer topicID;
+    Button submitQuestionButton;
+    TextView textQuestion;
+    EditText question;
+    String questionString;
+    String prevquestionString;
 
     public PageFragment() {
         // Required empty public constructor
@@ -57,9 +64,34 @@ public class PageFragment extends Fragment {
         ratingDescription = (TextView)view.findViewById(R.id.lbl_ratingDescription);
         ratingDescription.setText("How well do you understand the current topic?");
 
+        textQuestion = (TextView)view.findViewById(R.id.lbl_askQuestion);
+        textQuestion.setText("Do you have any questions?");
+        submitQuestionButton = (Button)view.findViewById(R.id.btn_SubmitQuestion);
+        question = (EditText)view.findViewById(R.id.txt_question);
+        question.setHint("Ask a question");
+
 
         //Listening for changes in rating
+
         addListenerOnRatingBar();
+
+        //Listening for changes in EditText field
+        submitQuestionButton.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               questionString = question.getText().toString();
+               //lag stringlength validation og ikkje likt originaltext
+               if (isQuestionValid(questionString)){
+                   question.setText(null);
+                   String errorMessage = Database.sendQuestion(topicID,questionString);
+                   testShowRating.setText(errorMessage);
+               }else{
+                   question.setText(null);
+               }
+
+           }
+        });
+
 
         return view;
     }
@@ -80,6 +112,21 @@ public class PageFragment extends Fragment {
         });
 
     }
+
+   // private void addOnClicK
+
+    private boolean isQuestionValid(String questionString){
+        if (questionString.length()<2){
+            question.setHint("Invalid question, try again.");
+            return false;
+        }
+
+        question.setHint("Ask a new question");
+
+        return true;
+    }
+
+
 
 
 }

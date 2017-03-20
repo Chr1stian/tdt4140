@@ -11,9 +11,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Database {
-    private static String mysqlAddr = "jdbc:mysql://mysql.stud.ntnu.no:3306/prodoteam_db?allowMultiQueries=true";
-    private static String mysqlUser = "chrisnyv_demo";
-    private static String mysqlPass = "rM48DmzH";
+    private static String mysqlAddr = "jdbc:mysql://sql11.freemysqlhosting.net:3306/sql11164632?allowMultiQueries=true";
+    private static String mysqlUser = "sql11164632";
+    private static String mysqlPass = "JKb6SqBp59";
 
 
 
@@ -267,5 +267,33 @@ public class Database {
         }
         catch(SQLException e){
         }
+    }
+
+    public static String sendQuestion(Integer topicID, String questionString) {
+
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        Integer userID = 1;
+        String answer = "Not answered yet..";
+        String error ="Question submitted";
+        try{
+            Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO question(topicID,userID,question,answer) VALUES ('" + topicID.toString() + "','" + userID.toString() + "','" + questionString +"','" + answer + "')");
+            //INSERT INTO `question`(`questionID`, `topicID`, `userID`, `question`, `answer`) VALUES ([value-1],[value-2],[value-3],[value-4],[value-5])
+            stmt.execute();
+            conn.close();
+        }
+        catch(SQLException e){
+            System.out.println(e);
+            error = "Database error:" + e;
+            return error;
+        }
+        return error;
+
     }
 }
