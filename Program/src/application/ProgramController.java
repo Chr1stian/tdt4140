@@ -94,10 +94,22 @@ public class ProgramController implements Initializable{
 	 @FXML
 	 public void edit(){
 		 if(sidebarTable == "lecture"){
-			 System.out.println("Hey man, whats up! Lecture here");
-			 main.showPopup(lectureTable.getSelectionModel().getSelectedItem());
+			 if(lectureTable.getSelectionModel().getSelectedItem() != null){
+				 main.showPopup(lectureTable.getSelectionModel().getSelectedItem(), null, "", 0);
+			 }
 		 }else if(sidebarTable == "topic"){
-			 System.out.println("topic bro");
+			 if(topicTable.getSelectionModel().getSelectedItem() != null){
+				 main.showPopup(null, topicTable.getSelectionModel().getSelectedItem(), "", 0);
+			 }
+		 }
+	 }
+	 
+	 @FXML
+	 public void add(){
+		 if(sidebarTable == "lecture"){
+			 main.showPopup(null, null, sidebarTable);
+		 }else if(sidebarTable == "topic"){
+			 main.showPopup(null, null, sidebarTable);
 		 }
 	 }
 	 
