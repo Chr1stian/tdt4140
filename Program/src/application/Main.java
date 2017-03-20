@@ -21,8 +21,8 @@ public class Main extends Application{
 	}
 	
 	private void showMain() throws IOException{
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Main.class.getResource("Program.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/Program.fxml"));
+		loader.setLocation(Main.class.getResource("/application/Program.fxml"));
 		mainLayout = loader.load();
 		Scene scene = new Scene(mainLayout);
 		primaryStage.setScene(scene);

@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nb"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProgramController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Program</a> &gt; <a href="index.source.html" class="el_package">application</a> &gt; <span class="el_source">ProgramController.java</span></div><h1>ProgramController.java</h1><pre class="source lang-java linenums">package application;
+
+import java.io.IOException;
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Optional;
+import java.util.ResourceBundle;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SplitPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import javafx.util.Pair;
+
+<span class="nc" id="L33">public class ProgramController implements Initializable{</span>
+	
+	//private int toggleLeft = 0;
+	
+<span class="nc" id="L37">	String lastClicked = &quot;&quot;;</span>
+	
+<span class="nc" id="L39">	String sidebarTable = &quot;course&quot;;</span>
+	
+	@FXML
+	private AnchorPane mainPane;
+	
+	@FXML
+	private SplitPane divider;
+	
+	@FXML
+	private Text title_leftPane, courseNameDisplay, courseIdText, lectureNumberText;
+	
+	@FXML
+	private Button btn_leftPane, sidebarNextButton, sidebarBackButton, deleteButton;
+	
+	@FXML
+	private TableView&lt;Course&gt; courseTable;
+	
+	@FXML
+	private TableColumn&lt;Course, String&gt; courseCode, courseName;
+	
+	@FXML
+	private TableView&lt;Lecture&gt; lectureTable;
+	
+	@FXML
+	private TableColumn&lt;Lecture, String&gt; lectureNumber, lectureName;
+	
+	@FXML
+	private TableView&lt;Topic&gt; topicTable;
+	
+	@FXML
+	private TableColumn&lt;Topic, String&gt; topicNumber, topicName;
+	
+	@FXML
+	private TableView&lt;Question&gt; questionTable;
+	
+	@FXML
+	private TableColumn&lt;Question, String&gt; questionTableQuestion; 
+	
+	
+	@FXML
+	private TextField lectureIDInput, lectureNameInput, topicNameInput, topicNumberInput, search_leftPane;
+
+	
+	// Initializes the program by showing the correct table (CourseTable in the sidebar)
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+<span class="nc" id="L85">		lectureTable.setVisible(false);</span>
+<span class="nc" id="L86">		updateCourseTable();</span>
+<span class="nc" id="L87">	}</span>
+	
+	@FXML
+    public void showNewItemDialog() {
+<span class="nc" id="L91">        Dialog&lt;ButtonType&gt; dialog = new Dialog&lt;&gt;();</span>
+        //Stage popupStage = new Stage();
+        //dialog.initOwner(mainPane.getScene().getWindow());
+        //dialog.setTitle(&quot;Wololololo&quot;);
+        //dialog.setHeaderText(&quot;Use this dialog to do incredible things&quot;);
+<span class="nc" id="L96">        FXMLLoader fxmlLoader = new FXMLLoader();</span>
+<span class="nc" id="L97">        fxmlLoader.setLocation(getClass().getResource(&quot;PopUpWindow.fxml&quot;));</span>
+        try {
+<span class="nc" id="L99">            dialog.getDialogPane().setContent(fxmlLoader.load());</span>
+
+<span class="nc" id="L101">        } catch(IOException e) {</span>
+<span class="nc" id="L102">            System.out.println(&quot;Couldn't load the dialog&quot;);</span>
+<span class="nc" id="L103">            e.printStackTrace();</span>
+<span class="nc" id="L104">            return;</span>
+<span class="nc" id="L105">        }</span>
+
+<span class="nc" id="L107">        dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);</span>
+<span class="nc" id="L108">        dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);</span>
+
+<span class="nc" id="L110">        Optional&lt;ButtonType&gt; result = dialog.showAndWait();</span>
+        /*if(result.isPresent() &amp;&amp; result.get() == ButtonType.OK) {
+            PopupController controller = fxmlLoader.getController();
+            /*TodoItem newItem = controller.processResults();
+            todoListView.getItems().setAll(TodoData.getInstance().getTodoItems());
+            todoListView.getSelectionModel().select(newItem);
+            System.out.println(&quot;OK pressed&quot;);
+        } else {
+            System.out.println(&quot;Cancel pressed&quot;);
+        }*/
+<span class="nc" id="L120">    }</span>
+	
+	
+	/*
+	 * FILL SIDEBAR TABLE WITH COURSES - LECTURES - TOPICS
+	 * ADD THE ABILITY TO SEARCH IN THE TABLES
+	 */
+	// Method for filling the table in the sidebar with courses
+	private void updateCourseTable(){
+		// 0. Initialize the columns.
+<span class="nc" id="L130">		courseCode.setCellValueFactory(cellData -&gt; cellData.getValue().courseCodeProperty());</span>
+<span class="nc" id="L131">		courseName.setCellValueFactory(cellData -&gt; cellData.getValue().courseNameProperty());</span>
+		
+		// 1. Wrap the ObservableList in a FilteredList (initially display all data).
+<span class="nc" id="L134">		FilteredList&lt;Course&gt; filteredData = new FilteredList&lt;&gt;(Database.courses(), p -&gt; true);</span>
+		
+		// 2. Set the filter Predicate whenever the filter changes.
+<span class="nc" id="L137">		search_leftPane.textProperty().addListener((observable, oldValue, newValue) -&gt; {</span>
+<span class="nc" id="L138">			filteredData.setPredicate(Course -&gt; {</span>
+				// If filter text is empty, display all Courses.
+<span class="nc bnc" id="L140" title="All 4 branches missed.">				if (newValue == null || newValue.isEmpty()) {</span>
+<span class="nc" id="L141">					return true;</span>
+				}
+				
+				// Compare course id and course name of every Course with filter text.
+<span class="nc" id="L145">				String lowerCaseFilter = newValue.toLowerCase();</span>
+				
+<span class="nc bnc" id="L147" title="All 2 branches missed.">				if (Course.getCourseCode().toLowerCase().indexOf(lowerCaseFilter) != -1) {</span>
+<span class="nc" id="L148">					return true; // Filter matches course ID.</span>
+<span class="nc bnc" id="L149" title="All 2 branches missed.">				} else if (Course.getCourseName().toLowerCase().indexOf(lowerCaseFilter) != -1) {</span>
+<span class="nc" id="L150">					return true; // Filter matches course name.</span>
+				}
+<span class="nc" id="L152">				return false; // Does not match.</span>
+			});
+<span class="nc" id="L154">		});</span>
+		
+		// 3. Wrap the FilteredList in a SortedList. 
+<span class="nc" id="L157">		SortedList&lt;Course&gt; sortedData = new SortedList&lt;&gt;(filteredData);</span>
+		
+		// 4. Bind the SortedList comparator to the TableView comparator.
+		// 	  Otherwise, sorting the TableView would have no effect.
+<span class="nc" id="L161">		sortedData.comparatorProperty().bind(courseTable.comparatorProperty());</span>
+		
+		// 5. Add sorted (and filtered) data to the table.
+<span class="nc" id="L164">		courseTable.setItems(sortedData);</span>
+<span class="nc" id="L165">	}</span>
+	
+	// Method for filling the table in the sidebar with lectures (Same idea as updateCourseTable)
+	private void updateLectureTable(ObservableList&lt;Lecture&gt; lectureList){
+		// 0. Initialize the columns.
+<span class="nc" id="L170">		lectureNumber.setCellValueFactory(cellData -&gt; cellData.getValue().lectureNumberProperty());</span>
+<span class="nc" id="L171">		lectureName.setCellValueFactory(cellData -&gt; cellData.getValue().lectureNameProperty());</span>
+		
+		// 1. Wrap the ObservableList in a FilteredList (initially display all data).
+<span class="nc" id="L174">		FilteredList&lt;Lecture&gt; filteredData = new FilteredList&lt;&gt;(lectureList, p -&gt; true);</span>
+		
+		// 2. Set the filter Predicate whenever the filter changes.
+<span class="nc" id="L177">		search_leftPane.textProperty().addListener((observable, oldValue, newValue) -&gt; {</span>
+<span class="nc" id="L178">			filteredData.setPredicate(Lecture -&gt; {</span>
+				// If filter text is empty, display all Courses.
+<span class="nc bnc" id="L180" title="All 4 branches missed.">				if (newValue == null || newValue.isEmpty()) {</span>
+<span class="nc" id="L181">					return true;</span>
+				}
+				
+				// Compare course id and course name of every Course with filter text.
+<span class="nc" id="L185">				String lowerCaseFilter = newValue.toLowerCase();</span>
+				
+<span class="nc bnc" id="L187" title="All 2 branches missed.">				if (Lecture.getlectureNumber().toLowerCase().indexOf(lowerCaseFilter) != -1) {</span>
+<span class="nc" id="L188">					return true; // Filter matches course ID.</span>
+<span class="nc bnc" id="L189" title="All 2 branches missed.">				} else if (Lecture.getlectureName().toLowerCase().indexOf(lowerCaseFilter) != -1) {</span>
+<span class="nc" id="L190">					return true; // Filter matches course name.</span>
+				}
+<span class="nc" id="L192">				return false; // Does not match.</span>
+			});
+<span class="nc" id="L194">		});</span>
+		
+		// 3. Wrap the FilteredList in a SortedList. 
+<span class="nc" id="L197">		SortedList&lt;Lecture&gt; sortedData = new SortedList&lt;&gt;(filteredData);</span>
+		
+		// 4. Bind the SortedList comparator to the TableView comparator.
+		// 	  Otherwise, sorting the TableView would have no effect.
+<span class="nc" id="L201">		sortedData.comparatorProperty().bind(lectureTable.comparatorProperty());</span>
+		
+		// 5. Add sorted (and filtered) data to the table.
+<span class="nc" id="L204">		lectureTable.setItems(sortedData);</span>
+<span class="nc" id="L205">	}</span>
+
+	
+	// Method for filling the table in sidebar with topics
+	private void updateTopicTable(ObservableList&lt;Topic&gt; topicList){
+		// 0. Initialize the columns.
+<span class="nc" id="L211">		topicNumber.setCellValueFactory(cellData -&gt; cellData.getValue().topicNumberProperty());</span>
+<span class="nc" id="L212">		topicName.setCellValueFactory(cellData -&gt; cellData.getValue().topicNameProperty());</span>
+		
+		// 1. Wrap the ObservableList in a FilteredList (initially display all data).
+<span class="nc" id="L215">		FilteredList&lt;Topic&gt; filteredData = new FilteredList&lt;&gt;(topicList, p -&gt; true);</span>
+		
+		// 2. Set the filter Predicate whenever the filter changes.
+<span class="nc" id="L218">		search_leftPane.textProperty().addListener((observable, oldValue, newValue) -&gt; {</span>
+<span class="nc" id="L219">			filteredData.setPredicate(Topic -&gt; {</span>
+				// If filter text is empty, display all Courses.
+<span class="nc bnc" id="L221" title="All 4 branches missed.">				if (newValue == null || newValue.isEmpty()) {</span>
+<span class="nc" id="L222">					return true;</span>
+				}
+				
+				// Compare course id and course name of every Course with filter text.
+<span class="nc" id="L226">				String lowerCaseFilter = newValue.toLowerCase();</span>
+				
+<span class="nc bnc" id="L228" title="All 2 branches missed.">				if (Topic.getTopicNumber().toLowerCase().indexOf(lowerCaseFilter) != -1) {</span>
+<span class="nc" id="L229">					return true; // Filter matches course ID.</span>
+<span class="nc bnc" id="L230" title="All 2 branches missed.">				} else if (Topic.getTopicName().toLowerCase().indexOf(lowerCaseFilter) != -1) {</span>
+<span class="nc" id="L231">					return true; // Filter matches course name.</span>
+				}
+<span class="nc" id="L233">				return false; // Does not match.</span>
+			});
+<span class="nc" id="L235">		});</span>
+		
+		// 3. Wrap the FilteredList in a SortedList. 
+<span class="nc" id="L238">		SortedList&lt;Topic&gt; sortedData = new SortedList&lt;&gt;(filteredData);</span>
+		
+		// 4. Bind the SortedList comparator to the TableView comparator.
+		// 	  Otherwise, sorting the TableView would have no effect.
+<span class="nc" id="L242">		sortedData.comparatorProperty().bind(topicTable.comparatorProperty());</span>
+		
+		// 5. Add data to the table.
+<span class="nc" id="L245">		topicTable.setItems(topicList);</span>
+<span class="nc" id="L246">	}</span>
+	
+	
+	// I think this is unneeded, but I'll keep it just in case.
+	/*
+	// Method for going back and forth between showing courses or lectures in the sidebar	
+	@FXML
+	private void subjectNext(ActionEvent e) throws IOException{
+		// If we're showing courses, toggleLeft = 0
+		if (toggleLeft == 0){
+			if(courseTable.getSelectionModel().getSelectedItem() != null){
+				toggleLeft = 1;
+				updateLectureTable(Database.lectures(courseTable.getSelectionModel().getSelectedItem().getCourseID()));
+				courseTable.setVisible(false);
+				lectureTable.setVisible(true);
+				title_leftPane.setText(&quot;Find lecture&quot;);
+				btn_leftPane.setText(&quot;Back&quot;);
+				courseNameDisplay.setText(courseTable.getSelectionModel().getSelectedItem().getCourseCode());
+			}else{
+				System.out.println(&quot;Lag en eller annen feilmelding her som ber brukeren velge ett emne&quot;);
+			}
+		}
+		// If the courses are not showing, the lectures are. toggleLeft = 1
+		else{
+			toggleLeft = 0;
+			lastClicked = &quot;&quot;;
+			updateTopicTable(Database.Topic(&quot;empty&quot;));
+			lectureTable.setVisible(false);
+			courseTable.setVisible(true);
+			title_leftPane.setText(&quot;Find course&quot;);
+			btn_leftPane.setText(&quot;Next&quot;);
+			courseNameDisplay.setText(&quot;Course&quot;);
+		}
+	}*/
+	
+	/*
+	 * Show topics after clicking a lecture
+	 */
+	/*
+	@FXML
+	private void displayTopics() throws IOException{
+		if(lectureTable.getSelectionModel().getSelectedItem() != null &amp; lectureTable.getSelectionModel().getSelectedItem().getlectureNumber() != lastClicked){
+			lastClicked = lectureTable.getSelectionModel().getSelectedItem().getlectureNumber();
+			updateTopicTable(Database.Topic(lectureTable.getSelectionModel().getSelectedItem().getLectureID()));
+		}
+	}*/
+	
+	
+	/*
+	 * LECTURE ADD - DELETE - UPDATE
+	 */
+	
+	@FXML
+	private void addLecture(){
+<span class="nc" id="L300">		String id = lectureIDInput.getText();</span>
+<span class="nc" id="L301">		String name = lectureNameInput.getText();</span>
+<span class="nc" id="L302">		String courseID = courseTable.getSelectionModel().getSelectedItem().getCourseID();</span>
+		
+<span class="nc" id="L304">		Lecture lecture = new Lecture(null, courseID, id, name);</span>
+<span class="nc" id="L305">		Database.createLecture(lecture);</span>
+<span class="nc" id="L306">		lectureIDInput.setText(&quot;&quot;);</span>
+<span class="nc" id="L307">		lectureNameInput.setText(&quot;&quot;);</span>
+<span class="nc" id="L308">		updateLectureTable(Database.lectures(courseID));</span>
+<span class="nc" id="L309">	}</span>
+	
+	@FXML
+	private void editLecture(){
+<span class="nc" id="L313">		String id = lectureTable.getSelectionModel().getSelectedItem().getLectureID();</span>
+<span class="nc" id="L314">		String name = lectureTable.getSelectionModel().getSelectedItem().getlectureName();</span>
+<span class="nc" id="L315">		String courseID = courseTable.getSelectionModel().getSelectedItem().getCourseID();</span>
+		
+<span class="nc" id="L317">		Lecture lecture = new Lecture(null, courseID, id, name);</span>
+<span class="nc" id="L318">		Database.editLecture(lecture);</span>
+<span class="nc" id="L319">		lectureIDInput.setText(id);</span>
+<span class="nc" id="L320">		lectureNameInput.setText(name);</span>
+<span class="nc" id="L321">		updateLectureTable(Database.lectures(courseID));</span>
+<span class="nc" id="L322">	}</span>
+	
+	/*
+	 * Makes it possible to delete the selected Lecture or Topic
+	 */
+	
+	@FXML
+	private void deleteItem(){
+		
+<span class="nc bnc" id="L331" title="All 2 branches missed.">		if(sidebarTable == &quot;lecture&quot;){</span>
+		
+<span class="nc" id="L333">			Lecture lecture = lectureTable.getSelectionModel().getSelectedItem();</span>
+<span class="nc" id="L334">			String courseID = courseTable.getSelectionModel().getSelectedItem().getCourseID();</span>
+		
+<span class="nc" id="L336">			Alert alert = new Alert(AlertType.CONFIRMATION);</span>
+<span class="nc" id="L337">			alert.setTitle(&quot;Delete Lecture&quot;);</span>
+<span class="nc" id="L338">			alert.setHeaderText(&quot;Are you sure you want to delete the selected lecture?&quot;); </span>
+		
+<span class="nc" id="L340">			Optional&lt;ButtonType&gt; result = alert.showAndWait();</span>
+<span class="nc bnc" id="L341" title="All 2 branches missed.">			if (result.get() == ButtonType.OK){</span>
+				// ... user chose OK
+<span class="nc" id="L343">				lecture = lectureTable.getSelectionModel().getSelectedItem();</span>
+<span class="nc" id="L344">				courseID = courseTable.getSelectionModel().getSelectedItem().getCourseID();</span>
+<span class="nc" id="L345">				Database.deleteLecture(lecture);</span>
+<span class="nc" id="L346">				updateLectureTable(Database.lectures(courseID));</span>
+			} else {
+<span class="nc" id="L348">				alert.close();// ... user chose CANCEL or closed the dialog</span>
+			}
+<span class="nc" id="L350">		}</span>
+<span class="nc bnc" id="L351" title="All 2 branches missed.">		else if(sidebarTable == &quot;topic&quot;){</span>
+			
+<span class="nc" id="L353">		    	Topic topic = topicTable.getSelectionModel().getSelectedItem();</span>
+<span class="nc" id="L354">		    	String lectureID = lectureTable.getSelectionModel().getSelectedItem().getLectureID();</span>
+				
+<span class="nc" id="L356">				Alert alert = new Alert(AlertType.CONFIRMATION);</span>
+<span class="nc" id="L357">				alert.setTitle(&quot;Delete Topic&quot;);</span>
+<span class="nc" id="L358">				alert.setHeaderText(&quot;Are you sure you want to delete the selected topic?&quot;);</span>
+
+
+<span class="nc" id="L361">				Optional&lt;ButtonType&gt; result = alert.showAndWait();</span>
+<span class="nc bnc" id="L362" title="All 2 branches missed.">				if (result.get() == ButtonType.OK){</span>
+				    // ... user chose OK
+<span class="nc" id="L364">			    	topic = topicTable.getSelectionModel().getSelectedItem();</span>
+<span class="nc" id="L365">			    	lectureID = lectureTable.getSelectionModel().getSelectedItem().getLectureID();</span>
+<span class="nc" id="L366">		        	Database.deleteTopic(topic);</span>
+<span class="nc" id="L367">		        	updateTopicTable(Database.topics(lectureID));</span>
+				} else {
+<span class="nc" id="L369">					alert.close();// ... user chose CANCEL or closed the dialog</span>
+				}
+			}
+<span class="nc" id="L372">		}</span>
+	
+	/*
+	 *  TOPIC ADD - DELETE - UPDATE
+	 */
+	@FXML
+	private void addTopic(){
+<span class="nc" id="L379">		String number = topicNumber.getText();</span>
+<span class="nc" id="L380">		String name = topicNameInput.getText();</span>
+<span class="nc" id="L381">		String lectureID = lectureTable.getSelectionModel().getSelectedItem().getLectureID();</span>
+		
+<span class="nc" id="L383">		Topic topic = new Topic(null, lectureID, number , name);</span>
+<span class="nc" id="L384">		Database.createTopic(topic);</span>
+<span class="nc" id="L385">		topicNumber.setText(&quot;&quot;);</span>
+<span class="nc" id="L386">		topicNameInput.setText(&quot;&quot;);</span>
+<span class="nc" id="L387">		updateTopicTable(Database.topics(lectureID));</span>
+<span class="nc" id="L388">	}</span>
+	
+	@FXML
+	private void editTopic(){
+<span class="nc" id="L392">		String number = topicTable.getSelectionModel().getSelectedItem().getTopicNumber();</span>
+<span class="nc" id="L393">		String name = topicTable.getSelectionModel().getSelectedItem().getTopicName();</span>
+<span class="nc" id="L394">		String topicID = topicTable.getSelectionModel().getSelectedItem().getLectureID();</span>
+		
+<span class="nc" id="L396">		Topic topic = new Topic(null, topicID, number , name);</span>
+<span class="nc" id="L397">		Database.editTopic(topic);</span>
+<span class="nc" id="L398">		topicNumber.setText(number);</span>
+<span class="nc" id="L399">		topicNameInput.setText(name);</span>
+<span class="nc" id="L400">		updateTopicTable(Database.topics(topicID));</span>
+<span class="nc" id="L401">	}</span>
+	
+	/*
+	 * QUESTION SECTION - Display questions
+	 */
+	
+	// Method for filling the table in the &quot;Lecture&quot; tab with topics
+	private void updateQuestionTable(ObservableList&lt;Question&gt; questionList){
+		// 0. Initialize the columns.
+<span class="nc" id="L410">		questionTableQuestion.setCellValueFactory(cellData -&gt; cellData.getValue().questionNameProperty());</span>
+		// 1. Add data to the table.
+<span class="nc" id="L412">		questionTable.setItems(questionList);</span>
+<span class="nc" id="L413">	}</span>
+	
+	// Method for finding questions from the clicked topic
+	@FXML
+	private void displayQuestions() throws IOException{
+<span class="nc bnc" id="L418" title="All 2 branches missed.">		if(sidebarTable == &quot;topic&quot;){</span>
+<span class="nc bnc" id="L419" title="All 2 branches missed.">			if(topicTable.getSelectionModel().getSelectedItem() != null){</span>
+<span class="nc" id="L420">				updateQuestionTable(Database.Question(topicTable.getSelectionModel().getSelectedItem().getTopicID()));</span>
+			}
+		}
+<span class="nc" id="L423">	}</span>
+	
+	/*
+	 * SIDEBAR BACK - NEXT BUTTONS
+	 */
+	@FXML
+	private void nextButton(){
+<span class="nc bnc" id="L430" title="All 2 branches missed.">		if(sidebarTable == &quot;course&quot;){</span>
+<span class="nc bnc" id="L431" title="All 2 branches missed.">			if(courseTable.getSelectionModel().getSelectedItem() != null){</span>
+<span class="nc" id="L432">				search_leftPane.clear();</span>
+<span class="nc" id="L433">				sidebarTable = &quot;lecture&quot;;</span>
+<span class="nc" id="L434">				updateLectureTable(Database.lectures(courseTable.getSelectionModel().getSelectedItem().getCourseID()));</span>
+<span class="nc" id="L435">				courseTable.setVisible(false);</span>
+<span class="nc" id="L436">				lectureTable.setVisible(true);</span>
+<span class="nc" id="L437">				title_leftPane.setText(&quot;Lectures&quot;);</span>
+<span class="nc" id="L438">				courseIdText.setText(courseTable.getSelectionModel().getSelectedItem().getCourseCode());</span>
+			}
+<span class="nc bnc" id="L440" title="All 2 branches missed.">		}else if(sidebarTable == &quot;lecture&quot;){</span>
+<span class="nc bnc" id="L441" title="All 2 branches missed.">			if(lectureTable.getSelectionModel().getSelectedItem() != null){</span>
+<span class="nc" id="L442">				search_leftPane.clear();</span>
+<span class="nc" id="L443">				sidebarTable = &quot;topic&quot;;</span>
+<span class="nc" id="L444">				updateTopicTable(Database.topics(lectureTable.getSelectionModel().getSelectedItem().getLectureID()));</span>
+<span class="nc" id="L445">				lectureTable.setVisible(false);</span>
+<span class="nc" id="L446">				topicTable.setVisible(true);</span>
+<span class="nc" id="L447">				title_leftPane.setText(&quot;Topics&quot;);</span>
+<span class="nc" id="L448">				lectureNumberText.setText(lectureTable.getSelectionModel().getSelectedItem().getlectureNumber());</span>
+			}
+		}
+<span class="nc" id="L451">		enableDisableButton();</span>
+<span class="nc" id="L452">	}</span>
+	
+	@FXML
+	private void backButton(){
+<span class="nc" id="L456">		search_leftPane.clear();</span>
+<span class="nc bnc" id="L457" title="All 2 branches missed.">		if(sidebarTable == &quot;topic&quot;){</span>
+<span class="nc" id="L458">			sidebarTable = &quot;lecture&quot;;</span>
+<span class="nc" id="L459">			lectureNumberText.setText(&quot;Not selected&quot;);</span>
+<span class="nc" id="L460">			title_leftPane.setText(&quot;Lectures&quot;);</span>
+<span class="nc" id="L461">			topicTable.setVisible(false);</span>
+<span class="nc" id="L462">			lectureTable.setVisible(true);</span>
+<span class="nc" id="L463">			updateQuestionTable(Database.Question(&quot;empty&quot;));</span>
+			
+<span class="nc bnc" id="L465" title="All 2 branches missed.">		}else if(sidebarTable == &quot;lecture&quot;){</span>
+<span class="nc" id="L466">			sidebarTable = &quot;course&quot;;</span>
+<span class="nc" id="L467">			title_leftPane.setText(&quot;Courses&quot;);</span>
+<span class="nc" id="L468">			courseIdText.setText(&quot;Not selected&quot;);</span>
+<span class="nc" id="L469">			lectureTable.setVisible(false);</span>
+<span class="nc" id="L470">			courseTable.setVisible(true);</span>
+<span class="nc" id="L471">			updateQuestionTable(Database.Question(&quot;empty&quot;));</span>
+		}
+<span class="nc" id="L473">		enableDisableButton();</span>
+<span class="nc" id="L474">	}</span>
+	
+	private void enableDisableButton(){
+<span class="nc bnc" id="L477" title="All 2 branches missed.">		if(sidebarTable == &quot;topic&quot;){</span>
+<span class="nc" id="L478">			sidebarNextButton.setDisable(true);</span>
+<span class="nc bnc" id="L479" title="All 2 branches missed.">		}else if(sidebarTable == &quot;course&quot;){</span>
+<span class="nc" id="L480">			sidebarBackButton.setDisable(true);</span>
+		}else{
+<span class="nc" id="L482">			sidebarNextButton.setDisable(false);</span>
+<span class="nc" id="L483">			sidebarBackButton.setDisable(false);</span>
+		}
+<span class="nc" id="L485">	}</span>
+	
+	/*
+	 * SIDEBAR ADD - EDIT - DELETE
+	 */
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

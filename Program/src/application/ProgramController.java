@@ -15,6 +15,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
@@ -46,7 +48,7 @@ public class ProgramController implements Initializable{
 	private Text title_leftPane, courseNameDisplay, courseIdText, lectureNumberText;
 	
 	@FXML
-	private Button btn_leftPane, sidebarNextButton, sidebarBackButton, submitAnswer;
+	private Button btn_leftPane, sidebarNextButton, sidebarBackButton, submitAnswer, deleteButton;
 	
 	@FXML
 	private TableView<Course> courseTable;
@@ -319,13 +321,55 @@ public class ProgramController implements Initializable{
 		updateLectureTable(Database.lectures(courseID));
 	}
 	
+	/*
+	 * Makes it possible to delete the selected Lecture or Topic
+	 */
+	
 	@FXML
-	private void deleteLecture(){
-		Lecture lecture = lectureTable.getSelectionModel().getSelectedItem();
-		String courseID = courseTable.getSelectionModel().getSelectedItem().getCourseID();
-		Database.deleteLecture(lecture);
-		updateLectureTable(Database.lectures(courseID));
-	}
+	private void deleteItem(){
+		
+		if(sidebarTable == "lecture"){
+		
+			Lecture lecture = lectureTable.getSelectionModel().getSelectedItem();
+			String courseID = courseTable.getSelectionModel().getSelectedItem().getCourseID();
+		
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Delete Lecture");
+			alert.setHeaderText("Are you sure you want to delete the selected lecture?"); 
+		
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK){
+				// ... user chose OK
+				lecture = lectureTable.getSelectionModel().getSelectedItem();
+				courseID = courseTable.getSelectionModel().getSelectedItem().getCourseID();
+				Database.deleteLecture(lecture);
+				updateLectureTable(Database.lectures(courseID));
+			} else {
+				alert.close();// ... user chose CANCEL or closed the dialog
+			}
+		}
+		else if(sidebarTable == "topic"){
+			
+		    	Topic topic = topicTable.getSelectionModel().getSelectedItem();
+		    	String lectureID = lectureTable.getSelectionModel().getSelectedItem().getLectureID();
+				
+				Alert alert = new Alert(AlertType.CONFIRMATION);
+				alert.setTitle("Delete Topic");
+				alert.setHeaderText("Are you sure you want to delete the selected topic?");
+
+
+				Optional<ButtonType> result = alert.showAndWait();
+				if (result.get() == ButtonType.OK){
+				    // ... user chose OK
+			    	topic = topicTable.getSelectionModel().getSelectedItem();
+			    	lectureID = lectureTable.getSelectionModel().getSelectedItem().getLectureID();
+		        	Database.deleteTopic(topic);
+		        	updateTopicTable(Database.topics(lectureID));
+				} else {
+					alert.close();// ... user chose CANCEL or closed the dialog
+				}
+			}
+		}
 	
 	/*
 	 *  TOPIC ADD - DELETE - UPDATE
@@ -340,7 +384,7 @@ public class ProgramController implements Initializable{
 		Database.createTopic(topic);
 		topicNumber.setText("");
 		topicNameInput.setText("");
-		updateTopicTable(Database.Topic(lectureID));
+		updateTopicTable(Database.topics(lectureID));
 	}
 	
 	@FXML
@@ -353,16 +397,7 @@ public class ProgramController implements Initializable{
 		Database.editTopic(topic);
 		topicNumber.setText(number);
 		topicNameInput.setText(name);
-		updateTopicTable(Database.Topic(topicID));
-	}
-	
-	@FXML
-	private void deleteTopic(){
-		Topic topic = topicTable.getSelectionModel().getSelectedItem();
-		String lectureID = lectureTable.getSelectionModel().getSelectedItem().getLectureID();
-		Database.deleteTopic(topic);
-		updateTopicTable(Database.Topic(lectureID));
-
+		updateTopicTable(Database.topics(topicID));
 	}
 	
 	/*
@@ -421,7 +456,7 @@ public class ProgramController implements Initializable{
 			if(lectureTable.getSelectionModel().getSelectedItem() != null){
 				search_leftPane.clear();
 				sidebarTable = "topic";
-				updateTopicTable(Database.Topic(lectureTable.getSelectionModel().getSelectedItem().getLectureID()));
+				updateTopicTable(Database.topics(lectureTable.getSelectionModel().getSelectedItem().getLectureID()));
 				lectureTable.setVisible(false);
 				topicTable.setVisible(true);
 				title_leftPane.setText("Topics");

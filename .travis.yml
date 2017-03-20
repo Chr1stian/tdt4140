@@ -1,0 +1,18 @@
+language: java
+
+jdk:
+  - oraclejdk8
+
+addons:
+  apt:
+    packages:
+      - oracle-java8-installer
+      
+before_install: cd Program
+
+notifications:
+  email:
+    recipients:
+      - chrisnyv@stud.ntnu.no
+    on_success: never # default: change
+    on_failure: always # default: always

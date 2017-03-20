@@ -1,0 +1,47 @@
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'eclipse'
+apply plugin: 'jacoco'
+
+mainClassName = 'application.Main'
+
+sourceSets {
+  main {
+    resources {
+        srcDirs = ["src"]
+        includes = ["**/**"]
+    }
+    java {
+    	srcDirs = ['src']
+    }
+    test {
+    	java {
+    		srcDirs = ['test']
+    	}
+    }
+  }
+}
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "joda-time:joda-time:2.2"
+    compile fileTree(dir: 'lib', include: ['*.jar'])
+    testCompile "junit:junit:4.12"
+}
+
+jar {
+    baseName = 'gradleBuild'
+    version =  '0.1.0'
+}
+
+jacocoTestReport {
+	reports {
+	html.enabled = true
+	}
+}
+
+test.finalizedBy jacocoTestReport

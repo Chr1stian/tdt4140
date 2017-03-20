@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nb"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Database.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Program</a> &gt; <a href="index.source.html" class="el_package">application</a> &gt; <span class="el_source">Database.java</span></div><h1>Database.java</h1><pre class="source lang-java linenums">package application;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+<span class="nc" id="L13">public class Database {</span>
+<span class="fc" id="L14">	private static String mysqlAddr = &quot;jdbc:mysql://mysql.stud.ntnu.no:3306/prodoteam_db?allowMultiQueries=true&quot;;</span>
+<span class="fc" id="L15">    private static String mysqlUser = &quot;chrisnyv_demo&quot;;</span>
+<span class="fc" id="L16">    private static String mysqlPass = &quot;rM48DmzH&quot;;</span>
+    
+    
+    public static boolean runQuery(String query, String... args){
+        try{
+<span class="nc" id="L21">            Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);</span>
+<span class="nc" id="L22">            PreparedStatement stmt = conn.prepareStatement(query);</span>
+<span class="nc" id="L23">            int i = 0;</span>
+<span class="nc bnc" id="L24" title="All 2 branches missed.">            for(String arg : args)</span>
+<span class="nc" id="L25">                stmt.setString(++i, arg);</span>
+<span class="nc bnc" id="L26" title="All 2 branches missed.">            return stmt.executeUpdate() != 0;</span>
+        }
+<span class="nc" id="L28">        catch(SQLException e){</span>
+<span class="nc" id="L29">            return false;</span>
+        }
+    }
+    
+    // Finds all topics from a given lecture (lectureID)
+    public static ObservableList&lt;Topic&gt; topics(String lectureID){
+<span class="fc" id="L35">    	ObservableList&lt;Topic&gt; topicList = FXCollections.observableArrayList();</span>
+<span class="pc bpc" id="L36" title="1 of 2 branches missed.">    	if(lectureID == &quot;empty&quot;){</span>
+<span class="nc" id="L37">    		return topicList;</span>
+    	}
+    	try{
+<span class="fc" id="L40">            Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);</span>
+<span class="fc" id="L41">            PreparedStatement stmt = conn.prepareStatement(&quot;SELECT * FROM topic WHERE lectureID = &quot; + lectureID);</span>
+
+<span class="fc" id="L43">            ResultSet rs = stmt.executeQuery();</span>
+<span class="fc bfc" id="L44" title="All 2 branches covered.">            while(rs.next()){</span>
+<span class="fc" id="L45">            	ArrayList&lt;String&gt; topic = new ArrayList&lt;String&gt;();</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">            	for(int i = 1; i &lt; 5; i++){</span>
+<span class="fc" id="L47">            		topic.add(rs.getString(i));</span>
+<span class="fc" id="L48">            	}topicList.add(new Topic(topic.get(0), topic.get(1), topic.get(2), topic.get(3)));</span>
+<span class="fc" id="L49">            }</span>
+<span class="fc" id="L50">            return topicList;</span>
+        }
+<span class="nc" id="L52">        catch(SQLException e){</span>
+<span class="nc" id="L53">            return null;</span>
+        }
+    }
+    
+    // Finds all lectures from a given course (courseID)
+    public static ObservableList&lt;Lecture&gt; lectures(String courseID){
+<span class="fc" id="L59">    	ObservableList&lt;Lecture&gt; lectureList = FXCollections.observableArrayList();</span>
+    	try{
+<span class="fc" id="L61">            Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);</span>
+<span class="fc" id="L62">            PreparedStatement stmt = conn.prepareStatement(&quot;SELECT * FROM lecture WHERE courseID = &quot; + courseID);</span>
+
+<span class="fc" id="L64">            ResultSet rs = stmt.executeQuery();</span>
+<span class="fc bfc" id="L65" title="All 2 branches covered.">            while(rs.next()){</span>
+<span class="fc" id="L66">            	ArrayList&lt;String&gt; lecture = new ArrayList&lt;String&gt;();</span>
+<span class="fc bfc" id="L67" title="All 2 branches covered.">            	for(int i = 1; i &lt; 5; i++){</span>
+<span class="fc" id="L68">            		lecture.add(rs.getString(i));</span>
+<span class="fc" id="L69">            	}lectureList.add(new Lecture(lecture.get(0), lecture.get(1), lecture.get(2), lecture.get(3)));</span>
+<span class="fc" id="L70">            }</span>
+<span class="fc" id="L71">            return lectureList;</span>
+        }
+<span class="nc" id="L73">        catch(SQLException e){</span>
+<span class="nc" id="L74">            return null;</span>
+        }
+    }
+    
+    // Finds all courses from the database
+    public static ObservableList&lt;Course&gt; courses(){
+    	// Makes a new observable list
+<span class="fc" id="L81">    	ObservableList&lt;Course&gt; courseList = FXCollections.observableArrayList();</span>
+    	try{
+<span class="fc" id="L83">            Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);</span>
+<span class="fc" id="L84">            PreparedStatement stmt = conn.prepareStatement(&quot;SELECT * FROM course&quot;);</span>
+            
+            //
+<span class="fc" id="L87">            ResultSet rs = stmt.executeQuery();</span>
+            
+            // While the
+<span class="fc bfc" id="L90" title="All 2 branches covered.">            while(rs.next()){</span>
+<span class="fc" id="L91">            	ArrayList&lt;String&gt; course = new ArrayList&lt;String&gt;();</span>
+<span class="fc bfc" id="L92" title="All 2 branches covered.">            	for(int i = 1; i &lt; 4; i++){</span>
+<span class="fc" id="L93">            		course.add(rs.getString(i));</span>
+<span class="fc" id="L94">            	}courseList.add(new Course(course.get(0), course.get(1), course.get(2)));</span>
+<span class="fc" id="L95">            }</span>
+<span class="fc" id="L96">            return courseList;</span>
+        }
+<span class="nc" id="L98">        catch(SQLException e){</span>
+<span class="nc" id="L99">        	System.out.println(e);</span>
+<span class="nc" id="L100">            return null;</span>
+        }	
+    }
+    
+    /*
+     * Database methods and queries for Lecture add-delete-update
+     */
+    
+    // Add lecture
+    public static void createLecture(Lecture lecture){
+    	try{
+<span class="fc" id="L111">            Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);</span>
+<span class="fc" id="L112">            PreparedStatement stmt = conn.prepareStatement(&quot;INSERT INTO lecture (courseID, number, name) VALUES (?,?,?)&quot;);</span>
+<span class="fc" id="L113">            stmt.setInt(1, Integer.parseInt(lecture.getCourseID()));</span>
+<span class="fc" id="L114">            stmt.setInt(2, Integer.parseInt(lecture.getlectureNumber()));</span>
+<span class="fc" id="L115">            stmt.setString(3, lecture.getlectureName());</span>
+            
+<span class="fc" id="L117">            stmt.executeUpdate();</span>
+    	}
+<span class="nc" id="L119">        catch(SQLException e){</span>
+<span class="nc" id="L120">        	System.out.println(e);</span>
+<span class="fc" id="L121">        }</span>
+<span class="fc" id="L122">    }</span>
+    
+    // Edit lecture
+    public static void editLecture(Lecture lecture){
+    	try{
+<span class="nc" id="L127">            Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);</span>
+<span class="nc" id="L128">            PreparedStatement stmt = conn.prepareStatement(&quot;INSERT INTO lecture (courseID, number, name) VALUES (?,?,?)&quot;);</span>
+<span class="nc" id="L129">            stmt.setInt(1, Integer.parseInt(lecture.getCourseID()));</span>
+<span class="nc" id="L130">            stmt.setInt(2, Integer.parseInt(lecture.getlectureNumber()));</span>
+<span class="nc" id="L131">            stmt.setString(3, lecture.getlectureName());</span>
+            
+<span class="nc" id="L133">            stmt.executeUpdate();</span>
+    	}
+<span class="nc" id="L135">        catch(SQLException e){</span>
+<span class="nc" id="L136">        	System.out.println(e);</span>
+<span class="nc" id="L137">        }</span>
+<span class="nc" id="L138">    }</span>
+    
+    // Delete lecture
+    public static void deleteLecture(Lecture lecture){
+    	try{
+<span class="fc" id="L143">            Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);</span>
+<span class="fc" id="L144">            PreparedStatement stmt = conn.prepareStatement(&quot;DELETE FROM lecture WHERE lectureID = ?&quot;);</span>
+            //DELETE FROM 'prodoteam_db'.'lecture'WHERE 'lecture'.'lectureID' = 15
+<span class="fc" id="L146">            stmt.setInt(1, Integer.parseInt(lecture.getLectureID()));</span>
+            //
+<span class="fc" id="L148">            stmt.executeUpdate();</span>
+    	}
+<span class="nc" id="L150">        catch(SQLException e){</span>
+<span class="nc" id="L151">        	System.out.println(e);</span>
+<span class="fc" id="L152">        }</span>
+<span class="fc" id="L153">    }</span>
+    
+    /*
+     * Database methods and queries for Topic add-delete-update
+     */
+    // Add topic
+    public static void createTopic(Topic topic){
+    	try{
+<span class="fc" id="L161">            Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);</span>
+<span class="fc" id="L162">            PreparedStatement stmt = conn.prepareStatement(&quot;INSERT INTO topic (lectureID, number, name) VALUES (?,?,?)&quot;);</span>
+<span class="fc" id="L163">            stmt.setInt(1, Integer.parseInt(topic.getLectureID()));</span>
+<span class="fc" id="L164">            stmt.setInt(2, Integer.parseInt(topic.getTopicNumber()));</span>
+<span class="fc" id="L165">            stmt.setString(3, topic.getTopicName());</span>
+            
+<span class="fc" id="L167">            stmt.executeUpdate();</span>
+    	}
+<span class="nc" id="L169">        catch(SQLException e){</span>
+<span class="nc" id="L170">        	System.out.println(e);</span>
+<span class="fc" id="L171">        }</span>
+<span class="fc" id="L172">    }</span>
+    
+    //Edit topic
+    public static void editTopic(Topic topic){
+    	try{
+<span class="nc" id="L177">            Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);</span>
+<span class="nc" id="L178">            PreparedStatement stmt = conn.prepareStatement(&quot;INSERT INTO topic (lectureID, number, name) VALUES (?,?,?)&quot;);</span>
+<span class="nc" id="L179">            stmt.setInt(1, Integer.parseInt(topic.getLectureID()));</span>
+<span class="nc" id="L180">            stmt.setInt(2, Integer.parseInt(topic.getTopicNumber()));</span>
+<span class="nc" id="L181">            stmt.setString(3, topic.getTopicName());</span>
+            
+<span class="nc" id="L183">            stmt.executeUpdate();</span>
+    	}
+<span class="nc" id="L185">        catch(SQLException e){</span>
+<span class="nc" id="L186">        	System.out.println(e);</span>
+<span class="nc" id="L187">        }</span>
+<span class="nc" id="L188">    }</span>
+    
+    // Delete topic
+    public static void deleteTopic(Topic topic){
+    	try{
+<span class="fc" id="L193">            Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);</span>
+<span class="fc" id="L194">            PreparedStatement stmt = conn.prepareStatement(&quot;DELETE FROM topic WHERE topicID = ?&quot;);</span>
+<span class="fc" id="L195">            stmt.setInt(1, Integer.parseInt(topic.getTopicID()));</span>
+            
+<span class="fc" id="L197">            stmt.executeUpdate();</span>
+    	}
+<span class="nc" id="L199">        catch(SQLException e){</span>
+<span class="nc" id="L200">        	System.out.println(e);</span>
+<span class="fc" id="L201">        }</span>
+<span class="fc" id="L202">    }</span>
+    
+    /*
+     * Display questions from students
+     */
+    // Finds all questions from a given topic (topicID)
+    
+    // Currently the only question path:	Database -&gt; Introduksjon til faget og databaser -&gt; fagintroduksjon
+    
+    public static ObservableList&lt;Question&gt; Question(String topicID){
+<span class="nc" id="L212">    	ObservableList&lt;Question&gt; questionList = FXCollections.observableArrayList();</span>
+<span class="nc bnc" id="L213" title="All 2 branches missed.">    	if(topicID == &quot;empty&quot;){</span>
+<span class="nc" id="L214">    		return questionList;</span>
+    	}
+    	try{
+<span class="nc" id="L217">    		Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);</span>
+<span class="nc" id="L218">           	PreparedStatement stmt = conn.prepareStatement(&quot;SELECT * FROM question WHERE topicID = &quot; + topicID);</span>
+<span class="nc" id="L219">            ResultSet rs = stmt.executeQuery();</span>
+<span class="nc bnc" id="L220" title="All 2 branches missed.">            while(rs.next()){</span>
+<span class="nc" id="L221">            	ArrayList&lt;String&gt; question = new ArrayList&lt;String&gt;();</span>
+<span class="nc bnc" id="L222" title="All 2 branches missed.">            	for(int i = 1; i &lt; 5; i++){</span>
+<span class="nc" id="L223">            		question.add(rs.getString(i));</span>
+<span class="nc" id="L224">            	}questionList.add(new Question(question.get(0), question.get(1), question.get(2), question.get(3)));</span>
+<span class="nc" id="L225">            }</span>
+<span class="nc" id="L226">            return questionList;</span>
+        }
+<span class="nc" id="L228">        catch(SQLException e){</span>
+<span class="nc" id="L229">            return null;</span>
+        }
+    }
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
