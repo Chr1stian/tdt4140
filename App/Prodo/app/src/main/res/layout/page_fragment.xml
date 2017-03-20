@@ -46,13 +46,13 @@
         android:layout_marginTop="21dp" />
 
     <Space
+        android:id="@+id/space"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/lbl_testRatingView"
         android:layout_centerHorizontal="true"
-        android:layout_margin="20dp"
-        android:layout_marginTop="14dp"
-        android:id="@+id/space" />
+        android:layout_margin="5dp"
+        android:layout_marginTop="14dp" />
 
     <TextView
         android:id="@+id/lbl_askQuestion"
@@ -81,4 +81,16 @@
         android:layout_toEndOf="@+id/lbl_testRatingView"
         android:layout_toRightOf="@+id/lbl_testRatingView"
         android:text="Submit" />
+
+    <TextView
+        android:id="@+id/lbl_submitOK"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/btn_SubmitQuestion"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginRight="13dp"
+        android:layout_toLeftOf="@+id/btn_SubmitQuestion"
+        android:layout_toStartOf="@+id/btn_SubmitQuestion"
+        android:text="TextView" />
 </RelativeLayout>
