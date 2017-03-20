@@ -22,8 +22,9 @@
         android:id="@+id/ratingBar_understanding"
         android:numStars="5"
         android:stepSize="1"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/lbl_ratingDescription"
+        android:layout_alignLeft="@+id/lbl_ratingDescription"
+        android:layout_alignStart="@+id/lbl_ratingDescription" />
 
     <TextView
         android:text="TextView"
@@ -32,16 +33,52 @@
         android:id="@+id/lbl_testRatingView"
         android:layout_below="@+id/ratingBar_understanding"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="37dp" />
+        android:layout_marginTop="14dp" />
 
     <TextView
         android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/ratingBar_understanding"
+        android:id="@+id/lbl_ratingDescription"
+        android:layout_below="@+id/lbl_page"
+        android:layout_alignLeft="@+id/lbl_page"
+        android:layout_alignStart="@+id/lbl_page"
+        android:layout_marginTop="21dp" />
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lbl_testRatingView"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp"
+        android:layout_marginTop="14dp"
+        android:id="@+id/space" />
+
+    <TextView
+        android:id="@+id/lbl_askQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:layout_below="@+id/space"
         android:layout_alignLeft="@+id/ratingBar_understanding"
-        android:layout_alignStart="@+id/ratingBar_understanding"
-        android:layout_marginLeft="7dp"
-        android:layout_marginStart="7dp"
-        android:id="@+id/lbl_ratingDescription" />
+        android:layout_alignStart="@+id/ratingBar_understanding" />
+
+    <EditText
+        android:id="@+id/txt_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/lbl_askQuestion"
+        android:layout_alignStart="@+id/lbl_askQuestion"
+        android:layout_below="@+id/lbl_askQuestion"
+        android:ems="10"
+        android:hint="Ask a question" />
+
+    <Button
+        android:id="@+id/btn_SubmitQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_question"
+        android:layout_toEndOf="@+id/lbl_testRatingView"
+        android:layout_toRightOf="@+id/lbl_testRatingView"
+        android:text="Submit" />
 </RelativeLayout>
