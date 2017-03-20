@@ -248,7 +248,6 @@ public class ProgramController implements Initializable{
 		topicTable.setItems(topicList);
 	}
 	
-	
 	/*
 	 * Makes it possible to delete the selected Lecture or Topic
 	 */
@@ -299,6 +298,7 @@ public class ProgramController implements Initializable{
 			}
 		}
 	
+
 	/*
 	 * QUESTION SECTION - Display questions
 	 */
