@@ -280,10 +280,12 @@ public class Database {
 
         Integer userID = 1;
         String answer = "Not answered yet..";
-        String error ="Question submitted";
+        String error ="*Question submitted*";
+        Integer rating = 0;
+
         try{
             Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO question(topicID,userID,question,answer) VALUES ('" + topicID.toString() + "','" + userID.toString() + "','" + questionString +"','" + answer + "')");
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO question(topicID,userID,question,answer,rating) VALUES ('" + topicID.toString() + "','" + userID.toString() + "','" + questionString +"','" + answer +"','" + rating.toString() + "')");
             //INSERT INTO `question`(`questionID`, `topicID`, `userID`, `question`, `answer`) VALUES ([value-1],[value-2],[value-3],[value-4],[value-5])
             stmt.execute();
             conn.close();

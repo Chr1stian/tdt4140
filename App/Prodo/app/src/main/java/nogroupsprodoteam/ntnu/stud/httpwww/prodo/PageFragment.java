@@ -2,6 +2,7 @@ package nogroupsprodoteam.ntnu.stud.httpwww.prodo;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +28,7 @@ public class PageFragment extends Fragment {
     TextView textQuestion;
     EditText question;
     String questionString;
-    String prevquestionString;
+    TextView submitOK;
 
     public PageFragment() {
         // Required empty public constructor
@@ -69,25 +70,42 @@ public class PageFragment extends Fragment {
         submitQuestionButton = (Button)view.findViewById(R.id.btn_SubmitQuestion);
         question = (EditText)view.findViewById(R.id.txt_question);
         question.setHint("Ask a question");
+        submitOK = (TextView)view.findViewById(R.id.lbl_submitOK);
+        submitOK.setText(null);
 
 
         //Listening for changes in rating
-
         addListenerOnRatingBar();
 
-        //Listening for changes in EditText field
+        //Listening for buttonClicks GJØR OM TIL EGEN FUNKSJON
         submitQuestionButton.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
                questionString = question.getText().toString();
-               //lag stringlength validation og ikkje likt originaltext
+
+               submitOK.setText("Processing...");
+               //String length validation
                if (isQuestionValid(questionString)){
-                   question.setText(null);
-                   String errorMessage = Database.sendQuestion(topicID,questionString);
-                   testShowRating.setText(errorMessage);
+
+                   final String errorMessage = Database.sendQuestion(topicID,questionString);
+
+                    //delay stopping button from being clickable for 4 seconds while "processing"
+                   submitQuestionButton.setEnabled(false);
+                   new Handler().postDelayed(new Runnable() {
+                       @Override
+                       public void run() {
+
+                           submitOK.setText(errorMessage);
+                           question.setText(null);
+                           submitQuestionButton.setEnabled(true);
+                       }
+                   },1750);
+
+
                }else{
                    question.setText(null);
                }
+
 
            }
         });
@@ -97,13 +115,14 @@ public class PageFragment extends Fragment {
     }
 
     private void addListenerOnRatingBar() {
+        //listening for changes in rating
         ratingBar = (RatingBar) view.findViewById(R.id.ratingBar_understanding);
 
 
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                //showing rating value in testtext display
+                //showing rating value in testtext display and sends rating to database
                 staus = Integer.toString(Math.round(rating));
 
                 String errorMessage = Database.setRating(topicID,Math.round(rating));
@@ -113,20 +132,44 @@ public class PageFragment extends Fragment {
 
     }
 
-   // private void addOnClicK
+
 
     private boolean isQuestionValid(String questionString){
-        if (questionString.length()<2){
-            question.setHint("Invalid question, try again.");
+        //validates that the string is longer than 2 characters. and displays invalid questions statment if false.
+        int lengthOfString = questionString.length();
+
+        if (lengthOfString>2){
+            question.setHint("Ask a new question");
+
+            return true;
+        } else {
+            question.setHint(""+lengthOfString);
+            /*"Invalid question, try again."*/
+            submitOK.setText("Question not submitted...");
             return false;
+
         }
-
-        question.setHint("Ask a new question");
-
-        return true;
     }
 
 
 
 
 }
+
+//For å hente ut autogenerert value
+/*  public static int insertResult() {
+    	try {
+    		Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
+    		PreparedStatement stmt = conn.prepareStatement("insert into RESULTAT () values ()", Statement.RETURN_GENERATED_KEYS);
+        	stmt.executeUpdate();
+        	ResultSet rs = stmt.getGeneratedKeys();
+        	if (rs.next()) {
+        		return rs.getInt(1);
+        	} else {
+        		System.out.println("rs empty");
+        	}
+    	} catch(SQLException e) {
+        	System.out.println(e);
+        }
+    	return -1;
+    }   */
