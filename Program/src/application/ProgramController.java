@@ -46,7 +46,7 @@ public class ProgramController implements Initializable{
 	private Text title_leftPane, courseNameDisplay, courseIdText, lectureNumberText;
 	
 	@FXML
-	private Button btn_leftPane, sidebarNextButton, sidebarBackButton;
+	private Button btn_leftPane, sidebarNextButton, sidebarBackButton, submitAnswer;
 	
 	@FXML
 	private TableView<Course> courseTable;
@@ -74,7 +74,7 @@ public class ProgramController implements Initializable{
 	
 	
 	@FXML
-	private TextField lectureIDInput, lectureNameInput, topicNameInput, topicNumberInput, search_leftPane;
+	private TextField lectureIDInput, lectureNameInput, topicNameInput, topicNumberInput, search_leftPane, answerInput;
 
 	
 	// Initializes the program by showing the correct table (CourseTable in the sidebar)
@@ -385,6 +385,22 @@ public class ProgramController implements Initializable{
 				updateQuestionTable(Database.Question(topicTable.getSelectionModel().getSelectedItem().getTopicID()));
 			}
 		}
+	}
+	
+	//Answering questions asked from students
+	
+	@FXML
+	private void answerQuestion(){
+		String questionID = questionTable.getSelectionModel().getSelectedItem().getquestionID();
+		String topicID = topicTable.getSelectionModel().getSelectedItem().getTopicID();
+		String answerQuestion =  answerInput.getText();
+		//String userID = questionTable.getSelectionModel().getSelectedItem.getuserID();
+		
+		//Får en SQLExcepetion: Field "userID" doesn't have a default value....
+		
+		Question question = new Question(questionID, topicID, null, null ,answerQuestion);
+		Database.answerQuestion(question);
+		answerInput.setText("");
 	}
 	
 	/*

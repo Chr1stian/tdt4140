@@ -221,12 +221,29 @@ public class Database {
             	ArrayList<String> question = new ArrayList<String>();
             	for(int i = 1; i < 5; i++){
             		question.add(rs.getString(i));
-            	}questionList.add(new Question(question.get(0), question.get(1), question.get(2), question.get(3)));
+            	}questionList.add(new Question(question.get(0), question.get(1), question.get(2), question.get(3), null));
             }
             return questionList;
         }
         catch(SQLException e){
             return null;
+        }
+    }
+    
+    // Answer Question
+    public static void answerQuestion(Question question){
+    	try{
+            Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO question (questionID, topicID, answer) VALUES (?,?,?)");
+            stmt.setInt(1, Integer.parseInt(question.getquestionID()));
+            stmt.setInt(2, Integer.parseInt(question.gettopicID()));
+            //stmt.setInt(3, Integer.parseInt( ));
+            stmt.setString(3, question.questionAnswer().toString());
+            
+            stmt.executeUpdate();
+    	}
+        catch(SQLException e){
+        	System.out.println(e);
         }
     }
     

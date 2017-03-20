@@ -9,14 +9,18 @@ public class Question {
 	private final StringProperty topicID;
 	private final StringProperty questionNumber;
 	private final StringProperty questionName;
+	private final StringProperty questionAnswer;
+	//private final StringProperty userID;
 
-	public Question(String questionID, String topicID, String questionNumber, String questionName) {
+	public Question(String questionID, String topicID, String questionNumber, String questionName, String questionAnswer) {
 		this.questionID = new SimpleStringProperty(questionID);
 		this.topicID = new SimpleStringProperty(topicID);
 		this.questionNumber = new SimpleStringProperty(questionNumber);
 		this.questionName = new SimpleStringProperty(questionName);
+		this.questionAnswer = new SimpleStringProperty(questionAnswer);
+		//this.userID = new SimpleStringProperty(userID);
 	}
-	
+
 	public String getquestionID() {
 		return questionID.get();
 	}
@@ -64,4 +68,30 @@ public class Question {
 	public StringProperty questionNameProperty() {
 		return questionName;
 	}
+	
+	public String getquestionAnswer(){
+		return questionAnswer.get();
+	}
+	
+	public void setquestionAnswer(String questionAnswer){
+		this.questionAnswer.set(questionAnswer);
+	}
+	
+	public StringProperty questionAnswer(){
+		return questionAnswer;
+	}
+	/*
+	 * 	public String getuserID(){
+		return userID.get();
+	}
+	
+	public void setuserID(String userID){
+		this.userID.set(userID);
+	}
+	
+	public StringProperty userID(){
+		return userID;
+	}
+	 */
+
 }

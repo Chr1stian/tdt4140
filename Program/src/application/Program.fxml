@@ -144,8 +144,8 @@
                                           <TableColumn fx:id="lectureCourseTopic1" maxWidth="5000.0" minWidth="0.0" prefWidth="192.0" resizable="false" text="Topics" />
                                        </columns>
                                     </TableView>
-                                    <TextField layoutX="118.0" layoutY="687.0" prefHeight="117.0" prefWidth="616.0" promptText="Write your answer to the selected question here..." />
-                                    <Button layoutX="614.0" layoutY="804.0" mnemonicParsing="false" text="Submit Answer" />
+                                    <TextField fx:id="answerInput" layoutX="118.0" layoutY="687.0" prefHeight="117.0" prefWidth="616.0" promptText="Write your answer to the selected question here..." />
+                                    <Button fx:id="submitAnswer" layoutX="588.0" layoutY="804.0" mnemonicParsing="false" onAction="#answerQuestion" text="Submit Answer" />
                                  </children></AnchorPane>
                         </content>
                       </Tab>
