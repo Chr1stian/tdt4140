@@ -33,7 +33,7 @@ public class Main extends Application{
 		controller.setMain(this);
 	}
 	
-	public boolean showPopup(Lecture lecture) {
+	public boolean showPopup(Lecture lecture, Topic topic, String LorT) {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
@@ -51,7 +51,17 @@ public class Main extends Application{
             // Set the person into the controller.
             PopupController controller = loader.getController();
             controller.setStage(popupStage);
-            controller.setLecture(lecture);
+            if(lecture != null){
+            	controller.setLecture(lecture);
+            }else if(topic != null){
+            	controller.setTopic(topic);
+            }else{
+            	if(LorT == "lecture"){
+            		controller.addLecture();
+            	}else{
+            		controller.addTopic();
+            	}
+            }
 
             // Show the dialog and wait until the user closes it
             popupStage.showAndWait();
