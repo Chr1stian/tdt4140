@@ -14,6 +14,12 @@ public class PopupController implements Initializable{
 	
 	private Boolean submitClicked = false;
 	
+	private String number, lectureID, courseID, topicID;
+	
+	private Topic topic;
+	
+	private Lecture lecture;
+	
 	@FXML
 	private Text popupTitle, popupTopText, popupBotText;
 	
@@ -28,7 +34,7 @@ public class PopupController implements Initializable{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		System.out.println("Sup");
+		
 	}
 	
 	public void changeText(String s){
@@ -45,7 +51,9 @@ public class PopupController implements Initializable{
 		this.popupStage = popupStage;
 	}
 	
-	public void setLecture(Lecture lecture){
+	public void editLecture(Lecture lecture){
+		courseID = lecture.getCourseID();
+		lectureID = lecture.getLectureID();
 		popupTitle.setText("Edit lecture");
 		popupTopText.setText("Topic number");
 		popupTopInput.setText(lecture.getlectureNumber());
@@ -55,7 +63,9 @@ public class PopupController implements Initializable{
 		popupBotInput.setPromptText("Lecture name");
 	}
 	
-	public void setTopic(Topic topic){
+	public void editTopic(Topic topic){
+		lectureID = topic.getLectureID();
+		topicID = topic.getTopicID();
 		popupTitle.setText("Edit topic");
 		popupTopText.setText("Topic number");
 		popupTopInput.setText(topic.getTopicNumber());
@@ -65,7 +75,8 @@ public class PopupController implements Initializable{
 		popupBotInput.setPromptText("Topic name");
 	}
 	
-	public void addLecture(){
+	public void addLecture(String number){
+		courseID = number;
 		popupTitle.setText("Add lecture");
 		popupTopText.setText("Lecture number");
 		popupTopInput.setPromptText("Lecture number");
@@ -73,7 +84,8 @@ public class PopupController implements Initializable{
 		popupBotInput.setPromptText("Lecture name");
 	}
 	
-	public void addTopic(){
+	public void addTopic(String number){
+		lectureID = number;
 		popupTitle.setText("Add topic");
 		popupTopText.setText("Topic number");
 		popupTopInput.setPromptText("Topic number");
@@ -83,16 +95,30 @@ public class PopupController implements Initializable{
 	
 	@FXML
 	public void submit(){
-		System.out.println(popupTitle.getText());
-		if(validateNumber()){
-			System.out.println("Riktig nummerformat");
+		if(validateNumber() && validateName()){
+			String number = popupTopInput.getText();
+			String name = popupBotInput.getText();
+			popupTopInput.setText("");
+			popupBotInput.setText("");
+			if(popupTitle.getText() == "Add lecture"){
+				Lecture lecture = new Lecture(null, courseID, number, name);
+				Database.createLecture(lecture);
+			}else if(popupTitle.getText() == "Add topic"){
+				Topic topic = new Topic(null, lectureID, number, name);
+				Database.createTopic(topic);
+			}else if(popupTitle.getText() == "Edit lecture"){
+				Lecture lecture = new Lecture(lectureID, courseID, number, name);
+				Database.editLecture(lecture);
+			}else if(popupTitle.getText() == "Edit topic"){
+				Topic topic = new Topic(topicID, lectureID, number, name);
+				Database.editTopic(topic);
+			}else{
+				System.out.println("Matcher ingen????");
+			}
+			submitClicked = true;
+		    popupStage.close();
 		}else{
-			System.out.println("Feil nummerformat");
-		}
-		if(validateName()){
-			System.out.println("Riktig navnformat");
-		}else{
-			System.out.println("Feil navnformat");
+			System.out.println("Ikke godkjent");
 		}
 	}
 	
