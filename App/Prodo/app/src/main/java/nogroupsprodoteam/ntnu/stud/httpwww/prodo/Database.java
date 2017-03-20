@@ -298,4 +298,29 @@ public class Database {
         return error;
 
     }
+
+    public static ArrayList<String> getQuestions(Integer topicID) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        ArrayList<String> questions = new ArrayList<String>();
+        try{
+            Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM question WHERE topicID = " + topicID.toString());
+//SELECT `questionID`, `topicID`, `userID`, `question`, `answer`, `rating` FROM `question` WHERE 1
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                questions.add(rs.getString(4) + "   Answer: " + rs.getString(5));
+            }
+            conn.close();
+            return questions;
+        }
+        catch(SQLException e){
+            System.out.println(e);
+            questions.add("No questions yet.." + e);
+            return questions;
+        }
+    }
 }

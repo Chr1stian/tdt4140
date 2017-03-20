@@ -7,10 +7,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 
 /**
@@ -29,6 +34,9 @@ public class PageFragment extends Fragment {
     EditText question;
     String questionString;
     TextView submitOK;
+    ListView showQuestions;
+
+
 
     public PageFragment() {
         // Required empty public constructor
@@ -73,6 +81,27 @@ public class PageFragment extends Fragment {
         submitOK = (TextView)view.findViewById(R.id.lbl_submitOK);
         submitOK.setText(null);
 
+//creates ArrayList with Lectures on selected course from Database
+        ArrayList<String> ListViewArray  = Database.getQuestions(topicID);
+
+        showQuestions = (ListView)view.findViewById(R.id.list_questions);
+        // Create an ArrayAdapter using the ArrayList
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_selectable_list_item, ListViewArray);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        showQuestions.setAdapter(arrayAdapter);
+
+
+      /*  //function to run when lecture is selected from list
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Object lecture = list.getItemAtPosition(position);
+                //gets lectureID from database based on selected lecture in list
+                Integer lectureID = Database.getLectureID(courseNumber, position + 1);
+                sendMessage(coursename, nickname, lecture.toString(), lectureID);
+            }
+        });*/
 
         //Listening for changes in rating
         addListenerOnRatingBar();
