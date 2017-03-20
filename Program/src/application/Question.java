@@ -7,21 +7,23 @@ public class Question {
 	
 	private final StringProperty questionID;
 	private final StringProperty topicID;
-	private final StringProperty questionNumber;
-	private final StringProperty questionName;
+	private final StringProperty userID;
+	private final StringProperty question;
+	private final StringProperty answer;
 
-	public Question(String questionID, String topicID, String questionNumber, String questionName) {
+	public Question(String questionID, String topicID, String userID, String question, String answer) {
 		this.questionID = new SimpleStringProperty(questionID);
 		this.topicID = new SimpleStringProperty(topicID);
-		this.questionNumber = new SimpleStringProperty(questionNumber);
-		this.questionName = new SimpleStringProperty(questionName);
+		this.userID = new SimpleStringProperty(userID);
+		this.question = new SimpleStringProperty(question);
+		this.answer = new SimpleStringProperty(answer);
 	}
-	
-	public String getquestionID() {
+
+	public String getQuestionID() {
 		return questionID.get();
 	}
 
-	public void setquestionID(String topicID) {
+	public void setQuestionID(String topicID) {
 		this.questionID.set(topicID);
 	}
 	
@@ -29,11 +31,11 @@ public class Question {
 		return questionID;
 	}
 	
-	public String gettopicID() {
+	public String getTopicID() {
 		return topicID.get();
 	}
 
-	public void settopicID(String topicID) {
+	public void setTopicID(String topicID) {
 		this.topicID.set(topicID);
 	}
 	
@@ -41,27 +43,40 @@ public class Question {
 		return topicID;
 	}
 	
-	public String getquestionNumber() {
-		return questionNumber.get();
+	public String getUserID() {
+		return userID.get();
 	}
 
-	public void setquestionNumber(String questionNumber) {
-		this.questionNumber.set(questionNumber);
+	public void setUserID(String userID) {
+		this.userID.set(userID);
 	}
 	
-	public StringProperty questionNumberProperty() {
-		return questionNumber;
+	public StringProperty userIDProperty() {
+		return userID;
 	}
 
-	public String getquestionName() {
-		return questionName.get();
+	public String getQuestion() {
+		return question.get();
 	}
 
-	public void setquestionName(String questionName) {
-		this.questionName.set(questionName);
+	public void setQuestion(String question) {
+		this.question.set(question);
 	}
 	
-	public StringProperty questionNameProperty() {
-		return questionName;
+	public StringProperty questionProperty() {
+		return question;
 	}
+	
+	public String getAnswer(){
+		return answer.get();
+	}
+	
+	public void setAnswer(String answer){
+		this.answer.set(answer);
+	}
+	
+	public StringProperty answerProperty(){
+		return answer;
+	}
+
 }

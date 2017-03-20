@@ -216,17 +216,29 @@ public class Database {
     	try{
     		Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
            	PreparedStatement stmt = conn.prepareStatement("SELECT * FROM question WHERE topicID = " + topicID);
-            ResultSet rs = stmt.executeQuery();
-            while(rs.next()){
+           	ResultSet rs = stmt.executeQuery();
+           	while(rs.next()){
             	ArrayList<String> question = new ArrayList<String>();
-            	for(int i = 1; i < 5; i++){
+            	for(int i = 1; i < 6; i++){
             		question.add(rs.getString(i));
-            	}questionList.add(new Question(question.get(0), question.get(1), question.get(2), question.get(3)));
+            	}questionList.add(new Question(question.get(0), question.get(1), question.get(2), question.get(3), question.get(4)));
             }
             return questionList;
         }
         catch(SQLException e){
-            return null;
+        	return null;
+        }
+    }
+    
+    // Answer Question
+    public static void answerQuestion(Question question, String answer){
+    	try{
+            Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
+            PreparedStatement stmt = conn.prepareStatement("UPDATE question SET answer = '" + answer + "' WHERE questionID = " + question.getQuestionID());
+            stmt.executeUpdate();
+    	}
+        catch(SQLException e){
+        	System.out.println(e);
         }
     }
     

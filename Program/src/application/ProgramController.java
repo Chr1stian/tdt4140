@@ -48,7 +48,7 @@ public class ProgramController implements Initializable{
 	private Text title_leftPane, courseNameDisplay, courseIdText, lectureNumberText;
 	
 	@FXML
-	private Button btn_leftPane, sidebarNextButton, sidebarBackButton, deleteButton;
+	private Button btn_leftPane, sidebarNextButton, sidebarBackButton, submitAnswer, deleteButton;
 	
 	@FXML
 	private TableView<Course> courseTable;
@@ -72,11 +72,11 @@ public class ProgramController implements Initializable{
 	private TableView<Question> questionTable;
 	
 	@FXML
-	private TableColumn<Question, String> questionTableQuestion; 
+	private TableColumn<Question, String> questionTableQuestion, questionTableAnswer; 
 	
 	
 	@FXML
-	private TextField lectureIDInput, lectureNameInput, topicNameInput, topicNumberInput, search_leftPane;
+	private TextField lectureIDInput, lectureNameInput, topicNameInput, topicNumberInput, search_leftPane, answerInput;
 
 	
 	// Initializes the program by showing the correct table (CourseTable in the sidebar)
@@ -407,7 +407,8 @@ public class ProgramController implements Initializable{
 	// Method for filling the table in the "Lecture" tab with topics
 	private void updateQuestionTable(ObservableList<Question> questionList){
 		// 0. Initialize the columns.
-		questionTableQuestion.setCellValueFactory(cellData -> cellData.getValue().questionNameProperty());
+		questionTableQuestion.setCellValueFactory(cellData -> cellData.getValue().questionProperty());
+		questionTableAnswer.setCellValueFactory(cellData -> cellData.getValue().answerProperty());
 		// 1. Add data to the table.
 		questionTable.setItems(questionList);
 	}
@@ -419,6 +420,20 @@ public class ProgramController implements Initializable{
 			if(topicTable.getSelectionModel().getSelectedItem() != null){
 				updateQuestionTable(Database.Question(topicTable.getSelectionModel().getSelectedItem().getTopicID()));
 			}
+		}
+	}
+	
+	//Answering questions asked from students
+	@FXML
+	private void answerQuestion(){
+		String answer =  answerInput.getText();
+		Question question = questionTable.getSelectionModel().getSelectedItem();
+		Database.answerQuestion(question, answer);
+		answerInput.setText("");
+		try {
+			displayQuestions();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 	
