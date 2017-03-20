@@ -6,13 +6,13 @@
 
 
     <TextView
-        android:text="Page number"
+        android:id="@+id/lbl_page"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/lbl_page"
-        android:textSize="40sp"
+        android:layout_marginTop="71dp"
+        android:text="Page number"
         android:textAlignment="center"
-        android:layout_marginTop="80dp"
+        android:textSize="24sp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
@@ -23,8 +23,7 @@
         android:numStars="5"
         android:stepSize="1"
         android:layout_below="@+id/lbl_ratingDescription"
-        android:layout_alignLeft="@+id/lbl_ratingDescription"
-        android:layout_alignStart="@+id/lbl_ratingDescription" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:text="TextView"
@@ -32,18 +31,17 @@
         android:layout_height="wrap_content"
         android:id="@+id/lbl_testRatingView"
         android:layout_below="@+id/ratingBar_understanding"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="14dp" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/lbl_ratingDescription"
+        android:layout_marginTop="14dp"
         android:layout_below="@+id/lbl_page"
-        android:layout_alignLeft="@+id/lbl_page"
-        android:layout_alignStart="@+id/lbl_page"
-        android:layout_marginTop="21dp" />
+        android:layout_alignLeft="@+id/ratingBar_understanding"
+        android:layout_alignStart="@+id/ratingBar_understanding" />
 
     <Space
         android:id="@+id/space"
@@ -93,4 +91,24 @@
         android:layout_toLeftOf="@+id/btn_SubmitQuestion"
         android:layout_toStartOf="@+id/btn_SubmitQuestion"
         android:text="TextView" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/lbl_submitOK"
+        android:text="Questions:"
+        android:textSize="24sp" />
+
+    <ListView
+        android:id="@+id/list_questions"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/btn_SubmitQuestion"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="33dp" />
+
+
 </RelativeLayout>
