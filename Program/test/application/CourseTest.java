@@ -13,19 +13,25 @@ public class CourseTest {
 	@Test
 	public void testCourseID() {
 		Course test = new Course(testCourseID, testCourseCode, testCourseName);
+		test.setCourseID(testCourseID);
 		String courseID = test.getCourseID();
+		assertEquals(testCourseID, (test.courseIDProperty()).getValue());
 		assertEquals(testCourseID, courseID);
 	}
 	@Test
 	public void testCourseCode() {
 		Course test = new Course(testCourseID, testCourseCode, testCourseName);
+		test.setCourseCode(testCourseCode);
 		String courseCode = test.getCourseCode();
+		assertEquals(testCourseCode, (test.courseCodeProperty()).getValue());
 		assertEquals(testCourseCode, courseCode);
 	}
 	@Test
 	public void testCourseName() {
 		Course test = new Course(testCourseID, testCourseCode, testCourseName);
+		test.setCourseName(testCourseName);
 		String courseName = test.getCourseName();
+		assertEquals(testCourseName, (test.courseNameProperty()).getValue());
 		assertEquals(testCourseName, courseName);
 	}
 }
