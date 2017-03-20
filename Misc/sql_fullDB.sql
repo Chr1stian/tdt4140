@@ -138,9 +138,9 @@ VALUES
 (32, 13, 1, 'MMI-historie'),
 (39, 20, 1, 'Tull');
 
-INSERT INTO question(questionID, topicID, userID, question)
+INSERT INTO question(questionID, topicID, userID, question, rating)
 VALUES
-(1, 10, 1, 'Hvor mange øvinger må man ha godkjent');
+(1, 10, 1, 'Hvor mange øvinger må man ha godkjent', 0);
 
 INSERT INTO rating(ratingID, topicID, userID, stars)
 VALUES
