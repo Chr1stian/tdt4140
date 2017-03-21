@@ -52,7 +52,7 @@ public class ProgramController implements Initializable{
 	private Text title_leftPane, courseNameDisplay, courseIdText, lectureNumberText;
 	
 	@FXML
-	private Button btn_leftPane, sidebarNextButton, sidebarBackButton, submitAnswer, deleteButton;
+	private Button btn_leftPane, sidebarNextButton, sidebarBackButton, sidebarAdd, sidebarEdit, sidebarDelete, submitAnswer, deleteButton;
 	
 	@FXML
 	private TableView<Course> courseTable;
@@ -341,7 +341,9 @@ public class ProgramController implements Initializable{
 	 */
 	@FXML
 	private void nextButton(){
+		// If the sidebar table shows courses
 		if(sidebarTable == "course"){
+			// If you actually selected an item in the table
 			if(courseTable.getSelectionModel().getSelectedItem() != null){
 				search_leftPane.clear();
 				sidebarTable = "lecture";
@@ -351,7 +353,9 @@ public class ProgramController implements Initializable{
 				title_leftPane.setText("Lectures");
 				courseIdText.setText(courseTable.getSelectionModel().getSelectedItem().getCourseCode());
 			}
+		// If the sidebar table shows lectures
 		}else if(sidebarTable == "lecture"){
+			// If you actually selected an item in the table
 			if(lectureTable.getSelectionModel().getSelectedItem() != null){
 				search_leftPane.clear();
 				sidebarTable = "topic";
@@ -362,6 +366,7 @@ public class ProgramController implements Initializable{
 				lectureNumberText.setText(lectureTable.getSelectionModel().getSelectedItem().getlectureNumber());
 			}
 		}
+		// Disable and enable the correct buttons
 		enableDisableButton();
 	}
 	
@@ -390,11 +395,18 @@ public class ProgramController implements Initializable{
 	private void enableDisableButton(){
 		if(sidebarTable == "topic"){
 			sidebarNextButton.setDisable(true);
+			
 		}else if(sidebarTable == "course"){
 			sidebarBackButton.setDisable(true);
+			sidebarAdd.setDisable(true);
+			sidebarEdit.setDisable(true);
+			sidebarDelete.setDisable(true);
 		}else{
 			sidebarNextButton.setDisable(false);
 			sidebarBackButton.setDisable(false);
+			sidebarAdd.setDisable(false);
+			sidebarEdit.setDisable(false);
+			sidebarDelete.setDisable(false);
 		}
 	}
 }

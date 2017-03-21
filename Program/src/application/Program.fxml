@@ -43,9 +43,9 @@
                         <TextField fx:id="search_leftPane" prefHeight="37.0" prefWidth="302.0" promptText="Search..." AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 						<Button fx:id="sidebarNextButton" mnemonicParsing="false" onAction="#nextButton" prefHeight="37.0" prefWidth="154.0" text="Next" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="37.0" />
                         <Button fx:id="sidebarBackButton" disable="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#backButton" prefHeight="37.0" prefWidth="154.0" text="Back" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="37.0" />
-                        <Button layoutY="620.0" mnemonicParsing="false" onAction="#add" prefHeight="37.0" prefWidth="104.0" text="Add" AnchorPane.bottomAnchor="37.0" AnchorPane.leftAnchor="0.0" />
-                        <Button layoutX="103.0" layoutY="620.0" mnemonicParsing="false" onAction="#edit" prefHeight="37.0" prefWidth="104.0" text="Edit" AnchorPane.bottomAnchor="37.0" AnchorPane.leftAnchor="103.0" AnchorPane.rightAnchor="101.0" />
-                        <Button layoutX="205.0" layoutY="620.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="104.0" text="Delete" AnchorPane.bottomAnchor="37.0" AnchorPane.rightAnchor="-3.0" />        
+                        <Button fx:id="sidebarAdd" disable="true" layoutY="620.0" mnemonicParsing="false" onAction="#add" prefHeight="37.0" prefWidth="104.0" text="Add" AnchorPane.bottomAnchor="37.0" AnchorPane.leftAnchor="0.0" />
+                        <Button fx:id="sidebarEdit" disable="true" layoutX="103.0" layoutY="620.0" mnemonicParsing="false" onAction="#edit" prefHeight="37.0" prefWidth="104.0" text="Edit" AnchorPane.bottomAnchor="37.0" AnchorPane.leftAnchor="103.0" AnchorPane.rightAnchor="101.0" />
+                        <Button fx:id="sidebarDelete" disable="true" layoutX="205.0" layoutY="620.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="104.0" text="Delete" AnchorPane.bottomAnchor="37.0" AnchorPane.rightAnchor="-3.0" />        
                      </children>
                   </AnchorPane>
                   <GridPane layoutX="27.0" layoutY="59.0" prefHeight="65.0" prefWidth="306.0">
