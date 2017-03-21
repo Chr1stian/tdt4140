@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="application.QuestionTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2017-03-20T14:32:03" hostname="Christians-MacBook-Pro-2.local" time="0.001">
+  <properties/>
+  <testcase name="testTopicID" classname="application.QuestionTest" time="0.0"/>
+  <testcase name="testQuestion" classname="application.QuestionTest" time="0.0"/>
+  <testcase name="testQuestionID" classname="application.QuestionTest" time="0.0"/>
+  <testcase name="testAnswer" classname="application.QuestionTest" time="0.001"/>
+  <testcase name="testUserID" classname="application.QuestionTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
