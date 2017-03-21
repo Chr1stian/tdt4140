@@ -100,6 +100,7 @@ public class PopupController implements Initializable{
 			String name = popupBotInput.getText();
 			popupTopInput.setText("");
 			popupBotInput.setText("");
+			popupSubmit.defaultButtonProperty().bind(popupSubmit.focusedProperty());
 			if(popupTitle.getText() == "Add lecture"){
 				Lecture lecture = new Lecture(null, courseID, number, name);
 				Database.createLecture(lecture);
