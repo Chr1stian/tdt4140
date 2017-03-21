@@ -30,7 +30,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+            <Text fx:id="popupTitle" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                <font>
                   <Font size="31.0" />
                </font>
@@ -38,17 +38,17 @@
                   <Insets />
                </GridPane.margin>
             </Text>
-            <TextField fx:id="popupTextTop" prefHeight="37.0" prefWidth="305.0" promptText="Prompt" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="TOP">
+            <TextField fx:id="popupTopInput" prefHeight="37.0" prefWidth="305.0" promptText="Prompt" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets left="30.0" right="30.0" />
                </GridPane.margin>
             </TextField>
-            <TextField fx:id="popupTextBot" promptText="Prompt" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="TOP">
+            <TextField fx:id="popupBotInput" promptText="Prompt" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets left="30.0" right="30.0" />
                </GridPane.margin>
             </TextField>
-            <Button fx:id="okButton" maxWidth="326.0" minWidth="326.0" mnemonicParsing="false" prefWidth="326.0" text="Submit" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="TOP">
+            <Button fx:id="popupSubmit" maxWidth="326.0" minWidth="326.0" mnemonicParsing="false" onAction="#submit" prefWidth="326.0" text="Submit" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets left="30.0" right="30.0" />
                </GridPane.margin>
@@ -58,7 +58,7 @@
                   <Insets bottom="15.0" />
                </GridPane.margin>
             </Line>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+            <Text fx:id="popupTopText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
                <GridPane.margin>
                   <Insets left="30.0" />
                </GridPane.margin>
@@ -66,7 +66,7 @@
                   <Font size="20.0" />
                </font>
             </Text>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
+            <Text fx:id="popupBotText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
                <GridPane.margin>
                   <Insets left="30.0" />
                </GridPane.margin>

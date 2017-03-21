@@ -116,11 +116,10 @@ public class Database {
     public static void editLecture(Lecture lecture){
     	try{
             Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO lecture (courseID, number, name) VALUES (?,?,?)");
-            stmt.setInt(1, Integer.parseInt(lecture.getCourseID()));
-            stmt.setInt(2, Integer.parseInt(lecture.getlectureNumber()));
-            stmt.setString(3, lecture.getlectureName());
-            
+            //System.out.println(("UPDATE lecture SET number = '" + lecture.getlectureNumber() + "', name = '" + lecture.getlectureName() + "' WHERE lectureID = " + lecture.getLectureID()));
+            PreparedStatement stmt = conn.prepareStatement(
+            		"UPDATE lecture SET number = '" + lecture.getlectureNumber() + "', name = '" + 
+            		lecture.getlectureName() + "' WHERE lectureID = " + lecture.getLectureID());
             stmt.executeUpdate();
             conn.close();
     	}
@@ -168,12 +167,10 @@ public class Database {
     //Edit topic
     public static void editTopic(Topic topic){
     	try{
-            Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO topic (lectureID, number, name) VALUES (?,?,?)");
-            stmt.setInt(1, Integer.parseInt(topic.getLectureID()));
-            stmt.setInt(2, Integer.parseInt(topic.getTopicNumber()));
-            stmt.setString(3, topic.getTopicName());
-            
+    		Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
+            PreparedStatement stmt = conn.prepareStatement(
+            		"UPDATE topic SET number = '" + topic.getTopicNumber() + "', name = '" + 
+            		topic.getTopicName() + "' WHERE topicID = " + topic.getTopicID());
             stmt.executeUpdate();
             conn.close();
     	}

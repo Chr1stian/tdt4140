@@ -17,6 +17,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
@@ -27,6 +28,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
@@ -34,9 +36,11 @@ public class ProgramController implements Initializable{
 	
 	//private int toggleLeft = 0;
 	
-	String lastClicked = "";
+	private String lastClicked = "";
 	
-	String sidebarTable = "course";
+	private String sidebarTable = "course";
+	
+	private Main main;
 	
 	@FXML
 	private AnchorPane mainPane;
@@ -82,43 +86,42 @@ public class ProgramController implements Initializable{
 	// Initializes the program by showing the correct table (CourseTable in the sidebar)
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		lectureTable.setVisible(false);
 		updateCourseTable();
 	}
 	
-	@FXML
-    public void showNewItemDialog() {
-        Dialog<ButtonType> dialog = new Dialog<>();
-        //Stage popupStage = new Stage();
-        //dialog.initOwner(mainPane.getScene().getWindow());
-        //dialog.setTitle("Wololololo");
-        //dialog.setHeaderText("Use this dialog to do incredible things");
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("PopUpWindow.fxml"));
-        try {
-            dialog.getDialogPane().setContent(fxmlLoader.load());
-
-        } catch(IOException e) {
-            System.out.println("Couldn't load the dialog");
-            e.printStackTrace();
-            return;
-        }
-
-        dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
-        dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
-
-        Optional<ButtonType> result = dialog.showAndWait();
-        /*if(result.isPresent() && result.get() == ButtonType.OK) {
-            PopupController controller = fxmlLoader.getController();
-            /*TodoItem newItem = controller.processResults();
-            todoListView.getItems().setAll(TodoData.getInstance().getTodoItems());
-            todoListView.getSelectionModel().select(newItem);
-            System.out.println("OK pressed");
-        } else {
-            System.out.println("Cancel pressed");
-        }*/
-    }
+	 public void setMain(Main main) {
+	    this.main = main;
+	 }
 	
+	 @FXML
+	 public void edit(){
+		 if(sidebarTable == "lecture"){
+			 if(lectureTable.getSelectionModel().getSelectedItem() != null){
+				 String courseID = courseTable.getSelectionModel().getSelectedItem().getCourseID();
+				 main.showPopup(lectureTable.getSelectionModel().getSelectedItem(), null, "", "");
+				 updateLectureTable(Database.lectures(courseID));
+			 }
+		 }else if(sidebarTable == "topic"){
+			 if(topicTable.getSelectionModel().getSelectedItem() != null){
+				 String lectureID = lectureTable.getSelectionModel().getSelectedItem().getLectureID();
+				 main.showPopup(null, topicTable.getSelectionModel().getSelectedItem(), "", "");
+				 updateTopicTable(Database.topics(lectureID));
+			 }
+		 }
+	 }
+	 
+	 @FXML
+	 public void add(){
+		 if(sidebarTable == "lecture"){
+			 String courseID = courseTable.getSelectionModel().getSelectedItem().getCourseID();
+			 main.showPopup(null, null, sidebarTable, courseID);
+			 updateLectureTable(Database.lectures(courseID));
+		 }else if(sidebarTable == "topic"){
+			 String lectureID = lectureTable.getSelectionModel().getSelectedItem().getLectureID();
+			 main.showPopup(null, null, sidebarTable, lectureID);
+			 updateTopicTable(Database.topics(lectureID));
+		 }
+	 }
 	
 	/*
 	 * FILL SIDEBAR TABLE WITH COURSES - LECTURES - TOPICS
@@ -165,7 +168,7 @@ public class ProgramController implements Initializable{
 	}
 	
 	// Method for filling the table in the sidebar with lectures (Same idea as updateCourseTable)
-	private void updateLectureTable(ObservableList<Lecture> lectureList){
+	public void updateLectureTable(ObservableList<Lecture> lectureList){
 		// 0. Initialize the columns.
 		lectureNumber.setCellValueFactory(cellData -> cellData.getValue().lectureNumberProperty());
 		lectureName.setCellValueFactory(cellData -> cellData.getValue().lectureNameProperty());
@@ -206,7 +209,7 @@ public class ProgramController implements Initializable{
 
 	
 	// Method for filling the table in sidebar with topics
-	private void updateTopicTable(ObservableList<Topic> topicList){
+	public void updateTopicTable(ObservableList<Topic> topicList){
 		// 0. Initialize the columns.
 		topicNumber.setCellValueFactory(cellData -> cellData.getValue().topicNumberProperty());
 		topicName.setCellValueFactory(cellData -> cellData.getValue().topicNameProperty());
@@ -243,82 +246,6 @@ public class ProgramController implements Initializable{
 		
 		// 5. Add data to the table.
 		topicTable.setItems(topicList);
-	}
-	
-	
-	// I think this is unneeded, but I'll keep it just in case.
-	/*
-	// Method for going back and forth between showing courses or lectures in the sidebar	
-	@FXML
-	private void subjectNext(ActionEvent e) throws IOException{
-		// If we're showing courses, toggleLeft = 0
-		if (toggleLeft == 0){
-			if(courseTable.getSelectionModel().getSelectedItem() != null){
-				toggleLeft = 1;
-				updateLectureTable(Database.lectures(courseTable.getSelectionModel().getSelectedItem().getCourseID()));
-				courseTable.setVisible(false);
-				lectureTable.setVisible(true);
-				title_leftPane.setText("Find lecture");
-				btn_leftPane.setText("Back");
-				courseNameDisplay.setText(courseTable.getSelectionModel().getSelectedItem().getCourseCode());
-			}else{
-				System.out.println("Lag en eller annen feilmelding her som ber brukeren velge ett emne");
-			}
-		}
-		// If the courses are not showing, the lectures are. toggleLeft = 1
-		else{
-			toggleLeft = 0;
-			lastClicked = "";
-			updateTopicTable(Database.Topic("empty"));
-			lectureTable.setVisible(false);
-			courseTable.setVisible(true);
-			title_leftPane.setText("Find course");
-			btn_leftPane.setText("Next");
-			courseNameDisplay.setText("Course");
-		}
-	}*/
-	
-	/*
-	 * Show topics after clicking a lecture
-	 */
-	/*
-	@FXML
-	private void displayTopics() throws IOException{
-		if(lectureTable.getSelectionModel().getSelectedItem() != null & lectureTable.getSelectionModel().getSelectedItem().getlectureNumber() != lastClicked){
-			lastClicked = lectureTable.getSelectionModel().getSelectedItem().getlectureNumber();
-			updateTopicTable(Database.Topic(lectureTable.getSelectionModel().getSelectedItem().getLectureID()));
-		}
-	}*/
-	
-	
-	/*
-	 * LECTURE ADD - DELETE - UPDATE
-	 */
-	
-	@FXML
-	private void addLecture(){
-		String id = lectureIDInput.getText();
-		String name = lectureNameInput.getText();
-		String courseID = courseTable.getSelectionModel().getSelectedItem().getCourseID();
-		
-		Lecture lecture = new Lecture(null, courseID, id, name);
-		Database.createLecture(lecture);
-		lectureIDInput.setText("");
-		lectureNameInput.setText("");
-		updateLectureTable(Database.lectures(courseID));
-	}
-	
-	@FXML
-	private void editLecture(){
-		String id = lectureTable.getSelectionModel().getSelectedItem().getLectureID();
-		String name = lectureTable.getSelectionModel().getSelectedItem().getlectureName();
-		String courseID = courseTable.getSelectionModel().getSelectedItem().getCourseID();
-		
-		Lecture lecture = new Lecture(null, courseID, id, name);
-		Database.editLecture(lecture);
-		lectureIDInput.setText(id);
-		lectureNameInput.setText(name);
-		updateLectureTable(Database.lectures(courseID));
 	}
 	
 	/*
@@ -371,35 +298,7 @@ public class ProgramController implements Initializable{
 			}
 		}
 	
-	/*
-	 *  TOPIC ADD - DELETE - UPDATE
-	 */
-	@FXML
-	private void addTopic(){
-		String number = topicNumber.getText();
-		String name = topicNameInput.getText();
-		String lectureID = lectureTable.getSelectionModel().getSelectedItem().getLectureID();
-		
-		Topic topic = new Topic(null, lectureID, number , name);
-		Database.createTopic(topic);
-		topicNumber.setText("");
-		topicNameInput.setText("");
-		updateTopicTable(Database.topics(lectureID));
-	}
-	
-	@FXML
-	private void editTopic(){
-		String number = topicTable.getSelectionModel().getSelectedItem().getTopicNumber();
-		String name = topicTable.getSelectionModel().getSelectedItem().getTopicName();
-		String topicID = topicTable.getSelectionModel().getSelectedItem().getLectureID();
-		
-		Topic topic = new Topic(null, topicID, number , name);
-		Database.editTopic(topic);
-		topicNumber.setText(number);
-		topicNameInput.setText(name);
-		updateTopicTable(Database.topics(topicID));
-	}
-	
+
 	/*
 	 * QUESTION SECTION - Display questions
 	 */
@@ -498,8 +397,4 @@ public class ProgramController implements Initializable{
 			sidebarBackButton.setDisable(false);
 		}
 	}
-	
-	/*
-	 * SIDEBAR ADD - EDIT - DELETE
-	 */
 }
