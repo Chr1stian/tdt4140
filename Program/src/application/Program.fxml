@@ -14,15 +14,15 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="mainPane" prefHeight="901.0" prefWidth="1332.0" styleClass="background" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ProgramController">
+<AnchorPane fx:id="mainPane" prefHeight="863.0" prefWidth="1303.0" styleClass="background" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ProgramController">
    <children>
       <SplitPane dividerPositions="0.3" layoutX="285.0" layoutY="187.0" prefHeight="160.0" prefWidth="200.0" styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
-          <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="902.0" prefWidth="395.0">
+          <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="902.0" prefWidth="386.0">
                <children>
-                  <AnchorPane layoutX="27.0" layoutY="129.0" prefHeight="694.0" prefWidth="306.0">
+                  <AnchorPane layoutX="27.0" layoutY="129.0" prefHeight="642.0" prefWidth="306.0">
                      <children>
-                        <TableView fx:id="courseTable" layoutX="7.0" layoutY="6.0" maxHeight="583.0" maxWidth="306.0" minHeight="583.0" minWidth="306.0" prefHeight="583.0" prefWidth="306.0" tableMenuButtonVisible="false" AnchorPane.bottomAnchor="37.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="74.0">
+                        <TableView fx:id="courseTable" layoutX="7.0" layoutY="6.0" maxHeight="583.0" maxWidth="306.0" minHeight="535.0" minWidth="306.0" prefHeight="548.0" prefWidth="306.0" tableMenuButtonVisible="false" AnchorPane.bottomAnchor="72.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="74.0">
                           <columns>
                             <TableColumn fx:id="courseCode" maxWidth="5000.0" minWidth="10.0" prefWidth="84.00003051757812" resizable="false" text="Code" />
                             <TableColumn fx:id="courseName" maxWidth="5000.0" minWidth="0.0" prefWidth="221.0" resizable="false" text="Course name" />
@@ -43,9 +43,9 @@
                         <TextField fx:id="search_leftPane" prefHeight="37.0" prefWidth="302.0" promptText="Search..." AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 						<Button fx:id="sidebarNextButton" mnemonicParsing="false" onAction="#nextButton" prefHeight="37.0" prefWidth="154.0" text="Next" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="37.0" />
                         <Button fx:id="sidebarBackButton" disable="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#backButton" prefHeight="37.0" prefWidth="154.0" text="Back" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="37.0" />
-                        <Button mnemonicParsing="false" onAction="#add" prefHeight="37.0" prefWidth="104.0" text="Add" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
-                        <Button mnemonicParsing="false" onAction="#edit" prefHeight="37.0" prefWidth="104.0" text="Edit" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="102.0" AnchorPane.rightAnchor="102.0" />
-                        <Button mnemonicParsing="false" prefHeight="37.0" prefWidth="104.0" text="Delete" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />        
+                        <Button layoutY="620.0" mnemonicParsing="false" onAction="#add" prefHeight="37.0" prefWidth="104.0" text="Add" AnchorPane.bottomAnchor="37.0" AnchorPane.leftAnchor="0.0" />
+                        <Button layoutX="103.0" layoutY="620.0" mnemonicParsing="false" onAction="#edit" prefHeight="37.0" prefWidth="104.0" text="Edit" AnchorPane.bottomAnchor="37.0" AnchorPane.leftAnchor="103.0" AnchorPane.rightAnchor="101.0" />
+                        <Button layoutX="205.0" layoutY="620.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="104.0" text="Delete" AnchorPane.bottomAnchor="37.0" AnchorPane.rightAnchor="-3.0" />        
                      </children>
                   </AnchorPane>
                   <GridPane layoutX="27.0" layoutY="59.0" prefHeight="65.0" prefWidth="306.0">
@@ -100,8 +100,8 @@
                                           <TableColumn fx:id="questionTableAnswer" maxWidth="5000.0" minWidth="0.0" prefWidth="566.0" resizable="false" text="Answer" />
                                        </columns>
                                     </TableView>
-                                    <TextField fx:id="answerInput" layoutX="118.0" layoutY="687.0" prefHeight="117.0" prefWidth="616.0" promptText="Write your answer to the selected question here..." />
-                                    <Button fx:id="submitAnswer" layoutX="588.0" layoutY="804.0" mnemonicParsing="false" onAction="#answerQuestion" text="Submit Answer" />
+                                    <TextField fx:id="answerInput" layoutX="124.0" layoutY="654.0" prefHeight="117.0" prefWidth="616.0" promptText="Write your answer to the selected question here..." />
+                                    <Button fx:id="submitAnswer" layoutX="594.0" layoutY="771.0" mnemonicParsing="false" onAction="#answerQuestion" text="Submit Answer" />
                                  </children></AnchorPane>
                         </content>
                       </Tab>
