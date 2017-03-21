@@ -27,6 +27,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -82,6 +83,8 @@ public class ProgramController implements Initializable{
 	@FXML
 	private TextField lectureIDInput, lectureNameInput, topicNameInput, topicNumberInput, search_leftPane, answerInput;
 
+	@FXML
+	private HBox star0, star0half, star1, star1half, star2, star2half, star3, star3half, star4, star4half, star5;
 	
 	// Initializes the program by showing the correct table (CourseTable in the sidebar)
 	@Override
@@ -397,4 +400,55 @@ public class ProgramController implements Initializable{
 			sidebarBackButton.setDisable(false);
 		}
 	}
+	
+	// Test for the stars
+	int i = 0;
+	@FXML
+	private void showStars(){
+		if(i == 0){
+			star0half.setVisible(true);
+			i += 1;
+		}else if(i == 1){
+			star0half.setVisible(false);
+			star1.setVisible(true);
+			i += 1;
+		}else if(i == 2){
+			star1.setVisible(false);
+			star1half.setVisible(true);
+			i += 1;
+		}else if(i == 3){
+			star1half.setVisible(false);
+			star2.setVisible(true);
+			i += 1;
+		}else if(i == 4){
+			star2.setVisible(false);
+			star2half.setVisible(true);
+			i += 1;
+		}else if(i == 5){
+			star2half.setVisible(false);
+			star3.setVisible(true);
+			i += 1;
+		}else if(i == 6){
+			star3.setVisible(false);
+			star3half.setVisible(true);
+			i += 1;
+		}else if(i == 7){
+			star3half.setVisible(false);
+			star4.setVisible(true);
+			i += 1;
+		}else if(i == 8){
+			star4.setVisible(false);
+			star4half.setVisible(true);
+			i += 1;
+		}else if(i == 9){
+			star4half.setVisible(false);
+			star5.setVisible(true);
+			i += 1;
+		}else if(i == 10){
+			star5.setVisible(false);
+			i = 0;
+		}
+		
+	}
+	
 }
