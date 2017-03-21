@@ -123,7 +123,7 @@
                                                 <TableColumn fx:id="feedbackTableLectureVotes" prefWidth="179.0" text="Number of votes" />
                                             </columns>
                                           </TableView>
-                                          <TableView fx:id="feedbackTopicTable" prefHeight="200.0" prefWidth="200.0">
+                                          <TableView fx:id="feedbackTopicTable" prefHeight="200.0" prefWidth="200.0" visible="false">
                                             <columns>
                                               <TableColumn fx:id="feedbackTableTopicCol" prefWidth="401.0" text="Topic" />
                                               <TableColumn fx:id="feedbackTableTopicRating" prefWidth="170.0" text="Rating" />
