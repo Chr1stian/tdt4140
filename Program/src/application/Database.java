@@ -240,4 +240,36 @@ public class Database {
         }
     }
     
+    
+    // FEEDBACK TAB
+    
+    // Finds topicID, name and rating for all topics in a course (courseID)
+    // Change from void to ObservableList<something>
+    public static void lectureRating(String courseID){
+    	ObservableList<Question> ratingList = FXCollections.observableArrayList();
+    	String sqlStatement = "SELECT topic.topicID, topic.name, rating.stars FROM rating "
+    						+ "INNER JOIN topic ON topic.topicID = rating.topicID "
+    						+ "WHERE topic.lectureID IN (SELECT lecture.lectureID FROM lecture "
+    						+ "INNER JOIN course ON course.courseID = lecture.courseID WHERE "
+    						+ "lecture.courseID = " + courseID + ")";
+    	try{
+    		// Following NOT DONE
+    		Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
+           	PreparedStatement stmt = conn.prepareStatement(sqlStatement);
+           	ResultSet rs = stmt.executeQuery();
+           	while(rs.next()){
+            	ArrayList<String> question = new ArrayList<String>();
+            	for(int i = 1; i < 6; i++){
+            		question.add(rs.getString(i));
+            	}
+            }
+           	conn.close();
+            //return ratingList;
+        }
+        catch(SQLException e){
+        	//return null;
+        }
+    }
+    
+    
 }
