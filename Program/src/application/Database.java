@@ -11,12 +11,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Database {
-	//private static String mysqlAddr = "jdbc:mysql://sql11.freemysqlhosting.net:3306/sql11164632?allowMultiQueries=true";
-    //private static String mysqlUser = "sql11164632";
-    //private static String mysqlPass = "JKb6SqBp59";
-	private static String mysqlAddr = "jdbc:mysql://mysql.stud.ntnu.no:3306/prodoteam_testdb?allowMultiQueries=true";
-    private static String mysqlUser = "jonaseth_tdt4140";
-    private static String mysqlPass = "tdt4140";
+	private static String mysqlAddr = "jdbc:mysql://sql11.freemysqlhosting.net:3306/sql11164632?allowMultiQueries=true";
+    private static String mysqlUser = "sql11164632";
+    private static String mysqlPass = "JKb6SqBp59";
+	//private static String mysqlAddr = "jdbc:mysql://mysql.stud.ntnu.no:3306/prodoteam_testdb?allowMultiQueries=true";
+    //private static String mysqlUser = "jonaseth_tdt4140";
+    //private static String mysqlPass = "tdt4140";
     
     
     // Finds all topics from a given lecture (lectureID)
