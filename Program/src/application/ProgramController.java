@@ -79,13 +79,12 @@ public class ProgramController implements Initializable{
 	@FXML
 	private TableColumn<Question, String> questionTableQuestion, questionTableAnswer; 
 	
-	/* WORK IN PROGRESS
-	@FXML
-	private TableView<String> feedbackLectureTable, feedbackTopicTable;
 	
 	@FXML
-	private TableColumn<String> feedbackTableLectureCol, feedbackTableLectureRating, feedbackTableLectureVotes;
-	*/
+	private TableView<Rating> feedbackLectureTable, feedbackTopicTable;
+	
+	@FXML
+	private TableColumn<Rating, String> feedbackTableLectureNum, feedbackTableLectureCol, feedbackTableLectureRating, feedbackTableLectureVotes;
 	
 	@FXML
 	private TextField lectureIDInput, lectureNameInput, topicNameInput, topicNumberInput, search_leftPane, answerInput;
@@ -358,6 +357,8 @@ public class ProgramController implements Initializable{
 				search_leftPane.clear();
 				sidebarTable = "lecture";
 				updateLectureTable(Database.lectures(courseTable.getSelectionModel().getSelectedItem().getCourseID()));
+				updateFeedbackTable(Database.lectureRating(courseTable.getSelectionModel().getSelectedItem().getCourseID()));
+				updateCourseRating(Database.courseAvgRating(courseTable.getSelectionModel().getSelectedItem().getCourseID()));
 				courseTable.setVisible(false);
 				lectureTable.setVisible(true);
 				title_leftPane.setText("Lectures");
@@ -421,30 +422,33 @@ public class ProgramController implements Initializable{
 	}
 	
 	// FEEDBACK TAB
-	/* WORK IN PROGRESS
+	
 	// Method for filling the table in the "Feedback" tab with topics
-		private void updateFeedbackTable(ObservableList<Question> questionList){
-			// 0. Initialize the columns.
-			questionTableQuestion.setCellValueFactory(cellData -> cellData.getValue().questionProperty());
-			questionTableAnswer.setCellValueFactory(cellData -> cellData.getValue().answerProperty());
-			// 1. Add data to the table.
-			questionTable.setItems(questionList);
-		}
+	private void updateFeedbackTable(ObservableList<Rating> ratingList){
+		// 0. Initialize the columns.
+		feedbackTableLectureNum.setCellValueFactory(cellData -> cellData.getValue().numberProperty());
+		feedbackTableLectureCol.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+		feedbackTableLectureRating.setCellValueFactory(cellData -> cellData.getValue().ratingProperty());
+		feedbackTableLectureVotes.setCellValueFactory(cellData -> cellData.getValue().votesProperty());
 		
-		// Method for finding questions from the clicked topic
-		@FXML
-		private void displayQuestions() throws IOException{
-			if(sidebarTable == "topic"){
-				if(topicTable.getSelectionModel().getSelectedItem() != null){
-					updateQuestionTable(Database.Question(topicTable.getSelectionModel().getSelectedItem().getTopicID()));
-				}
-			}
-		}
-	*/
+		// 1. Add data to the table.
+		feedbackLectureTable.setItems(ratingList);
+	}
+	
+	private void updateCourseRating(ArrayList<String> rating){
+		double avgRating = Double.parseDouble(rating.get(1));
+		avgRating = roundToHalf(avgRating);
+		showStars(avgRating);
+	}
+	
+	public static double roundToHalf(double d) {
+	    return Math.round(d * 2) / 2.0;
+	}
+	
 	// Test for the stars
 	int i = 0;
-	@FXML
-	private void showStars(){
+	
+	private void showStars(double stars){
 		if(i == 0){
 			star0half.setVisible(true);
 			i += 1;

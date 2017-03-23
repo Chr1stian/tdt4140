@@ -118,21 +118,22 @@
                                        <children>
                                           <TableView fx:id="feedbackLectureTable" prefHeight="429.0" prefWidth="691.0">
                                             <columns>
-                                              <TableColumn fx:id="feedbackTableLectureCol" prefWidth="401.0" text="Lecture" />
-                                              <TableColumn fx:id="feedbackTableLectureRating" prefWidth="170.0" text="Rating" />
-                                                <TableColumn fx:id="feedbackTableLectureVotes" prefWidth="179.0" text="Number of votes" />
+                                                <TableColumn fx:id="feedbackTableLectureNum" prefWidth="76.0" text="Number" />
+                                              <TableColumn fx:id="feedbackTableLectureCol" prefWidth="388.0" text="Lecture" />
+                                              <TableColumn fx:id="feedbackTableLectureRating" prefWidth="143.0" text="Rating" />
+                                                <TableColumn fx:id="feedbackTableLectureVotes" prefWidth="143.0" text="Number of votes" />
                                             </columns>
                                           </TableView>
                                           <TableView fx:id="feedbackTopicTable" prefHeight="200.0" prefWidth="200.0" visible="false">
                                             <columns>
-                                              <TableColumn fx:id="feedbackTableTopicCol" prefWidth="401.0" text="Topic" />
-                                              <TableColumn fx:id="feedbackTableTopicRating" prefWidth="170.0" text="Rating" />
-                                                <TableColumn fx:id="feedbackTableTopicVotes" prefWidth="179.0" text="Number of votes" />
+                                                <TableColumn fx:id="feedbackTableTopicNum" prefWidth="76.0" text="Number" />
+                                              <TableColumn fx:id="feedbackTableTopicCol" prefWidth="388.0" text="Topic" />
+                                              <TableColumn fx:id="feedbackTableTopicRating" prefWidth="143.0" text="Rating" />
+                                                <TableColumn fx:id="feedbackTableTopicVotes" prefWidth="143.0" text="Number of votes" />
                                             </columns>
                                           </TableView>
                                        </children>
                                     </StackPane>
-                                    <Button layoutY="793.0" mnemonicParsing="false" onAction="#showStars" text="Testbutton (skal fjernes)" />
                                     <GridPane layoutX="38.0" layoutY="595.0" prefHeight="205.0" prefWidth="832.0">
                                       <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
