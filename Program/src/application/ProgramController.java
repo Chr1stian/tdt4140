@@ -359,6 +359,7 @@ public class ProgramController implements Initializable{
 				updateLectureTable(Database.lectures(courseTable.getSelectionModel().getSelectedItem().getCourseID()));
 				updateFeedbackTable(Database.lectureRating(courseTable.getSelectionModel().getSelectedItem().getCourseID()));
 				updateCourseRating(Database.courseAvgRating(courseTable.getSelectionModel().getSelectedItem().getCourseID()));
+				courseVotes.setVisible(true);
 				courseTable.setVisible(false);
 				lectureTable.setVisible(true);
 				title_leftPane.setText("Lectures");
@@ -399,6 +400,8 @@ public class ProgramController implements Initializable{
 			lectureTable.setVisible(false);
 			courseTable.setVisible(true);
 			updateQuestionTable(Database.Question("empty"));
+			hideStars();
+			courseVotes.setVisible(false);
 		}
 		enableDisableButton();
 	}
@@ -436,63 +439,66 @@ public class ProgramController implements Initializable{
 	}
 	
 	private void updateCourseRating(ArrayList<String> rating){
-		double avgRating = Double.parseDouble(rating.get(1));
+		double avgRating = Double.parseDouble(rating.get(0));
 		avgRating = roundToHalf(avgRating);
 		showStars(avgRating);
+		courseVotes.setText(rating.get(1));
 	}
 	
 	public static double roundToHalf(double d) {
 	    return Math.round(d * 2) / 2.0;
 	}
 	
-	// Test for the stars
-	int i = 0;
-	
+	// Show correct amount of stars
 	private void showStars(double stars){
-		if(i == 0){
+		if(stars == 0){
+			star0.setVisible(true);
+		}else if(stars == 0.5){
+			star0.setVisible(true);
 			star0half.setVisible(true);
-			i += 1;
-		}else if(i == 1){
-			star0half.setVisible(false);
+		}else if(stars == 1){
+			star0.setVisible(true);
 			star1.setVisible(true);
-			i += 1;
-		}else if(i == 2){
-			star1.setVisible(false);
+		}else if(stars == 1.5){
+			star0.setVisible(true);
 			star1half.setVisible(true);
-			i += 1;
-		}else if(i == 3){
-			star1half.setVisible(false);
+		}else if(stars == 2){
+			star0.setVisible(true);
 			star2.setVisible(true);
-			i += 1;
-		}else if(i == 4){
-			star2.setVisible(false);
+		}else if(stars == 2.5){
+			star0.setVisible(true);
 			star2half.setVisible(true);
-			i += 1;
-		}else if(i == 5){
-			star2half.setVisible(false);
+		}else if(stars == 3){
+			star0.setVisible(true);
 			star3.setVisible(true);
-			i += 1;
-		}else if(i == 6){
-			star3.setVisible(false);
+		}else if(stars == 3.5){
+			star0.setVisible(true);
 			star3half.setVisible(true);
-			i += 1;
-		}else if(i == 7){
-			star3half.setVisible(false);
+		}else if(stars == 4){
+			star0.setVisible(true);
 			star4.setVisible(true);
-			i += 1;
-		}else if(i == 8){
-			star4.setVisible(false);
+		}else if(stars == 4.5){
+			star0.setVisible(true);
 			star4half.setVisible(true);
-			i += 1;
-		}else if(i == 9){
-			star4half.setVisible(false);
+		}else if(stars == 5){
+			star0.setVisible(true);
 			star5.setVisible(true);
-			i += 1;
-		}else if(i == 10){
-			star5.setVisible(false);
-			i = 0;
 		}
-		
+	}
+	
+	// Hide all stars
+	private void hideStars(){
+		star0.setVisible(false);
+		star0half.setVisible(false);
+		star1.setVisible(false);
+		star1half.setVisible(false);
+		star2.setVisible(false);
+		star2half.setVisible(false);
+		star3.setVisible(false);
+		star3half.setVisible(false);
+		star4.setVisible(false);
+		star4half.setVisible(false);
+		star5.setVisible(false);
 	}
 	
 }

@@ -286,7 +286,7 @@ public class Database {
     
     public static ArrayList<String> courseAvgRating(String courseID){
     	ArrayList<String> rating = new ArrayList<String>();
-    	String statement = "SELECT ROUND(AVG(rating.stars),1) AS average, COUNT(rating.stars) AS votes "
+    	String statement = "SELECT AVG(rating.stars) AS average, COUNT(rating.stars) AS votes "
     					 + "FROM rating "
     					 + "INNER JOIN (SELECT topic.topicID "
     					 +		"FROM topic "
