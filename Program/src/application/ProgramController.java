@@ -50,7 +50,8 @@ public class ProgramController implements Initializable{
 	private SplitPane divider;
 	
 	@FXML
-	private Text title_leftPane, courseNameDisplay, courseIdText, lectureNumberText, lectureVotes, courseVotes;
+	private Text title_leftPane, courseNameDisplay, courseIdText, lectureNumberText, lectureVotes, courseVotes, courseRatingText, 
+	lectureRatingText, courseRatingVotes, lectureRatingVotes, courseNotRated, lectureNotRated;
 	
 	@FXML
 	private Button btn_leftPane, sidebarNextButton, sidebarBackButton, sidebarAdd, sidebarEdit, sidebarDelete, submitAnswer, deleteButton;
@@ -81,16 +82,25 @@ public class ProgramController implements Initializable{
 	
 	
 	@FXML
-	private TableView<Rating> feedbackLectureTable, feedbackTopicTable;
+	private TableView<Rating> feedbackLectureTable;
 	
 	@FXML
 	private TableColumn<Rating, String> feedbackTableLectureNum, feedbackTableLectureCol, feedbackTableLectureRating, feedbackTableLectureVotes;
+	
+	@FXML
+	private TableView<Rating> feedbackTopicTable;
+	
+	@FXML
+	private TableColumn<Rating, String> feedbackTableTopicNum, feedbackTableTopicCol, feedbackTableTopicRating, feedbackTableTopicVotes;
 	
 	@FXML
 	private TextField lectureIDInput, lectureNameInput, topicNameInput, topicNumberInput, search_leftPane, answerInput;
 
 	@FXML
 	private HBox star0, star0half, star1, star1half, star2, star2half, star3, star3half, star4, star4half, star5;
+	
+	@FXML
+	private HBox star01, star0half1, star11, star1half1, star21, star2half1, star31, star3half1, star41, star4half1, star51;
 	
 	// Initializes the program by showing the correct table (CourseTable in the sidebar)
 	@Override
@@ -357,11 +367,13 @@ public class ProgramController implements Initializable{
 				search_leftPane.clear();
 				sidebarTable = "lecture";
 				updateLectureTable(Database.lectures(courseTable.getSelectionModel().getSelectedItem().getCourseID()));
-				updateFeedbackTable(Database.lectureRating(courseTable.getSelectionModel().getSelectedItem().getCourseID()));
+				updateFeedbackTableLecture(Database.lectureRating(courseTable.getSelectionModel().getSelectedItem().getCourseID()));
 				updateCourseRating(Database.courseAvgRating(courseTable.getSelectionModel().getSelectedItem().getCourseID()));
 				courseVotes.setVisible(true);
 				courseTable.setVisible(false);
 				lectureTable.setVisible(true);
+				courseRatingText.setVisible(true);
+				courseRatingVotes.setVisible(true);
 				title_leftPane.setText("Lectures");
 				courseIdText.setText(courseTable.getSelectionModel().getSelectedItem().getCourseCode());
 			}
@@ -372,9 +384,16 @@ public class ProgramController implements Initializable{
 				search_leftPane.clear();
 				sidebarTable = "topic";
 				updateTopicTable(Database.topics(lectureTable.getSelectionModel().getSelectedItem().getLectureID()));
+				updateFeedbackTableTopic(Database.topicRating(lectureTable.getSelectionModel().getSelectedItem().getLectureID()));
+				updateLectureRating(Database.lectureAvgRating(lectureTable.getSelectionModel().getSelectedItem().getLectureID()));
 				lectureTable.setVisible(false);
 				topicTable.setVisible(true);
 				title_leftPane.setText("Topics");
+				feedbackLectureTable.setVisible(false);
+				feedbackTopicTable.setVisible(true);
+				lectureVotes.setVisible(true);
+				lectureRatingText.setVisible(true);
+				lectureRatingVotes.setVisible(true);
 				lectureNumberText.setText(lectureTable.getSelectionModel().getSelectedItem().getlectureNumber());
 			}
 		}
@@ -392,6 +411,13 @@ public class ProgramController implements Initializable{
 			topicTable.setVisible(false);
 			lectureTable.setVisible(true);
 			updateQuestionTable(Database.Question("empty"));
+			feedbackTopicTable.setVisible(false);
+			feedbackLectureTable.setVisible(true);
+			hideLectureStars();
+			lectureVotes.setVisible(false);
+			lectureRatingText.setVisible(false);
+			lectureRatingVotes.setVisible(false);
+			lectureNotRated.setVisible(false);
 			
 		}else if(sidebarTable == "lecture"){
 			sidebarTable = "course";
@@ -400,8 +426,14 @@ public class ProgramController implements Initializable{
 			lectureTable.setVisible(false);
 			courseTable.setVisible(true);
 			updateQuestionTable(Database.Question("empty"));
-			hideStars();
+			hideCourseStars();
 			courseVotes.setVisible(false);
+			hideCourseStars();
+			courseVotes.setVisible(false);
+			courseRatingText.setVisible(false);
+			courseRatingVotes.setVisible(false);
+			courseNotRated.setVisible(false);
+			updateFeedbackTableLecture(Database.lectureRating("empty"));
 		}
 		enableDisableButton();
 	}
@@ -426,8 +458,8 @@ public class ProgramController implements Initializable{
 	
 	// FEEDBACK TAB
 	
-	// Method for filling the table in the "Feedback" tab with topics
-	private void updateFeedbackTable(ObservableList<Rating> ratingList){
+	// Method for filling the table in the "Feedback" tab with lectures
+	private void updateFeedbackTableLecture(ObservableList<Rating> ratingList){
 		// 0. Initialize the columns.
 		feedbackTableLectureNum.setCellValueFactory(cellData -> cellData.getValue().numberProperty());
 		feedbackTableLectureCol.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
@@ -438,19 +470,52 @@ public class ProgramController implements Initializable{
 		feedbackLectureTable.setItems(ratingList);
 	}
 	
+	// Updates average course rating
 	private void updateCourseRating(ArrayList<String> rating){
-		double avgRating = Double.parseDouble(rating.get(0));
-		avgRating = roundToHalf(avgRating);
-		showStars(avgRating);
+		hideCourseStars();
+		courseNotRated.setVisible(false);
+		if(Integer.parseInt(rating.get(1)) != 0){
+			double avgRating = Double.parseDouble(rating.get(0));
+			avgRating = roundToHalf(avgRating);
+			showCourseStars(avgRating);
+		}else{
+			courseNotRated.setVisible(true);
+		}
 		courseVotes.setText(rating.get(1));
+	}
+	
+	// Method for filling the table in the "Feedback" tab with topics
+	private void updateFeedbackTableTopic(ObservableList<Rating> ratingList){
+		// 0. Initialize the columns.
+		feedbackTableTopicNum.setCellValueFactory(cellData -> cellData.getValue().numberProperty());
+		feedbackTableTopicCol.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+		feedbackTableTopicRating.setCellValueFactory(cellData -> cellData.getValue().ratingProperty());
+		feedbackTableTopicVotes.setCellValueFactory(cellData -> cellData.getValue().votesProperty());
+		
+		// 1. Add data to the table.
+		feedbackTopicTable.setItems(ratingList);
+	}
+	
+	//  Updates average lecture rating
+	private void updateLectureRating(ArrayList<String> rating){
+		hideLectureStars();
+		lectureNotRated.setVisible(false);
+		if(Integer.parseInt(rating.get(1)) != 0){
+			double avgRating = Double.parseDouble(rating.get(0));
+			avgRating = roundToHalf(avgRating);
+			showLectureStars(avgRating);
+		}else{
+			lectureNotRated.setVisible(true);
+		}
+		lectureVotes.setText(rating.get(1));
 	}
 	
 	public static double roundToHalf(double d) {
 	    return Math.round(d * 2) / 2.0;
 	}
 	
-	// Show correct amount of stars
-	private void showStars(double stars){
+	// Show correct amount of course stars
+	private void showCourseStars(double stars){
 		if(stars == 0){
 			star0.setVisible(true);
 		}else if(stars == 0.5){
@@ -486,8 +551,45 @@ public class ProgramController implements Initializable{
 		}
 	}
 	
-	// Hide all stars
-	private void hideStars(){
+	// Show correct amount of stars for lecture average
+	private void showLectureStars(double stars){
+		if(stars == 0){
+			star01.setVisible(true);
+		}else if(stars == 0.5){
+			star01.setVisible(true);
+			star0half1.setVisible(true);
+		}else if(stars == 1){
+			star01.setVisible(true);
+			star11.setVisible(true);
+		}else if(stars == 1.5){
+			star01.setVisible(true);
+			star1half1.setVisible(true);
+		}else if(stars == 2){
+			star01.setVisible(true);
+			star21.setVisible(true);
+		}else if(stars == 2.5){
+			star01.setVisible(true);
+			star2half1.setVisible(true);
+		}else if(stars == 3){
+			star01.setVisible(true);
+			star31.setVisible(true);
+		}else if(stars == 3.5){
+			star01.setVisible(true);
+			star3half1.setVisible(true);
+		}else if(stars == 4){
+			star01.setVisible(true);
+			star41.setVisible(true);
+		}else if(stars == 4.5){
+			star01.setVisible(true);
+			star4half1.setVisible(true);
+		}else if(stars == 5){
+			star01.setVisible(true);
+			star51.setVisible(true);
+		}
+	}
+	
+	// Hide course stars
+	private void hideCourseStars(){
 		star0.setVisible(false);
 		star0half.setVisible(false);
 		star1.setVisible(false);
@@ -499,6 +601,21 @@ public class ProgramController implements Initializable{
 		star4.setVisible(false);
 		star4half.setVisible(false);
 		star5.setVisible(false);
+	}
+	
+	// Hide lecture stars
+	private void hideLectureStars(){
+		star01.setVisible(false);
+		star0half1.setVisible(false);
+		star11.setVisible(false);
+		star1half1.setVisible(false);
+		star21.setVisible(false);
+		star2half1.setVisible(false);
+		star31.setVisible(false);
+		star3half1.setVisible(false);
+		star41.setVisible(false);
+		star4half1.setVisible(false);
+		star51.setVisible(false);
 	}
 	
 }
