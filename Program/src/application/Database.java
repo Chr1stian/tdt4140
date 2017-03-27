@@ -18,6 +18,12 @@ public class Database {
     //private static String mysqlUser = "jonaseth_tdt4140";
     //private static String mysqlPass = "tdt4140";
     
+    @SuppressWarnings("static-access")
+	public Database(String adr, String user, String password){
+    	this.mysqlAddr = adr;
+    	this.mysqlUser = user;
+    	this.mysqlPass = password;
+    }
     
     // Finds all topics from a given lecture (lectureID)
     public static ObservableList<Topic> topics(String lectureID){
