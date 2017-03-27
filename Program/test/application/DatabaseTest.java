@@ -1,6 +1,7 @@
 package application;
 
 import static org.junit.Assert.*;
+import org.junit.Before;
 
 import java.util.ArrayList;
 
@@ -17,12 +18,24 @@ public class DatabaseTest {
 	String testLectureName = "testLecture";
 	String testTopicNumber = "2";
 	String testTopicName = "testTopic";
+	
+	String testmySQLAdr = "jdbc:mysql://sql11.freemysqlhosting.net:3306/sql11165164?allowMultiQueries=true";
+    String testmySQLUser = "sql11165164";
+    String testmySQLPass = "FPJxTYsVA3";
+	
+	Database db = null;
+	
+	@Before
+	public void changeDatabase(){
+		this.db = new Database(testmySQLAdr, testmySQLUser, testmySQLPass);
+	}
 
+	@SuppressWarnings("static-access")
 	@Test
 	public void testTopics() {
 		ObservableList<Topic> test = FXCollections.observableArrayList();
 		ArrayList<String> testArray = new ArrayList<String>();
-		ObservableList<Topic> topics = Database.topics(testLectureID);
+		ObservableList<Topic> topics = db.topics(testLectureID);
 		Topic topic = topics.get(0);
 		testArray.add("7");
 		testArray.add("3");
@@ -35,11 +48,12 @@ public class DatabaseTest {
 		assertEquals(testTopic.getTopicName(), topic.getTopicName());
 		assertEquals(testTopic.getTopicNumber(), topic.getTopicNumber());
 	}
+	@SuppressWarnings("static-access")
 	@Test
 	public void testLectures() {
 		ObservableList<Lecture> test = FXCollections.observableArrayList();
 		ArrayList<String> testArray = new ArrayList<String>();
-		ObservableList<Lecture> lectures = Database.lectures(testCourseID);
+		ObservableList<Lecture> lectures = db.lectures(testCourseID);
 		Lecture lecture = lectures.get(0);
 		testArray.add("10");
 		testArray.add("3");
@@ -53,11 +67,12 @@ public class DatabaseTest {
 		assertEquals(testLecture.getlectureNumber(), lecture.getlectureNumber());
 	}
 	
+	@SuppressWarnings("static-access")
 	@Test
 	public void testCourses() {
 		ObservableList<Course> test = FXCollections.observableArrayList();
 		ArrayList<String> testArray = new ArrayList<String>();
-		ObservableList<Course> courses = Database.courses();
+		ObservableList<Course> courses = db.courses();
 		Course course = courses.get(0);
 		testArray.add("1");
 		testArray.add("TDT4140");
@@ -69,60 +84,65 @@ public class DatabaseTest {
 		assertEquals(testCourse.getCourseName(), course.getCourseName());
 	}
 	
+	@SuppressWarnings("static-access")
 	@Test
 	public void testCreateLecture(){
 		Lecture testLecture = new Lecture(null, testCourseID, testLectureNumber, testLectureName);
-		Database.createLecture(testLecture);
-		ObservableList<Lecture> lectures = Database.lectures(testCourseID);
+		db.createLecture(testLecture);
+		ObservableList<Lecture> lectures = db.lectures(testCourseID);
 		Lecture lecture = lectures.get(4);
 		assertEquals(testLecture.getCourseID(), lecture.getCourseID());
 		assertEquals(testLecture.getlectureName(), lecture.getlectureName());
 		assertEquals(testLecture.getlectureNumber(), lecture.getlectureNumber());
-		Database.deleteLecture(lecture);
+		db.deleteLecture(lecture);
 	}
 	
+	@SuppressWarnings("static-access")
 	@Test
 	public void testDeleteLecture(){
 		Lecture testLecture = new Lecture(null, testCourseID, testLectureNumber, testLectureName);
-		Database.createLecture(testLecture);
-		ObservableList<Lecture> lectures = Database.lectures(testCourseID);
+		db.createLecture(testLecture);
+		ObservableList<Lecture> lectures = db.lectures(testCourseID);
 		Lecture lecture = lectures.get(4);
-		Database.deleteLecture(lecture);
-		ObservableList<Lecture> testLectures = Database.lectures(testCourseID);
+		db.deleteLecture(lecture);
+		ObservableList<Lecture> testLectures = db.lectures(testCourseID);
 		int size = testLectures.size();
 		assertEquals(size, 4);
 	}
+	@SuppressWarnings("static-access")
 	@Test
 	public void testCreateTopic(){
 		Topic testTopic = new Topic(null, testLectureID, testTopicNumber, testTopicName);
-		Database.createTopic(testTopic);
-		ObservableList<Topic> topics = Database.topics(testLectureID);
+		db.createTopic(testTopic);
+		ObservableList<Topic> topics = db.topics(testLectureID);
 		Topic topic = topics.get(1);
 		assertEquals(testTopic.getLectureID(), topic.getLectureID());
 		assertEquals(testTopic.getTopicName(), topic.getTopicName());
 		assertEquals(testTopic.getTopicNumber(), topic.getTopicNumber());
-		Database.deleteTopic(topic);
+		db.deleteTopic(topic);
 	}
 	
+	@SuppressWarnings("static-access")
 	@Test
 	public void testDeleteTopic(){
 		Topic testTopic = new Topic(null, testLectureID, testTopicNumber, testTopicName);
-		Database.createTopic(testTopic);
-		ObservableList<Topic> topics = Database.topics(testLectureID);
+		db.createTopic(testTopic);
+		ObservableList<Topic> topics = db.topics(testLectureID);
 		Topic topic = topics.get(1);
-		Database.deleteTopic(topic);
-		ObservableList<Topic> testTopics = Database.topics(testLectureID);
+		db.deleteTopic(topic);
+		ObservableList<Topic> testTopics = db.topics(testLectureID);
 		int size = testTopics.size();
 		assertEquals(size, 1);	
 	}
 	
+	@SuppressWarnings("static-access")
 	@Test
 	public void testQuestion(){
 		String testUserID = "1";
 		String testQuest = "Hvor mange øvinger må man ha godkjent";
 		String testAnswer = "3";
 		Question testQuestion = new Question(null, testTopicID, testUserID, testQuest, testAnswer);
-		ObservableList<Question> questions = Database.Question(testTopicID);
+		ObservableList<Question> questions = db.Question(testTopicID);
 		Question question = questions.get(0);
 		assertEquals(question.getAnswer(), testQuestion.getAnswer());
 		assertEquals(question.getQuestion(), testQuestion.getQuestion());
@@ -130,15 +150,16 @@ public class DatabaseTest {
 		assertEquals(question.getTopicID(), testQuestion.getTopicID());
 	}
 	
+	@SuppressWarnings("static-access")
 	@Test
 	public void testAnswerQuestion(){
 		String testAnswer = "testAnswer";
-		ObservableList<Question> questions = Database.Question(testTopicID);
+		ObservableList<Question> questions = db.Question(testTopicID);
 		Question question = questions.get(0);
-		Database.answerQuestion(question, testAnswer);
-		ObservableList<Question> testQuestions = Database.Question(testTopicID);
+		db.answerQuestion(question, testAnswer);
+		ObservableList<Question> testQuestions = db.Question(testTopicID);
 		Question testQuestion = testQuestions.get(0);
 		assertEquals(testQuestion.getAnswer(), testAnswer);
-		Database.answerQuestion(testQuestion, "3");	
+		db.answerQuestion(testQuestion, "3");	
 	}
 }
