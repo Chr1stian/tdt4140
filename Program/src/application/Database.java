@@ -266,7 +266,8 @@ public class Database {
 					      +   		") table1 "
 					      + 	"ON lecture.lectureID = table1.lectureID "
 					      +		") table2 "
-					      + "GROUP BY table2.name";
+					      + "GROUP BY table2.name "
+					      + "ORDER BY table2.number ASC";
     	try{
     		Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
     		PreparedStatement stmt = conn.prepareStatement(getRatings);
@@ -323,7 +324,8 @@ public class Database {
     					  +		"FROM rating "
     					  +		"RIGHT JOIN topic ON topic.topicID = rating.topicID "
     					  +		"WHERE topic.lectureID = " + lectureID + ") table1 "
-    					  + "GROUP BY table1.name ";
+    					  + "GROUP BY table1.name "
+    					  + "ORDER BY table1.number ASC";
     	try{
     		Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
     		PreparedStatement stmt = conn.prepareStatement(getRatings);

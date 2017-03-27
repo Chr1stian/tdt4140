@@ -28,6 +28,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -51,7 +52,7 @@ public class ProgramController implements Initializable{
 	
 	@FXML
 	private Text title_leftPane, courseNameDisplay, courseIdText, lectureNumberText, lectureVotes, courseVotes, courseRatingText, 
-	lectureRatingText, courseRatingVotes, lectureRatingVotes, courseNotRated, lectureNotRated;
+	lectureRatingText, courseRatingVotes, lectureRatingVotes, courseNotRated, lectureNotRated, feedbackTitle, feedbackTitle2;
 	
 	@FXML
 	private Button btn_leftPane, sidebarNextButton, sidebarBackButton, sidebarAdd, sidebarEdit, sidebarDelete, submitAnswer, deleteButton;
@@ -101,6 +102,10 @@ public class ProgramController implements Initializable{
 	
 	@FXML
 	private HBox star01, star0half1, star11, star1half1, star21, star2half1, star31, star3half1, star41, star4half1, star51;
+	
+	@FXML
+	private StackPane feedbackTables;
+	
 	
 	// Initializes the program by showing the correct table (CourseTable in the sidebar)
 	@Override
@@ -367,15 +372,19 @@ public class ProgramController implements Initializable{
 				search_leftPane.clear();
 				sidebarTable = "lecture";
 				updateLectureTable(Database.lectures(courseTable.getSelectionModel().getSelectedItem().getCourseID()));
+				courseTable.setVisible(false);
+				lectureTable.setVisible(true);
+				title_leftPane.setText("Lectures");
+				courseIdText.setText(courseTable.getSelectionModel().getSelectedItem().getCourseCode());
+
+				// Feedback tab
+				String titleString = courseTable.getSelectionModel().getSelectedItem().getCourseCode() + ": " + courseTable.getSelectionModel().getSelectedItem().getCourseName();
+				feedbackTitle.setText(titleString);
 				updateFeedbackTableLecture(Database.lectureRating(courseTable.getSelectionModel().getSelectedItem().getCourseID()));
 				updateCourseRating(Database.courseAvgRating(courseTable.getSelectionModel().getSelectedItem().getCourseID()));
 				courseVotes.setVisible(true);
-				courseTable.setVisible(false);
-				lectureTable.setVisible(true);
 				courseRatingText.setVisible(true);
 				courseRatingVotes.setVisible(true);
-				title_leftPane.setText("Lectures");
-				courseIdText.setText(courseTable.getSelectionModel().getSelectedItem().getCourseCode());
 			}
 		// If the sidebar table shows lectures
 		}else if(sidebarTable == "lecture"){
@@ -384,17 +393,23 @@ public class ProgramController implements Initializable{
 				search_leftPane.clear();
 				sidebarTable = "topic";
 				updateTopicTable(Database.topics(lectureTable.getSelectionModel().getSelectedItem().getLectureID()));
-				updateFeedbackTableTopic(Database.topicRating(lectureTable.getSelectionModel().getSelectedItem().getLectureID()));
-				updateLectureRating(Database.lectureAvgRating(lectureTable.getSelectionModel().getSelectedItem().getLectureID()));
 				lectureTable.setVisible(false);
 				topicTable.setVisible(true);
 				title_leftPane.setText("Topics");
+				lectureNumberText.setText(lectureTable.getSelectionModel().getSelectedItem().getlectureNumber());
+
+				
+				// Feedback tab
+				String titleText = "Lecture " + lectureTable.getSelectionModel().getSelectedItem().getlectureNumber() + ": " + lectureTable.getSelectionModel().getSelectedItem().getlectureName();
+				feedbackTables.setStyle("-fx-padding: 40-0-0-0");
+				feedbackTitle2.setText(titleText);
+				updateFeedbackTableTopic(Database.topicRating(lectureTable.getSelectionModel().getSelectedItem().getLectureID()));
+				updateLectureRating(Database.lectureAvgRating(lectureTable.getSelectionModel().getSelectedItem().getLectureID()));
 				feedbackLectureTable.setVisible(false);
 				feedbackTopicTable.setVisible(true);
 				lectureVotes.setVisible(true);
 				lectureRatingText.setVisible(true);
 				lectureRatingVotes.setVisible(true);
-				lectureNumberText.setText(lectureTable.getSelectionModel().getSelectedItem().getlectureNumber());
 			}
 		}
 		// Disable and enable the correct buttons
@@ -411,6 +426,10 @@ public class ProgramController implements Initializable{
 			topicTable.setVisible(false);
 			lectureTable.setVisible(true);
 			updateQuestionTable(Database.Question("empty"));
+			
+			// Feedback tab
+			feedbackTables.setStyle("-fx-padding: 0-0-0-0");
+			feedbackTitle2.setText("");
 			feedbackTopicTable.setVisible(false);
 			feedbackLectureTable.setVisible(true);
 			hideLectureStars();
@@ -420,12 +439,15 @@ public class ProgramController implements Initializable{
 			lectureNotRated.setVisible(false);
 			
 		}else if(sidebarTable == "lecture"){
+			feedbackTitle.setText("No course selected");
 			sidebarTable = "course";
 			title_leftPane.setText("Courses");
 			courseIdText.setText("Not selected");
 			lectureTable.setVisible(false);
 			courseTable.setVisible(true);
 			updateQuestionTable(Database.Question("empty"));
+			
+			// Feedback tab
 			hideCourseStars();
 			courseVotes.setVisible(false);
 			hideCourseStars();

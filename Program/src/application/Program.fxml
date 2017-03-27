@@ -114,7 +114,7 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <StackPane layoutX="38.0" layoutY="114.0" prefHeight="457.0" prefWidth="755.0">
+                                    <StackPane fx:id="feedbackTables" layoutX="38.0" layoutY="96.0" prefHeight="475.0" prefWidth="755.0">
                                        <children>
                                           <TableView fx:id="feedbackTopicTable" prefHeight="200.0" prefWidth="200.0" visible="false">
                                             <columns>
@@ -124,13 +124,16 @@
                                                 <TableColumn fx:id="feedbackTableTopicVotes" prefWidth="143.0" text="Number of votes" />
                                             </columns>
                                           </TableView>
-                                          <TableView fx:id="feedbackLectureTable" prefHeight="429.0" prefWidth="691.0">
+                                          <TableView fx:id="feedbackLectureTable" prefHeight="401.0" prefWidth="755.0">
                                             <columns>
                                                 <TableColumn fx:id="feedbackTableLectureNum" prefWidth="76.0" text="Number" />
                                               <TableColumn fx:id="feedbackTableLectureCol" prefWidth="388.0" text="Lecture" />
                                               <TableColumn fx:id="feedbackTableLectureRating" prefWidth="143.0" text="Rating" />
                                                 <TableColumn fx:id="feedbackTableLectureVotes" prefWidth="143.0" text="Number of votes" />
                                             </columns>
+                                             <StackPane.margin>
+                                                <Insets />
+                                             </StackPane.margin>
                                           </TableView>
                                        </children>
                                     </StackPane>
@@ -359,9 +362,14 @@
                                           </Text>
                                        </children>
                                     </GridPane>
-                                    <Text fill="WHITE" layoutX="38.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SELECTED COURSE - LECTURE">
+                                    <Text fx:id="feedbackTitle" fill="WHITE" layoutX="38.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No course selected">
                                        <font>
-                                          <Font size="35.0" />
+                                          <Font size="25.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fx:id="feedbackTitle2" fill="WHITE" layoutX="38.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" AnchorPane.topAnchor="100.0224609375">
+                                       <font>
+                                          <Font size="25.0" />
                                        </font>
                                     </Text>
                                  </children></AnchorPane>
