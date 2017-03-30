@@ -365,10 +365,11 @@ public class ProgramController implements Initializable{
 	 */
 	@FXML
 	private void nextButton(){
-		// If the sidebar table shows courses
+		// If going from course to lecture
 		if(sidebarTable == "course"){
 			// If you actually selected an item in the table
 			if(courseTable.getSelectionModel().getSelectedItem() != null){
+				// Sidebar
 				search_leftPane.clear();
 				sidebarTable = "lecture";
 				updateLectureTable(Database.lectures(courseTable.getSelectionModel().getSelectedItem().getCourseID()));
@@ -386,10 +387,11 @@ public class ProgramController implements Initializable{
 				courseRatingText.setVisible(true);
 				courseRatingVotes.setVisible(true);
 			}
-		// If the sidebar table shows lectures
+		// If going from lecture to topic
 		}else if(sidebarTable == "lecture"){
 			// If you actually selected an item in the table
 			if(lectureTable.getSelectionModel().getSelectedItem() != null){
+				// Sidebar
 				search_leftPane.clear();
 				sidebarTable = "topic";
 				updateTopicTable(Database.topics(lectureTable.getSelectionModel().getSelectedItem().getLectureID()));
@@ -419,12 +421,16 @@ public class ProgramController implements Initializable{
 	@FXML
 	private void backButton(){
 		search_leftPane.clear();
+		// If going from topic to lecture
 		if(sidebarTable == "topic"){
+			// Sidebar
 			sidebarTable = "lecture";
 			lectureNumberText.setText("Not selected");
 			title_leftPane.setText("Lectures");
 			topicTable.setVisible(false);
 			lectureTable.setVisible(true);
+			
+			// Question tab
 			updateQuestionTable(Database.Question("empty"));
 			
 			// Feedback tab
@@ -438,18 +444,20 @@ public class ProgramController implements Initializable{
 			lectureRatingVotes.setVisible(false);
 			lectureNotRated.setVisible(false);
 			
+		// If going from lecture to course
 		}else if(sidebarTable == "lecture"){
-			feedbackTitle.setText("No course selected");
+			// Sidebar
 			sidebarTable = "course";
 			title_leftPane.setText("Courses");
 			courseIdText.setText("Not selected");
 			lectureTable.setVisible(false);
 			courseTable.setVisible(true);
+			
+			// Question tab
 			updateQuestionTable(Database.Question("empty"));
 			
 			// Feedback tab
-			hideCourseStars();
-			courseVotes.setVisible(false);
+			feedbackTitle.setText("No course selected");
 			hideCourseStars();
 			courseVotes.setVisible(false);
 			courseRatingText.setVisible(false);
@@ -460,10 +468,10 @@ public class ProgramController implements Initializable{
 		enableDisableButton();
 	}
 	
+	// Enables and disables back, next, add, edit and delete buttons
 	private void enableDisableButton(){
 		if(sidebarTable == "topic"){
 			sidebarNextButton.setDisable(true);
-			
 		}else if(sidebarTable == "course"){
 			sidebarBackButton.setDisable(true);
 			sidebarAdd.setDisable(true);
