@@ -28,20 +28,20 @@
                      <children>
                         <TableView fx:id="courseTable" layoutX="7.0" layoutY="6.0" maxHeight="583.0" maxWidth="306.0" minHeight="535.0" minWidth="306.0" prefHeight="548.0" prefWidth="306.0" tableMenuButtonVisible="false" AnchorPane.bottomAnchor="72.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="74.0">
                           <columns>
-                            <TableColumn fx:id="courseCode" maxWidth="5000.0" minWidth="10.0" prefWidth="84.00003051757812" resizable="false" text="Code" />
-                            <TableColumn fx:id="courseName" maxWidth="5000.0" minWidth="0.0" prefWidth="221.0" resizable="false" text="Course name" />
+                            <TableColumn fx:id="courseCode" maxWidth="5000.0" minWidth="10.0" prefWidth="84.0" resizable="false" text="Code" />
+                            <TableColumn fx:id="courseName" maxWidth="210.0" minWidth="210.0" prefWidth="210.0" resizable="false" text="Course name" />
                           </columns>
                         </TableView>
-                        <TableView fx:id="lectureTable" layoutX="75.0" layoutY="66.0" maxHeight="583.0" maxWidth="306.0" minHeight="583.0" minWidth="306.0" prefHeight="583.0" prefWidth="306.0" visible="false" AnchorPane.bottomAnchor="37.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="74.0">
+                        <TableView fx:id="lectureTable" layoutX="75.0" layoutY="66.0" maxHeight="548.0" maxWidth="306.0" minHeight="548.0" minWidth="306.0" prefHeight="548.0" prefWidth="306.0" visible="false" AnchorPane.bottomAnchor="72.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="74.0">
                           <columns>
-                            <TableColumn fx:id="lectureNumber" prefWidth="71.00006103515625" text="Number" />
-                            <TableColumn fx:id="lectureName" maxWidth="234.0" minWidth="234.0" prefWidth="234.0" text="Lecture name" />
+                            <TableColumn fx:id="lectureNumber" prefWidth="84.0" text="Number" />
+                            <TableColumn fx:id="lectureName" maxWidth="210.0" minWidth="210.0" prefWidth="210.0" text="Lecture name" />
                           </columns>
                         </TableView>
-                        <TableView fx:id="topicTable" maxHeight="583.0" maxWidth="306.0" minHeight="583.0" minWidth="306.0" onMouseClicked="#displayQuestions" prefHeight="583.0" prefWidth="306.0" visible="false" AnchorPane.bottomAnchor="37.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="74.0">
+                        <TableView fx:id="topicTable" maxHeight="548.0" maxWidth="306.0" minHeight="548.0" minWidth="306.0" onMouseClicked="#displayQuestions" prefHeight="548.0" prefWidth="306.0" visible="false" AnchorPane.bottomAnchor="72.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="74.0">
                           <columns>
-                            <TableColumn fx:id="topicNumber" prefWidth="71.00003051757812" text="Number" />
-                            <TableColumn fx:id="topicName" maxWidth="234.0" minWidth="234.0" prefWidth="234.0" text="Topic name" />
+                            <TableColumn fx:id="topicNumber" prefWidth="84.0" text="Number" />
+                            <TableColumn fx:id="topicName" maxWidth="210.0" minWidth="210.0" prefWidth="210.0" text="Topic name" />
                           </columns>
                         </TableView>
                         <TextField fx:id="search_leftPane" prefHeight="37.0" prefWidth="302.0" promptText="Search..." AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
@@ -102,7 +102,7 @@
                                     <TableView fx:id="questionTable" layoutX="46.0" layoutY="45.0" prefHeight="548.0" prefWidth="755.0" tableMenuButtonVisible="false">
                                        <columns>
                                           <TableColumn fx:id="questionTableQuestion" maxWidth="5000.0" minWidth="0.0" prefWidth="402.0" resizable="false" text="Question" />
-                                          <TableColumn fx:id="questionTableAnswer" maxWidth="5000.0" minWidth="0.0" prefWidth="566.0" resizable="false" text="Answer" />
+                                          <TableColumn fx:id="questionTableAnswer" maxWidth="5000.0" minWidth="0.0" prefWidth="341.0" resizable="false" text="Answer" />
                                        </columns>
                                     </TableView>
                                     <TextField fx:id="answerInput" layoutX="124.0" layoutY="593.0" prefHeight="117.0" prefWidth="616.0" promptText="Write your answer to the selected question here..." />
@@ -116,20 +116,20 @@
                                  <children>
                                     <StackPane fx:id="feedbackTables" layoutX="38.0" layoutY="96.0" prefHeight="475.0" prefWidth="755.0">
                                        <children>
-                                          <TableView fx:id="feedbackTopicTable" prefHeight="200.0" prefWidth="200.0" visible="false">
+                                          <TableView fx:id="feedbackTopicTable" prefHeight="475.0" prefWidth="755.0" visible="false">
                                             <columns>
                                                 <TableColumn fx:id="feedbackTableTopicNum" prefWidth="76.0" text="Number" />
                                               <TableColumn fx:id="feedbackTableTopicCol" prefWidth="388.0" text="Topic" />
-                                              <TableColumn fx:id="feedbackTableTopicRating" prefWidth="143.0" text="Rating" />
-                                                <TableColumn fx:id="feedbackTableTopicVotes" prefWidth="143.0" text="Number of votes" />
+                                              <TableColumn fx:id="feedbackTableTopicRating" prefWidth="140.0" text="Rating" />
+                                                <TableColumn fx:id="feedbackTableTopicVotes" prefWidth="139.0" text="Number of votes" />
                                             </columns>
                                           </TableView>
                                           <TableView fx:id="feedbackLectureTable" prefHeight="401.0" prefWidth="755.0">
                                             <columns>
                                                 <TableColumn fx:id="feedbackTableLectureNum" prefWidth="76.0" text="Number" />
                                               <TableColumn fx:id="feedbackTableLectureCol" prefWidth="388.0" text="Lecture" />
-                                              <TableColumn fx:id="feedbackTableLectureRating" prefWidth="143.0" text="Rating" />
-                                                <TableColumn fx:id="feedbackTableLectureVotes" prefWidth="143.0" text="Number of votes" />
+                                              <TableColumn fx:id="feedbackTableLectureRating" prefWidth="140.0" text="Rating" />
+                                                <TableColumn fx:id="feedbackTableLectureVotes" prefWidth="139.0" text="Number of votes" />
                                             </columns>
                                              <StackPane.margin>
                                                 <Insets />

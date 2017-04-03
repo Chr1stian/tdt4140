@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -24,6 +25,7 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -152,7 +154,7 @@ public class ProgramController implements Initializable{
 	 * ADD THE ABILITY TO SEARCH IN THE TABLES
 	 */
 	// Method for filling the table in the sidebar with courses
-	private void updateCourseTable(){
+	private void updateCourseTable(){		
 		// 0. Initialize the columns.
 		courseCode.setCellValueFactory(cellData -> cellData.getValue().courseCodeProperty());
 		courseName.setCellValueFactory(cellData -> cellData.getValue().courseNameProperty());
@@ -189,6 +191,17 @@ public class ProgramController implements Initializable{
 		
 		// 5. Add sorted (and filtered) data to the table.
 		courseTable.setItems(sortedData);
+		
+		// 6. Make it possible to doubleclick rows in the table as an alternative to clicking the next-button
+		courseTable.setRowFactory( tv -> {
+		    TableRow<Course> row = new TableRow<>();
+		    row.setOnMouseClicked(event -> {
+		        if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+		            nextButton();
+		        }
+		    });
+		    return row ;
+		});
 	}
 	
 	// Method for filling the table in the sidebar with lectures (Same idea as updateCourseTable)
@@ -229,6 +242,17 @@ public class ProgramController implements Initializable{
 		
 		// 5. Add sorted (and filtered) data to the table.
 		lectureTable.setItems(sortedData);
+		
+		// 6. Make it possible to doubleclick rows in the table as an alternative to clicking the next-button
+		lectureTable.setRowFactory( tv -> {
+		    TableRow<Lecture> row = new TableRow<>();
+		    row.setOnMouseClicked(event -> {
+		        if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+		            nextButton();
+		        }
+		    });
+		    return row ;
+		});
 	}
 
 	
@@ -363,12 +387,14 @@ public class ProgramController implements Initializable{
 	/*
 	 * SIDEBAR BACK - NEXT BUTTONS
 	 */
+	
 	@FXML
 	private void nextButton(){
-		// If the sidebar table shows courses
+		// If going from course to lecture
 		if(sidebarTable == "course"){
 			// If you actually selected an item in the table
 			if(courseTable.getSelectionModel().getSelectedItem() != null){
+				// Sidebar
 				search_leftPane.clear();
 				sidebarTable = "lecture";
 				updateLectureTable(Database.lectures(courseTable.getSelectionModel().getSelectedItem().getCourseID()));
@@ -386,10 +412,11 @@ public class ProgramController implements Initializable{
 				courseRatingText.setVisible(true);
 				courseRatingVotes.setVisible(true);
 			}
-		// If the sidebar table shows lectures
+		// If going from lecture to topic
 		}else if(sidebarTable == "lecture"){
 			// If you actually selected an item in the table
 			if(lectureTable.getSelectionModel().getSelectedItem() != null){
+				// Sidebar
 				search_leftPane.clear();
 				sidebarTable = "topic";
 				updateTopicTable(Database.topics(lectureTable.getSelectionModel().getSelectedItem().getLectureID()));
@@ -419,12 +446,16 @@ public class ProgramController implements Initializable{
 	@FXML
 	private void backButton(){
 		search_leftPane.clear();
+		// If going from topic to lecture
 		if(sidebarTable == "topic"){
+			// Sidebar
 			sidebarTable = "lecture";
 			lectureNumberText.setText("Not selected");
 			title_leftPane.setText("Lectures");
 			topicTable.setVisible(false);
 			lectureTable.setVisible(true);
+			
+			// Question tab
 			updateQuestionTable(Database.Question("empty"));
 			
 			// Feedback tab
@@ -438,18 +469,20 @@ public class ProgramController implements Initializable{
 			lectureRatingVotes.setVisible(false);
 			lectureNotRated.setVisible(false);
 			
+		// If going from lecture to course
 		}else if(sidebarTable == "lecture"){
-			feedbackTitle.setText("No course selected");
+			// Sidebar
 			sidebarTable = "course";
 			title_leftPane.setText("Courses");
 			courseIdText.setText("Not selected");
 			lectureTable.setVisible(false);
 			courseTable.setVisible(true);
+			
+			// Question tab
 			updateQuestionTable(Database.Question("empty"));
 			
 			// Feedback tab
-			hideCourseStars();
-			courseVotes.setVisible(false);
+			feedbackTitle.setText("No course selected");
 			hideCourseStars();
 			courseVotes.setVisible(false);
 			courseRatingText.setVisible(false);
@@ -460,10 +493,10 @@ public class ProgramController implements Initializable{
 		enableDisableButton();
 	}
 	
+	// Enables and disables back, next, add, edit and delete buttons
 	private void enableDisableButton(){
 		if(sidebarTable == "topic"){
 			sidebarNextButton.setDisable(true);
-			
 		}else if(sidebarTable == "course"){
 			sidebarBackButton.setDisable(true);
 			sidebarAdd.setDisable(true);
