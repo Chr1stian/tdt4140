@@ -2,7 +2,9 @@ package application;
 
 import static org.junit.Assert.*;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.After;
+import org.junit.AfterClass;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -32,9 +34,11 @@ public class DatabaseTest {
 	String testTopicNumber = "2";
 	String testTopicName = "testTopic";
 	
-	String testmySQLAdr = "jdbc:mysql://sql11.freemysqlhosting.net:3306/sql11165164?allowMultiQueries=true";
-    String testmySQLUser = "sql11165164";
-    String testmySQLPass = "FPJxTYsVA3";
+	static String testmySQLAdr = "jdbc:mysql://sql11.freemysqlhosting.net:3306/sql11165164?allowMultiQueries=true";
+    static String testmySQLUser = "sql11165164";
+    static String testmySQLPass = "FPJxTYsVA3";
+    
+    private static boolean setUpIsDone = false;
 	
 	Database db = null;
 	
@@ -44,7 +48,11 @@ public class DatabaseTest {
 	}
 	
 	@Before
-	public void setupDatabase() throws FileNotFoundException, IOException, SQLException{
+	public void setupDatabase() throws Exception{
+		if(setUpIsDone){
+			return;
+		}
+		
 		Connection mConnection = null;
 		try {
 		    Class.forName("com.mysql.jdbc.Driver");
@@ -55,8 +63,10 @@ public class DatabaseTest {
 		    System.err.println("Unable to connect to server: " + e);
 		}
 		ScriptRunner runner = new ScriptRunner(mConnection, false, false);
-		String file = "./test/application/sql_fullDB.sql";
+		String file = "./test/application/testDB.sql";
 		runner.runScript(new BufferedReader(new FileReader(file)));
+		mConnection.close();
+		setUpIsDone = true;
 	}
 
 	@SuppressWarnings("static-access")
@@ -168,7 +178,7 @@ public class DatabaseTest {
 	@Test
 	public void testQuestion(){
 		String testUserID = "1";
-		String testQuest = "Hvor mange øvinger må man ha godkjent";
+		String testQuest = "Hvor mange ?vinger m? man ha godkjent";
 		String testAnswer = "3";
 		Question testQuestion = new Question(null, testTopicID, testUserID, testQuest, testAnswer);
 		ObservableList<Question> questions = db.Question(testTopicID);
@@ -192,19 +202,20 @@ public class DatabaseTest {
 		db.answerQuestion(testQuestion, "3");	
 	}
 	
-	@After
-	public void tearDatabase(){
-		List<String> tablename = Arrays.asList("rating", "question", "topic", "lecture", "course", "user", "bruker");
-		for(int i = 0; i > tablename.size() - 1; i++){
-		try{
-            Connection conn = DriverManager.getConnection(testmySQLAdr, testmySQLUser, testmySQLPass);
-            PreparedStatement stmt = conn.prepareStatement("DROP TABLE IF EXISTS " + tablename.get(i));
-            stmt.execute();
-            conn.close();
-        }
-        catch(SQLException e){
-            System.out.println(e);
-        }
+	@AfterClass
+	public static void tearDatabase(){
+		List<String> tablename = Arrays.asList("rating", "question", "topic", "lecture", "course", "user");
+		for(int i = 0; i < tablename.size(); i++){
+			try{
+				
+	            Connection conn = DriverManager.getConnection(testmySQLAdr, testmySQLUser, testmySQLPass);
+	            PreparedStatement stmt = conn.prepareStatement("DROP TABLE IF EXISTS " + tablename.get(i));
+	            stmt.execute();
+	            conn.close();
+			}
+	        catch(SQLException e){
+	            System.out.println(e);
+			}
 		}
 	}
 }
