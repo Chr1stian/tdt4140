@@ -11,9 +11,4 @@ addons:
 before_install: cd Program
 
 notifications:
-  email:
-    recipients:
-      - chrisnyv@stud.ntnu.no
-    on_success: never # default: change
-    on_failure: always # default: always
   slack: prodoteam:ybnDKIhpodUlM0ZRwMh5qqug
