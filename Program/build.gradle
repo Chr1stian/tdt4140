@@ -50,4 +50,5 @@ jacocoTestReport {
 }
 }
 
+check.dependsOn jacocoTestReport
 test.finalizedBy jacocoTestReport
