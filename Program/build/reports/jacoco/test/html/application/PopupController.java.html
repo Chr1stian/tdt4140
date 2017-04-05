@@ -1,23 +1,142 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nb"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PopupController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Program</a> &gt; <a href="index.source.html" class="el_package">application</a> &gt; <span class="el_source">PopupController.java</span></div><h1>PopupController.java</h1><pre class="source lang-java linenums">package application;
 
-import java.io.IOException;
-import java.util.Optional;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
-<span class="nc" id="L11">public class PopupController {</span>
+<span class="nc" id="L13">public class PopupController implements Initializable{</span>
 	
-    /*@FXML
-    public void addNewLecture() {
-        Dialog&lt;ButtonType&gt; dialog = new Dialog&lt;&gt;();
-        //dialog.initOwner(mainBorderPane.getScene().getWindow());
-        dialog.setTitle(&quot;Add New Lecture&quot;);
-        dialog.setHeaderText(&quot;Use this window to add a new lecture to your course&quot;);
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource(&quot;PopUpWindow.fxml&quot;));
-    }*/
+<span class="nc" id="L15">	private Boolean submitClicked = false;</span>
+	
+	private String number, lectureID, courseID, topicID;
+	
+	private Topic topic;
+	
+	private Lecture lecture;
+	
+	@FXML
+	private Text popupTitle, popupTopText, popupBotText;
+	
+	@FXML
+	private TextField popupTopInput, popupBotInput;
+	
+	@FXML
+	private Button popupSubmit;
+	
+	@FXML
+	private Stage popupStage;
+	
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		
+<span class="nc" id="L38">	}</span>
+	
+	public void changeText(String s){
+<span class="nc bnc" id="L41" title="All 2 branches missed.">		if(s == &quot;course&quot;){</span>
+<span class="nc" id="L42">			popupTitle.setText(&quot;Course&quot;);</span>
+		}
+<span class="nc" id="L44">	}</span>
+	
+	public Boolean isSubmitClicked(){
+<span class="nc" id="L47">		return submitClicked;</span>
+	}
+	
+	public void setStage(Stage popupStage){
+<span class="nc" id="L51">		this.popupStage = popupStage;</span>
+<span class="nc" id="L52">	}</span>
+	
+	public void editLecture(Lecture lecture){
+<span class="nc" id="L55">		courseID = lecture.getCourseID();</span>
+<span class="nc" id="L56">		lectureID = lecture.getLectureID();</span>
+<span class="nc" id="L57">		popupTitle.setText(&quot;Edit lecture&quot;);</span>
+<span class="nc" id="L58">		popupTopText.setText(&quot;Topic number&quot;);</span>
+<span class="nc" id="L59">		popupTopInput.setText(lecture.getlectureNumber());</span>
+<span class="nc" id="L60">		popupTopInput.setPromptText(&quot;Lecture number&quot;);</span>
+<span class="nc" id="L61">		popupBotText.setText(&quot;Topic name&quot;);</span>
+<span class="nc" id="L62">		popupBotInput.setText(lecture.getlectureName());</span>
+<span class="nc" id="L63">		popupBotInput.setPromptText(&quot;Lecture name&quot;);</span>
+<span class="nc" id="L64">	}</span>
+	
+	public void editTopic(Topic topic){
+<span class="nc" id="L67">		lectureID = topic.getLectureID();</span>
+<span class="nc" id="L68">		topicID = topic.getTopicID();</span>
+<span class="nc" id="L69">		popupTitle.setText(&quot;Edit topic&quot;);</span>
+<span class="nc" id="L70">		popupTopText.setText(&quot;Topic number&quot;);</span>
+<span class="nc" id="L71">		popupTopInput.setText(topic.getTopicNumber());</span>
+<span class="nc" id="L72">		popupTopInput.setPromptText(&quot;Topic number&quot;);</span>
+<span class="nc" id="L73">		popupBotText.setText(&quot;Topic name&quot;);</span>
+<span class="nc" id="L74">		popupBotInput.setText(topic.getTopicName());</span>
+<span class="nc" id="L75">		popupBotInput.setPromptText(&quot;Topic name&quot;);</span>
+<span class="nc" id="L76">	}</span>
+	
+	public void addLecture(String number){
+<span class="nc" id="L79">		courseID = number;</span>
+<span class="nc" id="L80">		popupTitle.setText(&quot;Add lecture&quot;);</span>
+<span class="nc" id="L81">		popupTopText.setText(&quot;Lecture number&quot;);</span>
+<span class="nc" id="L82">		popupTopInput.setPromptText(&quot;Lecture number&quot;);</span>
+<span class="nc" id="L83">		popupBotText.setText(&quot;Lecture name&quot;);</span>
+<span class="nc" id="L84">		popupBotInput.setPromptText(&quot;Lecture name&quot;);</span>
+<span class="nc" id="L85">	}</span>
+	
+	public void addTopic(String number){
+<span class="nc" id="L88">		lectureID = number;</span>
+<span class="nc" id="L89">		popupTitle.setText(&quot;Add topic&quot;);</span>
+<span class="nc" id="L90">		popupTopText.setText(&quot;Topic number&quot;);</span>
+<span class="nc" id="L91">		popupTopInput.setPromptText(&quot;Topic number&quot;);</span>
+<span class="nc" id="L92">		popupBotText.setText(&quot;Topic name&quot;);</span>
+<span class="nc" id="L93">		popupBotInput.setPromptText(&quot;Topic name&quot;);</span>
+<span class="nc" id="L94">	}</span>
+	
+	@FXML
+	public void submit(){
+<span class="nc bnc" id="L98" title="All 4 branches missed.">		if(validateNumber() &amp;&amp; validateName()){</span>
+<span class="nc" id="L99">			String number = popupTopInput.getText();</span>
+<span class="nc" id="L100">			String name = popupBotInput.getText();</span>
+<span class="nc" id="L101">			popupTopInput.setText(&quot;&quot;);</span>
+<span class="nc" id="L102">			popupBotInput.setText(&quot;&quot;);</span>
+<span class="nc" id="L103">			popupSubmit.defaultButtonProperty().bind(popupSubmit.focusedProperty());</span>
+<span class="nc bnc" id="L104" title="All 2 branches missed.">			if(popupTitle.getText() == &quot;Add lecture&quot;){</span>
+<span class="nc" id="L105">				Lecture lecture = new Lecture(null, courseID, number, name);</span>
+<span class="nc" id="L106">				Database.createLecture(lecture);</span>
+<span class="nc bnc" id="L107" title="All 2 branches missed.">			}else if(popupTitle.getText() == &quot;Add topic&quot;){</span>
+<span class="nc" id="L108">				Topic topic = new Topic(null, lectureID, number, name);</span>
+<span class="nc" id="L109">				Database.createTopic(topic);</span>
+<span class="nc bnc" id="L110" title="All 2 branches missed.">			}else if(popupTitle.getText() == &quot;Edit lecture&quot;){</span>
+<span class="nc" id="L111">				Lecture lecture = new Lecture(lectureID, courseID, number, name);</span>
+<span class="nc" id="L112">				Database.editLecture(lecture);</span>
+<span class="nc bnc" id="L113" title="All 2 branches missed.">			}else if(popupTitle.getText() == &quot;Edit topic&quot;){</span>
+<span class="nc" id="L114">				Topic topic = new Topic(topicID, lectureID, number, name);</span>
+<span class="nc" id="L115">				Database.editTopic(topic);</span>
+<span class="nc" id="L116">			}else{</span>
+<span class="nc" id="L117">				System.out.println(&quot;Matcher ingen????&quot;);</span>
+			}
+<span class="nc" id="L119">			submitClicked = true;</span>
+<span class="nc" id="L120">		    popupStage.close();</span>
+<span class="nc" id="L121">		}else{</span>
+<span class="nc" id="L122">			System.out.println(&quot;Ikke godkjent&quot;);</span>
+		}
+<span class="nc" id="L124">	}</span>
+	
+	private Boolean validateNumber(){
+<span class="nc bnc" id="L127" title="All 6 branches missed.">		if(popupTopInput.getText().matches(&quot;[1-9][0-9]*&quot;) &amp;&amp; popupTopInput.getText().length() &lt;= 11 &amp;&amp; !popupTopInput.getText().isEmpty()){</span>
+<span class="nc" id="L128">			return true;</span>
+		}else{
+<span class="nc" id="L130">			return false;</span>
+		}
+	}
+	
+	private Boolean validateName(){
+<span class="nc bnc" id="L135" title="All 4 branches missed.">		if(popupBotInput.getText().length() &lt;= 60 &amp;&amp; !popupBotInput.getText().isEmpty()){</span>
+<span class="nc" id="L136">			return true;</span>
+		}else{
+<span class="nc" id="L138">			return false;</span>
+		}
+	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

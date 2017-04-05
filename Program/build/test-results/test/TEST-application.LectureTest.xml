@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="application.LectureTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2017-03-20T14:32:03" hostname="Christians-MacBook-Pro-2.local" time="0.002">
+<testsuite name="application.LectureTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2017-04-05T13:31:59" hostname="dhcp-10-24-18-191.wlan.ntnu.no" time="0.002">
   <properties/>
-  <testcase name="testLectureNumber" classname="application.LectureTest" time="0.0"/>
+  <testcase name="testLectureNumber" classname="application.LectureTest" time="0.001"/>
   <testcase name="testLectureID" classname="application.LectureTest" time="0.0"/>
   <testcase name="testCourseID" classname="application.LectureTest" time="0.0"/>
   <testcase name="testLectureName" classname="application.LectureTest" time="0.001"/>
