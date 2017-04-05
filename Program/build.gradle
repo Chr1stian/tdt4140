@@ -41,6 +41,7 @@ jar {
 jacocoTestReport {
 	reports {
 	html.enabled = true
+    xml.enabled = true
 	}
     afterEvaluate {
     classDirectories = files(classDirectories.files.collect {
