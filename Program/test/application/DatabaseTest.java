@@ -2,10 +2,25 @@ package application;
 
 import static org.junit.Assert.*;
 import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.After;
+import org.junit.AfterClass;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.junit.Test;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,15 +34,39 @@ public class DatabaseTest {
 	String testTopicNumber = "2";
 	String testTopicName = "testTopic";
 	
-	String testmySQLAdr = "jdbc:mysql://sql11.freemysqlhosting.net:3306/sql11165164?allowMultiQueries=true";
-    String testmySQLUser = "sql11165164";
-    String testmySQLPass = "FPJxTYsVA3";
+	static String testmySQLAdr = "jdbc:mysql://sql11.freemysqlhosting.net:3306/sql11165164?allowMultiQueries=true";
+    static String testmySQLUser = "sql11165164";
+    static String testmySQLPass = "FPJxTYsVA3";
+    
+    private static boolean setUpIsDone = false;
 	
 	Database db = null;
 	
 	@Before
 	public void changeDatabase(){
 		this.db = new Database(testmySQLAdr, testmySQLUser, testmySQLPass);
+	}
+	
+	@Before
+	public void setupDatabase() throws Exception{
+		if(setUpIsDone){
+			return;
+		}
+		
+		Connection mConnection = null;
+		try {
+		    Class.forName("com.mysql.jdbc.Driver");
+		    mConnection =  DriverManager.getConnection(testmySQLAdr, testmySQLUser, testmySQLPass);
+		} catch (ClassNotFoundException e) {
+		    System.err.println("Unable to get mysql driver: " + e);
+		} catch (SQLException e) {
+		    System.err.println("Unable to connect to server: " + e);
+		}
+		ScriptRunner runner = new ScriptRunner(mConnection, false, false);
+		String file = "./test/application/testDB.sql";
+		runner.runScript(new BufferedReader(new FileReader(file)));
+		mConnection.close();
+		setUpIsDone = true;
 	}
 
 	@SuppressWarnings("static-access")
@@ -139,7 +178,7 @@ public class DatabaseTest {
 	@Test
 	public void testQuestion(){
 		String testUserID = "1";
-		String testQuest = "Hvor mange øvinger må man ha godkjent";
+		String testQuest = "Hvor mange ?vinger m? man ha godkjent";
 		String testAnswer = "3";
 		Question testQuestion = new Question(null, testTopicID, testUserID, testQuest, testAnswer);
 		ObservableList<Question> questions = db.Question(testTopicID);
@@ -161,5 +200,22 @@ public class DatabaseTest {
 		Question testQuestion = testQuestions.get(0);
 		assertEquals(testQuestion.getAnswer(), testAnswer);
 		db.answerQuestion(testQuestion, "3");	
+	}
+	
+	@AfterClass
+	public static void tearDatabase(){
+		List<String> tablename = Arrays.asList("rating", "question", "topic", "lecture", "course", "user");
+		for(int i = 0; i < tablename.size(); i++){
+			try{
+				
+	            Connection conn = DriverManager.getConnection(testmySQLAdr, testmySQLUser, testmySQLPass);
+	            PreparedStatement stmt = conn.prepareStatement("DROP TABLE IF EXISTS " + tablename.get(i));
+	            stmt.execute();
+	            conn.close();
+			}
+	        catch(SQLException e){
+	            System.out.println(e);
+			}
+		}
 	}
 }
