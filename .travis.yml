@@ -11,4 +11,5 @@ addons:
 before_install: cd Program
 
 notifications:
+  email: false
   slack: prodoteam:ybnDKIhpodUlM0ZRwMh5qqug
