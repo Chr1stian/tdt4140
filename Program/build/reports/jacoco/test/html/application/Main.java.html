@@ -7,31 +7,81 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-<span class="nc" id="L12">public class Main extends Application{</span>
+<span class="nc" id="L13">public class Main extends Application{</span>
 	private Stage primaryStage;
 	private AnchorPane mainLayout;
-	
+
 	@Override
 	public void start(Stage primaryStage) throws Exception{
-<span class="nc" id="L18">		this.primaryStage = primaryStage;</span>
-<span class="nc" id="L19">		this.primaryStage .setTitle(&quot;Prodo&quot;);</span>
-<span class="nc" id="L20">		showMain();</span>
-<span class="nc" id="L21">	}</span>
+<span class="nc" id="L19">		this.primaryStage = primaryStage;</span>
+<span class="nc" id="L20">		this.primaryStage.setTitle(&quot;Prodo&quot;);</span>
+<span class="nc" id="L21">		showMain();</span>
+<span class="nc" id="L22">	}</span>
 	
 	private void showMain() throws IOException{
-<span class="nc" id="L24">		FXMLLoader loader = new FXMLLoader(getClass().getResource(&quot;/application/Program.fxml&quot;));</span>
-<span class="nc" id="L25">		loader.setLocation(Main.class.getResource(&quot;/application/Program.fxml&quot;));</span>
-<span class="nc" id="L26">		mainLayout = loader.load();</span>
-<span class="nc" id="L27">		Scene scene = new Scene(mainLayout);</span>
-<span class="nc" id="L28">		primaryStage.setScene(scene);</span>
-<span class="nc" id="L29">		primaryStage.show();</span>
-<span class="nc" id="L30">		primaryStage.setResizable(false);</span>
-<span class="nc" id="L31">	}</span>
+<span class="nc" id="L25">		FXMLLoader loader = new FXMLLoader(getClass().getResource(&quot;/application/Program.fxml&quot;));</span>
+<span class="nc" id="L26">		loader.setLocation(Main.class.getResource(&quot;/application/Program.fxml&quot;));</span>
+<span class="nc" id="L27">		mainLayout = loader.load();</span>
+<span class="nc" id="L28">		Scene scene = new Scene(mainLayout);</span>
+<span class="nc" id="L29">		primaryStage.setScene(scene);</span>
+<span class="nc" id="L30">		primaryStage.show();</span>
+<span class="nc" id="L31">		primaryStage.setResizable(false);</span>
+<span class="nc" id="L32">		ProgramController controller = loader.getController();</span>
+<span class="nc" id="L33">		controller.setMain(this);</span>
+<span class="nc" id="L34">	}</span>
+	
+	public boolean showPopup(Lecture lecture, Topic topic, String lecOrTop, String number) {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+<span class="nc" id="L39">            FXMLLoader loader = new FXMLLoader();</span>
+<span class="nc" id="L40">            loader.setLocation(Main.class.getResource(&quot;Popup.fxml&quot;));</span>
+
+            // Create the dialog Stage.
+<span class="nc" id="L43">            Stage popupStage = new Stage();</span>
+<span class="nc" id="L44">            popupStage.initModality(Modality.WINDOW_MODAL);</span>
+<span class="nc" id="L45">            popupStage.initOwner(primaryStage);</span>
+            
+<span class="nc" id="L47">            Scene popupScene = new Scene(loader.load());</span>
+<span class="nc" id="L48">            popupStage.setScene(popupScene);</span>
+
+            // Set the person into the controller.
+<span class="nc" id="L51">            PopupController controller = loader.getController();</span>
+<span class="nc" id="L52">            controller.setStage(popupStage);</span>
+<span class="nc bnc" id="L53" title="All 2 branches missed.">            if(lecture != null){</span>
+<span class="nc" id="L54">            	controller.editLecture(lecture);</span>
+<span class="nc" id="L55">            	popupStage.setTitle(&quot;Edit lecture&quot;);</span>
+<span class="nc bnc" id="L56" title="All 2 branches missed.">            }else if(topic != null){</span>
+<span class="nc" id="L57">            	controller.editTopic(topic);</span>
+<span class="nc" id="L58">            	popupStage.setTitle(&quot;Edit topic&quot;);</span>
+            }else{
+<span class="nc bnc" id="L60" title="All 2 branches missed.">            	if(lecOrTop == &quot;lecture&quot;){</span>
+<span class="nc" id="L61">            		controller.addLecture(number);</span>
+<span class="nc" id="L62">            		popupStage.setTitle(&quot;Add lecture&quot;);</span>
+            	}else{
+<span class="nc" id="L64">            		controller.addTopic(number);</span>
+<span class="nc" id="L65">            		popupStage.setTitle(&quot;Add topic&quot;);</span>
+            	}
+            }
+
+            // Show the dialog and wait until the user closes it
+<span class="nc" id="L70">            popupStage.showAndWait();</span>
+
+<span class="nc" id="L72">            return controller.isSubmitClicked();</span>
+<span class="nc" id="L73">        } catch (IOException e) {</span>
+<span class="nc" id="L74">            e.printStackTrace();</span>
+<span class="nc" id="L75">            return false;</span>
+        }
+    }
+	
+	public Stage getStage(){
+<span class="nc" id="L80">        return primaryStage;</span>
+	}
 	
 	public static void main(String[] args) {
-<span class="nc" id="L34">		launch(args);</span>
-<span class="nc" id="L35">	}</span>
+<span class="nc" id="L84">		launch(args);</span>
+<span class="nc" id="L85">	}</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

@@ -42,6 +42,12 @@ jacocoTestReport {
 	reports {
 	html.enabled = true
 	}
+    afterEvaluate {
+    classDirectories = files(classDirectories.files.collect {
+        fileTree(dir: it, 
+            exclude: ['**/*ProgramController*.*', '**/*Main*.*', '**/*PopupController*.*'])
+    })
+}
 }
 
 test.finalizedBy jacocoTestReport
