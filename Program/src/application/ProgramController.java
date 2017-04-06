@@ -97,6 +97,12 @@ public class ProgramController implements Initializable{
 	private TableColumn<Rating, String> feedbackTableTopicNum, feedbackTableTopicCol, feedbackTableTopicRating, feedbackTableTopicVotes;
 	
 	@FXML
+	private TableView<Rating> statisticsTable;
+	
+	@FXML
+	private TableColumn<Rating, String> statisticsTableLecture, statisticsTableTopic, statisticsTableRating, statisticsTableVotes;
+	
+	@FXML
 	private TextField lectureIDInput, lectureNameInput, topicNameInput, topicNumberInput, search_leftPane, answerInput;
 
 	@FXML
@@ -119,6 +125,9 @@ public class ProgramController implements Initializable{
 	    this.main = main;
 	 }
 	
+	 
+	 // ------------SIDEBAR------------
+	 
 	 @FXML
 	 public void edit(){
 		 if(sidebarTable == "lecture"){
@@ -346,44 +355,6 @@ public class ProgramController implements Initializable{
 			}
 		}
 	
-
-	/*
-	 * QUESTION SECTION - Display questions
-	 */
-	
-	// Method for filling the table in the "Lecture" tab with topics
-	private void updateQuestionTable(ObservableList<Question> questionList){
-		// 0. Initialize the columns.
-		questionTableQuestion.setCellValueFactory(cellData -> cellData.getValue().questionProperty());
-		questionTableAnswer.setCellValueFactory(cellData -> cellData.getValue().answerProperty());
-		// 1. Add data to the table.
-		questionTable.setItems(questionList);
-	}
-	
-	// Method for finding questions from the clicked topic
-	@FXML
-	private void displayQuestions() throws IOException{
-		if(sidebarTable == "topic"){
-			if(topicTable.getSelectionModel().getSelectedItem() != null){
-				updateQuestionTable(Database.Question(topicTable.getSelectionModel().getSelectedItem().getTopicID()));
-			}
-		}
-	}
-	
-	//Answering questions asked from students
-	@FXML
-	private void answerQuestion(){
-		String answer =  answerInput.getText();
-		Question question = questionTable.getSelectionModel().getSelectedItem();
-		Database.answerQuestion(question, answer);
-		answerInput.setText("");
-		try {
-			displayQuestions();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
 	/*
 	 * SIDEBAR BACK - NEXT BUTTONS
 	 */
@@ -395,22 +366,26 @@ public class ProgramController implements Initializable{
 			// If you actually selected an item in the table
 			if(courseTable.getSelectionModel().getSelectedItem() != null){
 				// Sidebar
+				String courseID = courseTable.getSelectionModel().getSelectedItem().getCourseID();
 				search_leftPane.clear();
 				sidebarTable = "lecture";
-				updateLectureTable(Database.lectures(courseTable.getSelectionModel().getSelectedItem().getCourseID()));
+				updateLectureTable(Database.lectures(courseID));
 				courseTable.setVisible(false);
 				lectureTable.setVisible(true);
 				title_leftPane.setText("Lectures");
 				courseIdText.setText(courseTable.getSelectionModel().getSelectedItem().getCourseCode());
 
 				// Feedback tab
-				String titleString = courseTable.getSelectionModel().getSelectedItem().getCourseCode() + ": " + courseTable.getSelectionModel().getSelectedItem().getCourseName();
+				String titleString = courseID + ": " + courseTable.getSelectionModel().getSelectedItem().getCourseName();
 				feedbackTitle.setText(titleString);
-				updateFeedbackTableLecture(Database.lectureRating(courseTable.getSelectionModel().getSelectedItem().getCourseID()));
-				updateCourseRating(Database.courseAvgRating(courseTable.getSelectionModel().getSelectedItem().getCourseID()));
+				updateFeedbackTableLecture(Database.lectureRating(courseID));
+				updateCourseRating(Database.courseAvgRating(courseID));
 				courseVotes.setVisible(true);
 				courseRatingText.setVisible(true);
 				courseRatingVotes.setVisible(true);
+				
+				// Statistics tab
+				updateStatTable(Database.badTopics(courseID));
 			}
 		// If going from lecture to topic
 		}else if(sidebarTable == "lecture"){
@@ -489,6 +464,9 @@ public class ProgramController implements Initializable{
 			courseRatingVotes.setVisible(false);
 			courseNotRated.setVisible(false);
 			updateFeedbackTableLecture(Database.lectureRating("empty"));
+			
+			// Statistics tab
+			updateStatTable(Database.badTopics("empty"));
 		}
 		enableDisableButton();
 	}
@@ -510,8 +488,48 @@ public class ProgramController implements Initializable{
 			sidebarDelete.setDisable(false);
 		}
 	}
+
 	
-	// FEEDBACK TAB
+
+	/*
+	 * ------------QUESTION TAB------------
+	 */
+	
+	// Method for filling the table in the "Lecture" tab with topics
+	private void updateQuestionTable(ObservableList<Question> questionList){
+		// 0. Initialize the columns.
+		questionTableQuestion.setCellValueFactory(cellData -> cellData.getValue().questionProperty());
+		questionTableAnswer.setCellValueFactory(cellData -> cellData.getValue().answerProperty());
+		// 1. Add data to the table.
+		questionTable.setItems(questionList);
+	}
+	
+	// Method for finding questions from the clicked topic
+	@FXML
+	private void displayQuestions() throws IOException{
+		if(sidebarTable == "topic"){
+			if(topicTable.getSelectionModel().getSelectedItem() != null){
+				updateQuestionTable(Database.Question(topicTable.getSelectionModel().getSelectedItem().getTopicID()));
+			}
+		}
+	}
+	
+	//Answering questions asked from students
+	@FXML
+	private void answerQuestion(){
+		String answer =  answerInput.getText();
+		Question question = questionTable.getSelectionModel().getSelectedItem();
+		Database.answerQuestion(question, answer);
+		answerInput.setText("");
+		try {
+			displayQuestions();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+		
+	// ------------FEEDBACK TAB------------
 	
 	// Method for filling the table in the "Feedback" tab with lectures
 	private void updateFeedbackTableLecture(ObservableList<Rating> ratingList){
@@ -673,4 +691,18 @@ public class ProgramController implements Initializable{
 		star51.setVisible(false);
 	}
 	
+	
+	// ------------STATISTICS TAB------------
+	
+	// Updates the "below 3 star"-table in the statistics tab
+	private void updateStatTable(ObservableList<Rating> ratingList){
+		// 0. Initialize the columns.
+		statisticsTableLecture.setCellValueFactory(cellData -> cellData.getValue().numberProperty());
+		statisticsTableTopic.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+		statisticsTableRating.setCellValueFactory(cellData -> cellData.getValue().ratingProperty());
+		statisticsTableVotes.setCellValueFactory(cellData -> cellData.getValue().votesProperty());
+		
+		// 1. Add data to the table.
+		statisticsTable.setItems(ratingList);
+	}
 }

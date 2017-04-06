@@ -383,7 +383,22 @@
                                       <tabs>
                                         <Tab styleClass="background" text="Low rated topics">
                                              <content>
-                                                <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="tabAnchor" />
+                                                <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="tabAnchor">
+                                                   <children>
+                                                      <TableView fx:id="statisticsTable" layoutX="43.0" layoutY="75.0" prefHeight="455.0" prefWidth="744.0">
+                                                        <columns>
+                                                          <TableColumn fx:id="statisticsTableLecture" prefWidth="264.0" text="Lecture" />
+                                                          <TableColumn fx:id="statisticsTableTopic" minWidth="1.0" prefWidth="270.0" text="Topic" />
+                                                            <TableColumn fx:id="statisticsTableRating" minWidth="1.0" prefWidth="61.0" text="Rating" />
+                                                            <TableColumn fx:id="statisticsTableVotes" minWidth="1.0" prefWidth="135.0" text="Number of votes" />
+                                                        </columns>
+                                                      </TableView>
+                                                      <Text fill="WHITE" layoutX="43.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Topics with average rating below 3">
+                                                         <font>
+                                                            <Font size="25.0" />
+                                                         </font>
+                                                      </Text>
+                                                   </children></AnchorPane>
                                              </content>
                                           </Tab>
                                         <Tab styleClass="background" text="Highly rated topics">
