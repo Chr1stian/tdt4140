@@ -25,6 +25,8 @@ public class Database {
     	this.mysqlPass = password;
     }
     
+    // ------------SIDEBAR------------
+    
     // Finds all topics from a given lecture (lectureID)
     public static ObservableList<Topic> topics(String lectureID){
     	ObservableList<Topic> topicList = FXCollections.observableArrayList();
@@ -203,13 +205,13 @@ public class Database {
         }
     }
     
+    
+    // ------------QUESTION TAB------------
     /*
      * Display questions from students
      */
     // Finds all questions from a given topic (topicID)
-    
-    // Currently the only question path:	Database -> Introduksjon til faget og databaser -> fagintroduksjon
-    
+        
     public static ObservableList<Question> Question(String topicID){
     	ObservableList<Question> questionList = FXCollections.observableArrayList();
     	if(topicID == "empty"){
@@ -247,7 +249,7 @@ public class Database {
     }
     
     
-    // FEEDBACK TAB
+    // ------------FEEDBACK TAB------------
     
     // Get average rating for all lectures in a given course
     public static ObservableList<Rating> lectureRating(String courseID){
@@ -297,6 +299,8 @@ public class Database {
     // Get average and total votes on a given course
     public static ArrayList<String> courseAvgRating(String courseID){
     	ArrayList<String> rating = new ArrayList<String>();
+    	// Statement in one line:
+    	// "SELECT AVG(rating.stars) AS average, COUNT(rating.stars) AS votes FROM rating INNER JOIN (SELECT topic.topicID FROM topic INNER JOIN lecture ON lecture.lectureID = topic.lectureID WHERE lecture.courseID = " + courseID + ") table1 ON rating.topicID = table1.topicID "
     	String statement = "SELECT AVG(rating.stars) AS average, COUNT(rating.stars) AS votes "
     					 + "FROM rating "
     					 + "INNER JOIN (SELECT topic.topicID "
@@ -324,6 +328,8 @@ public class Database {
     // Get average rating for all topics in a given lecture
     public static ObservableList<Rating> topicRating(String lectureID){
     	ObservableList<Rating> ratingList = FXCollections.observableArrayList();    	
+    	// Statement in one line:
+    	// "SELECT table1.number, table1.name, ROUND(AVG(table1.stars),1) AS average, COUNT(table1.stars) as votes FROM (SELECT topic.number, topic.name, rating.stars FROM rating RIGHT JOIN topic ON topic.topicID = rating.topicID WHERE topic.lectureID = " + lectureID + ") table1 GROUP BY table1.name ORDER BY table1.number ASC"
     	String getRatings = "SELECT table1.number, table1.name, ROUND(AVG(table1.stars),1) AS average, COUNT(table1.stars) as votes "
     					  + "FROM "
     					  + 	"(SELECT topic.number, topic.name, rating.stars "
@@ -355,6 +361,8 @@ public class Database {
     // Get average and total votes on a given course
     public static ArrayList<String> lectureAvgRating(String lectureID){
     	ArrayList<String> rating = new ArrayList<String>();
+    	// Statement in one line:
+    	// "SELECT AVG(rating.stars) AS average, COUNT(rating.stars) AS votes FROM rating INNER JOIN topic ON rating.topicID = topic.topicID WHERE topic.lectureID = " + lectureID;
     	String statement = "SELECT AVG(rating.stars) AS average, COUNT(rating.stars) AS votes "
     					 + "FROM rating "
     					 + "INNER JOIN topic ON rating.topicID = topic.topicID "
@@ -369,6 +377,52 @@ public class Database {
             }
            	conn.close();
             return rating;
+        }
+        catch(SQLException e){
+        	System.out.println(e);
+        	return null;
+        }
+    }
+    
+    
+    // ------------STATISTICS TAB------------
+    
+    // Get topics with average rating less than 3
+    public static ObservableList<Rating> badTopics(String courseID){
+    	ObservableList<Rating> ratingList = FXCollections.observableArrayList();
+    	if(courseID == "empty"){
+    		return ratingList;
+    	}
+    	// Statement in one line:
+    	// "SELECT * FROM (SELECT lecture.number lectureNumber, lecture.name lectureName, table1.number topicNumber, table1.name topicName, ROUND(AVG(table1.stars),1) average, COUNT(table1.stars) votes FROM lecture RIGHT JOIN (SELECT topic.lectureID, topic.name, topic.topicID, topic.number, rating.stars FROM rating RIGHT JOIN topic ON topic.topicID = rating.topicID WHERE topic.lectureID IN (SELECT lecture.lectureID FROM lecture INNER JOIN course ON course.courseID = lecture.courseID WHERE lecture.courseID = " + courseID + ") ) table1 ON lecture.lectureID = table1.lectureID GROUP BY topicID ) table2 WHERE table2.average <= 3 ORDER BY lectureNumber, topicNumber ASC"
+    	String statement = "SELECT * "
+    					 + "FROM "
+    					 + 		"(SELECT lecture.number lectureNumber, lecture.name lectureName, table1.number topicNumber, table1.name topicName, ROUND(AVG(table1.stars),1) average, COUNT(table1.stars) votes "
+    					 + 		"FROM lecture "
+    					 + 		"RIGHT JOIN "
+    					 + 			"(SELECT topic.lectureID, topic.name, topic.topicID, topic.number, rating.stars "
+    					 + 			"FROM rating "
+    					 + 			"RIGHT JOIN topic ON topic.topicID = rating.topicID "
+    					 + 			"WHERE topic.lectureID IN "
+    					 + 				"(SELECT lecture.lectureID "
+    					 + 				"FROM lecture "
+    					 + 				"INNER JOIN course ON course.courseID = lecture.courseID "
+    					 + 				"WHERE lecture.courseID = " + courseID + ") "
+    					 + 			") table1 "
+    					 + 			"ON lecture.lectureID = table1.lectureID "
+    					 + 			"GROUP BY topicID "
+    					 + 		") table2 "
+    					 + 		"WHERE table2.average <= 3 "
+    					 + 		"ORDER BY lectureNumber, topicNumber ASC";
+    	try{
+    		Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
+    		PreparedStatement stmt = conn.prepareStatement(statement);
+    		ResultSet rs = stmt.executeQuery();
+    		while(rs.next()){
+           		ratingList.add(new Rating(rs.getString(2), rs.getString(4), rs.getString(5), rs.getString(6)));
+            }
+           	conn.close();
+            return ratingList;
         }
         catch(SQLException e){
         	System.out.println(e);

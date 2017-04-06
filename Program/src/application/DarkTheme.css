@@ -98,9 +98,20 @@
     -fx-font-size: 18px;
 }
 
+.tabAnchor{
+	-fx-border-style: solid hidden hidden hidden;
+	-fx-border-color: white;
+}
+
 .tab-header-background{
   -fx-background-color: #1d1d1d;
 }
+
+.tab:selected{
+	-fx-border-style: solid solid hidden solid;
+	-fx-border-color: white;
+}
+
 
 /*
  * Metro style Push Button
