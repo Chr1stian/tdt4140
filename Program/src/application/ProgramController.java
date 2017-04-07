@@ -57,6 +57,10 @@ public class ProgramController implements Initializable{
 	lectureRatingText, courseRatingVotes, lectureRatingVotes, courseNotRated, lectureNotRated, feedbackTitle, feedbackTitle2;
 	
 	@FXML
+	private Text statisticsOther1, statisticsOther2, statisticsOther3, statisticsOther4, statisticsOther5, statisticsOther6,
+	statisticsOther7, statisticsOther8, statisticsOther9, statisticsOther10, statisticsOther11, statisticsOther12, statisticsOther13;
+	
+	@FXML
 	private Button btn_leftPane, sidebarNextButton, sidebarBackButton, sidebarAdd, sidebarEdit, sidebarDelete, submitAnswer, deleteButton;
 	
 	@FXML
@@ -386,6 +390,7 @@ public class ProgramController implements Initializable{
 				
 				// Statistics tab
 				updateStatTable(Database.badTopics(courseID));
+				updateOtherStats(Database.getStats(courseID));
 			}
 		// If going from lecture to topic
 		}else if(sidebarTable == "lecture"){
@@ -467,6 +472,7 @@ public class ProgramController implements Initializable{
 			
 			// Statistics tab
 			updateStatTable(Database.badTopics("empty"));
+			resetOtherStats();
 		}
 		enableDisableButton();
 	}
@@ -705,4 +711,38 @@ public class ProgramController implements Initializable{
 		// 1. Add data to the table.
 		statisticsTable.setItems(ratingList);
 	}
+	
+	// Updates text in the "other stats" tab under statistics
+	private void updateOtherStats(ArrayList<String> list){
+		statisticsOther1.setText(list.get(0));
+		statisticsOther2.setText(list.get(1));
+		statisticsOther3.setText(list.get(2));
+		statisticsOther4.setText(list.get(3));
+		statisticsOther5.setText(list.get(4));
+		statisticsOther6.setText(list.get(5));
+		statisticsOther7.setText(list.get(6));
+		statisticsOther8.setText(list.get(7));
+		statisticsOther9.setText(list.get(8));
+		statisticsOther10.setText(list.get(9));
+		statisticsOther11.setText(list.get(10));
+		statisticsOther12.setText(list.get(11));
+		statisticsOther13.setText(list.get(12));
+	}
+	
+	private void resetOtherStats(){
+		statisticsOther1.setText("");
+		statisticsOther2.setText("");
+		statisticsOther3.setText("");
+		statisticsOther4.setText("");
+		statisticsOther5.setText("");
+		statisticsOther6.setText("");
+		statisticsOther7.setText("");
+		statisticsOther8.setText("");
+		statisticsOther9.setText("");
+		statisticsOther10.setText("");
+		statisticsOther11.setText("");
+		statisticsOther12.setText("");
+		statisticsOther13.setText("");
+	}
+	
 }
