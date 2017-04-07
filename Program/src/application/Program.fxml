@@ -398,12 +398,17 @@
                                                             <Font size="25.0" />
                                                          </font>
                                                       </Text>
+                                                      <Text fx:id="statisticsNotEmpty" fill="WHITE" layoutX="57.0" layoutY="571.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Consider revisiting the listed topics." visible="false">
+                                                         <font>
+                                                            <Font size="16.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <Text fx:id="statisticsEmpty" fill="WHITE" layoutX="57.0" layoutY="570.0" strokeType="OUTSIDE" strokeWidth="0.0" text="There are no topics rated below 3 in this course. Good work!" visible="false">
+                                                         <font>
+                                                            <Font size="16.0" />
+                                                         </font>
+                                                      </Text>
                                                    </children></AnchorPane>
-                                             </content>
-                                          </Tab>
-                                        <Tab styleClass="background" text="Highly rated topics">
-                                             <content>
-                                                <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="tabAnchor" />
                                              </content>
                                           </Tab>
                                           <Tab styleClass="background" text="Other stats">
@@ -436,22 +441,22 @@
                                                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                         </rowConstraints>
                                                          <children>
-                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of votes" GridPane.rowIndex="11">
+                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of votes:" GridPane.rowIndex="11">
                                                                <font>
                                                                   <Font size="16.0" />
                                                                </font>
                                                             </Text>
-                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of topics" GridPane.rowIndex="2">
+                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of topics:" GridPane.rowIndex="2">
                                                                <font>
                                                                   <Font size="16.0" />
                                                                </font>
                                                             </Text>
-                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of lectures" GridPane.rowIndex="1">
+                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of lectures:" GridPane.rowIndex="1">
                                                                <font>
                                                                   <Font size="16.0" />
                                                                </font>
                                                             </Text>
-                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of topics with rating less than 3" GridPane.rowIndex="13">
+                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of topics with rating less than 3:" GridPane.rowIndex="13">
                                                                <font>
                                                                   <Font size="16.0" />
                                                                </font>
@@ -466,17 +471,17 @@
                                                                   <Font size="30.0" />
                                                                </font>
                                                             </Text>
-                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Lowest rated topic(s)" GridPane.rowIndex="17">
+                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Lowest rated topic(s):" GridPane.rowIndex="17">
                                                                <font>
                                                                   <Font size="16.0" />
                                                                </font>
                                                             </Text>
-                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Highest rated topic(s)" GridPane.rowIndex="16">
+                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Highest rated topic(s):" GridPane.rowIndex="16">
                                                                <font>
                                                                   <Font size="16.0" />
                                                                </font>
                                                             </Text>
-                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of topics with 5 stars" GridPane.rowIndex="12">
+                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of topics with 5 stars:" GridPane.rowIndex="12">
                                                                <font>
                                                                   <Font size="16.0" />
                                                                </font>
@@ -486,32 +491,97 @@
                                                                   <Font size="30.0" />
                                                                </font>
                                                             </Text>
-                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of questions" GridPane.rowIndex="5">
+                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of questions:" GridPane.rowIndex="5">
                                                                <font>
                                                                   <Font size="16.0" />
                                                                </font>
                                                             </Text>
-                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of answered questions" GridPane.rowIndex="6">
+                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of answered questions:" GridPane.rowIndex="6">
                                                                <font>
                                                                   <Font size="16.0" />
                                                                </font>
                                                             </Text>
-                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of unanswered questions" GridPane.rowIndex="7">
+                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of unanswered questions:" GridPane.rowIndex="7">
                                                                <font>
                                                                   <Font size="16.0" />
                                                                </font>
                                                             </Text>
-                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Answered questions percentage" GridPane.rowIndex="8">
+                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Answered questions percentage:" GridPane.rowIndex="8">
                                                                <font>
                                                                   <Font size="16.0" />
                                                                </font>
                                                             </Text>
-                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of unrated topics" GridPane.rowIndex="14">
+                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of unrated topics:" GridPane.rowIndex="14">
                                                                <font>
                                                                   <Font size="16.0" />
                                                                </font>
                                                             </Text>
-                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Topic with the most votes" GridPane.rowIndex="15">
+                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Topic with the most votes:" GridPane.rowIndex="15">
+                                                               <font>
+                                                                  <Font size="16.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text fx:id="statisticsOther1" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                               <font>
+                                                                  <Font size="16.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text fx:id="statisticsOther2" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                               <font>
+                                                                  <Font size="16.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text fx:id="statisticsOther3" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                                               <font>
+                                                                  <Font size="16.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text fx:id="statisticsOther4" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                                                               <font>
+                                                                  <Font size="16.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text fx:id="statisticsOther5" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                                                               <font>
+                                                                  <Font size="16.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text fx:id="statisticsOther6" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                                                               <font>
+                                                                  <Font size="16.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text fx:id="statisticsOther7" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="11">
+                                                               <font>
+                                                                  <Font size="16.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text fx:id="statisticsOther8" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="12">
+                                                               <font>
+                                                                  <Font size="16.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text fx:id="statisticsOther9" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="13">
+                                                               <font>
+                                                                  <Font size="16.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text fx:id="statisticsOther10" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="14">
+                                                               <font>
+                                                                  <Font size="16.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text fx:id="statisticsOther11" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="15">
+                                                               <font>
+                                                                  <Font size="16.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text fx:id="statisticsOther12" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="16">
+                                                               <font>
+                                                                  <Font size="16.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text fx:id="statisticsOther13" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="17">
                                                                <font>
                                                                   <Font size="16.0" />
                                                                </font>

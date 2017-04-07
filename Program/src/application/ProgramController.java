@@ -57,6 +57,10 @@ public class ProgramController implements Initializable{
 	lectureRatingText, courseRatingVotes, lectureRatingVotes, courseNotRated, lectureNotRated, feedbackTitle, feedbackTitle2;
 	
 	@FXML
+	private Text statisticsOther1, statisticsOther2, statisticsOther3, statisticsOther4, statisticsOther5, statisticsOther6,
+	statisticsOther7, statisticsOther8, statisticsOther9, statisticsOther10, statisticsOther11, statisticsOther12, statisticsOther13;
+	
+	@FXML
 	private Button btn_leftPane, sidebarNextButton, sidebarBackButton, sidebarAdd, sidebarEdit, sidebarDelete, submitAnswer, deleteButton;
 	
 	@FXML
@@ -386,6 +390,7 @@ public class ProgramController implements Initializable{
 				
 				// Statistics tab
 				updateStatTable(Database.badTopics(courseID));
+				Database.getStats(courseID);
 			}
 		// If going from lecture to topic
 		}else if(sidebarTable == "lecture"){
@@ -705,4 +710,9 @@ public class ProgramController implements Initializable{
 		// 1. Add data to the table.
 		statisticsTable.setItems(ratingList);
 	}
+	
+	private void getOtherStats(){
+		System.out.println("lol");
+	}
+	
 }
