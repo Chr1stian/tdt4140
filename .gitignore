@@ -13,3 +13,5 @@ hs_err_pid*
 .metadata
 Program/build/
 Program/.gradle/
+/Program/.gradle/
+/Program/build/
