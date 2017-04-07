@@ -11,12 +11,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Database {
-	//private static String mysqlAddr = "jdbc:mysql://sql11.freemysqlhosting.net:3306/sql11164632?allowMultiQueries=true";
-    //private static String mysqlUser = "sql11164632";
-    //private static String mysqlPass = "JKb6SqBp59";
-	private static String mysqlAddr = "jdbc:mysql://mysql.stud.ntnu.no:3306/prodoteam_testdb?allowMultiQueries=true";
-    private static String mysqlUser = "jonaseth_tdt4140";
-    private static String mysqlPass = "tdt4140";
+	private static String mysqlAddr = "jdbc:mysql://sql11.freemysqlhosting.net:3306/sql11164632?allowMultiQueries=true";
+    private static String mysqlUser = "sql11164632";
+    private static String mysqlPass = "JKb6SqBp59";
+	//private static String mysqlAddr = "jdbc:mysql://mysql.stud.ntnu.no:3306/prodoteam_testdb?allowMultiQueries=true";
+    //private static String mysqlUser = "jonaseth_tdt4140";
+    //private static String mysqlPass = "tdt4140";
     
     @SuppressWarnings("static-access")
 	public Database(String adr, String user, String password){
@@ -505,13 +505,6 @@ public class Database {
            		stats.add(rs.getString(1));
             }
             
-            // Get number of topics with an average rating below 3
-            stmt = conn.prepareStatement("SELECT COUNT(table2.average) FROM ( SELECT AVG(rating.stars) average FROM rating INNER JOIN (SELECT topic.topicID FROM topic INNER JOIN lecture ON topic.lectureID = lecture.lectureID WHERE lecture.courseID = " + courseID + ") table1 ON rating.topicID = table1.topicID GROUP BY rating.topicID) table2 WHERE table2.average < 3");
-    		rs = stmt.executeQuery();
-    		if(rs.next()){
-           		stats.add(rs.getString(1));
-            }
-            
             // Get number of unrated topics
             stmt = conn.prepareStatement("SELECT COUNT(table2.topicID) FROM (SELECT table1.topicID, rating.stars FROM rating RIGHT JOIN ( SELECT topic.topicID FROM topic INNER JOIN lecture ON topic.lectureID = lecture.lectureID WHERE lecture.courseID = " + courseID + ") table1 ON rating.topicID = table1.topicID) table2 WHERE table2.stars IS null");
     		rs = stmt.executeQuery();
@@ -524,32 +517,59 @@ public class Database {
             stmt = conn.prepareStatement("SELECT table2.lectureNumber, table2.topicName, table2.votes FROM ( SELECT table1.lectureNumber, table1.topicName, COUNT(rating.stars) votes FROM rating RIGHT JOIN ( SELECT lecture.number lectureNumber, topic.topicID, topic.name topicName FROM topic INNER JOIN lecture ON topic.lectureID = lecture.lectureID WHERE lecture.courseID = " + courseID + ") table1 ON rating.topicID = table1.topicID GROUP BY table1.topicID) table2 WHERE table2.votes IN ( SELECT MAX(table4.votes) maximum FROM ( SELECT COUNT(rating.stars) votes FROM rating RIGHT JOIN ( SELECT topic.topicID FROM topic INNER JOIN lecture ON topic.lectureID = lecture.lectureID WHERE lecture.courseID = " + courseID + ") table3 ON rating.topicID = table3.topicID GROUP BY table3.topicID) table4 )");
     		rs = stmt.executeQuery();
     		if(rs.next()){
-    			String fullString = rs.getString(3) + " votes on '" + rs.getString(2) + "' from lecture " + rs.getString(1);
+    			String fullString = "";
+    			if(rs.getString(3).equals("1")){
+    				fullString = rs.getString(3) + " vote on '" + rs.getString(2) + "' from lecture " + rs.getString(1);
+    			}else{
+    				fullString = rs.getString(3) + " votes on '" + rs.getString(2) + "' from lecture " + rs.getString(1);
+    			}
     			stats.add(fullString);
             }else{
             	stats.add("No ratings registered in this course yet");
-            }System.out.println(stats);
-            
-    		// WORK IN PROGRESS
-    		
-    		/*
+            }
+                		
             // Get topic(s) with the best rating
     		// Same as last statement; can probably be done better
             stmt = conn.prepareStatement("SELECT table2.topicName, table2.average FROM (SELECT table1.topicName, ROUND(AVG(rating.stars), 1) average FROM rating RIGHT JOIN ( SELECT topic.topicID, topic.name topicName FROM topic INNER JOIN lecture ON topic.lectureID = lecture.lectureID WHERE lecture.courseID = " + courseID + ") table1 ON rating.topicID = table1.topicID GROUP BY table1.topicID) table2 WHERE table2.average IN (SELECT MAX(average) FROM (SELECT ROUND(AVG(rating.stars), 1) average FROM rating RIGHT JOIN ( SELECT topic.topicID FROM topic INNER JOIN lecture ON topic.lectureID = lecture.lectureID WHERE lecture.courseID = " + courseID + ") table3 ON rating.topicID = table3.topicID GROUP BY table3.topicID) table4)");
     		rs = stmt.executeQuery();
     		String fullString = "";
-    		if(rs.next()){
+    		String rating = "";
+    		while(rs.next()){
     			if(fullString == ""){
-    				fullString = rs.getString(1);
+    				fullString = "'" + rs.getString(1) + "'";
+    				rating = rs.getString(2);
     			}else{
-    				fullString += ", " + rs.getString(1);
+    				fullString += ", '" + rs.getString(1) + "'";
     			}
-            }else{
-            	fullString = "No ratings registered in this course yet";
-            }System.out.println(stats);
+    		}
+    		if(fullString == ""){
+    			fullString = "No ratings registered in this course yet";
+    		}else{
+    			fullString += " with rating " + rating;
+    		}
+    		stats.add(fullString);
             
-            */
-            
+            // Get topic(s) with the worst rating
+    		// Same as last statement; can probably be done better
+            stmt = conn.prepareStatement("SELECT table2.topicName, table2.average FROM (SELECT table1.topicName, ROUND(AVG(rating.stars), 1) average FROM rating RIGHT JOIN ( SELECT topic.topicID, topic.name topicName FROM topic INNER JOIN lecture ON topic.lectureID = lecture.lectureID WHERE lecture.courseID = " + courseID + ") table1 ON rating.topicID = table1.topicID GROUP BY table1.topicID) table2 WHERE table2.average IN (SELECT MIN(average) FROM (SELECT ROUND(AVG(rating.stars), 1) average FROM rating RIGHT JOIN ( SELECT topic.topicID FROM topic INNER JOIN lecture ON topic.lectureID = lecture.lectureID WHERE lecture.courseID = " + courseID + ") table3 ON rating.topicID = table3.topicID GROUP BY table3.topicID) table4)");
+    		rs = stmt.executeQuery();
+    		fullString = "";
+    		rating = "";
+    		while(rs.next()){
+    			if(fullString == ""){
+    				fullString = "'" + rs.getString(1) + "'";
+    				rating = rs.getString(2);
+    			}else{
+    				fullString += ", '" + rs.getString(1) + "'";
+    			}
+    		}
+    		if(fullString == ""){
+    			fullString = "No ratings registered in this course yet";
+    		}else{
+    			fullString += " with rating " + rating;
+    		}
+    		stats.add(fullString);
+    		
             conn.close();
             return stats;
         }
