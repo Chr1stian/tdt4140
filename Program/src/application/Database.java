@@ -210,22 +210,36 @@ public class Database {
     /*
      * Display questions from students
      */
-    // Finds all questions from a given topic (topicID)
-        
-    public static ObservableList<Question> Question(String topicID){
+    
+    // Get questions from given ID (courseID, lectureID or topicID)
+    public static ObservableList<Question> Question(String ID, String type){
     	ObservableList<Question> questionList = FXCollections.observableArrayList();
-    	if(topicID == "empty"){
+    	if(ID == "empty"){
     		return questionList;
     	}
+    	String statement = "";
+    	if(type == "course"){
+        	statement = "SELECT question.* FROM question INNER JOIN (SELECT topic.topicID FROM topic INNER JOIN lecture ON lecture.lectureID = topic.lectureID WHERE lecture.courseID = " + ID + ") table1 ON question.topicID = table1.topicID ORDER BY question.rating DESC";
+    	}else if(type == "lecture"){
+        	statement = "SELECT question.* FROM question INNER JOIN topic ON question.topicID = topic.topicID WHERE topic.lectureID = " + ID + " ORDER BY question.rating DESC";
+    	}else if(type == "topic"){
+    		statement = "SELECT * FROM question WHERE topicID = " + ID + " ORDER BY rating DESC";
+    	}
+    	
     	try{
     		Connection conn = DriverManager.getConnection(mysqlAddr, mysqlUser, mysqlPass);
-           	PreparedStatement stmt = conn.prepareStatement("SELECT * FROM question WHERE topicID = " + topicID);
+           	PreparedStatement stmt = conn.prepareStatement(statement);
            	ResultSet rs = stmt.executeQuery();
            	while(rs.next()){
             	ArrayList<String> question = new ArrayList<String>();
-            	for(int i = 1; i < 6; i++){
+            	for(int i = 1; i < 7; i++){
             		question.add(rs.getString(i));
-            	}questionList.add(new Question(question.get(0), question.get(1), question.get(2), question.get(3), question.get(4)));
+            	}
+            	if(question.get(4) == null){
+                	questionList.add(new Question(question.get(0), question.get(1), question.get(2), question.get(3), "Not yet answered", question.get(5)));
+            	}else{
+                	questionList.add(new Question(question.get(0), question.get(1), question.get(2), question.get(3), question.get(4), question.get(5)));
+            	}
             }
            	conn.close();
             return questionList;
