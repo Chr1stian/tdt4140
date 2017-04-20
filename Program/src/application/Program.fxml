@@ -2,11 +2,13 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -14,43 +16,44 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="mainPane" prefHeight="858.0" prefWidth="1303.0" styleClass="background" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ProgramController">
+<AnchorPane fx:id="mainPane" prefHeight="858.0" prefWidth="1303.0" stylesheets="@LightTheme.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ProgramController">
    <children>
-      <SplitPane dividerPositions="0.3" layoutX="285.0" layoutY="187.0" prefHeight="160.0" prefWidth="200.0" styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.3" layoutX="285.0" layoutY="187.0" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="902.0" prefWidth="386.0">
                <children>
                   <AnchorPane layoutX="27.0" layoutY="129.0" prefHeight="642.0" prefWidth="306.0">
                      <children>
-                        <TableView fx:id="courseTable" layoutX="7.0" layoutY="6.0" maxHeight="583.0" maxWidth="306.0" minHeight="535.0" minWidth="306.0" prefHeight="548.0" prefWidth="306.0" tableMenuButtonVisible="false" AnchorPane.bottomAnchor="72.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="74.0">
+                        <TableView fx:id="courseTable" layoutX="7.0" layoutY="6.0" maxHeight="583.0" maxWidth="306.0" minHeight="535.0" minWidth="306.0" prefHeight="694.0" prefWidth="306.0" AnchorPane.bottomAnchor="74.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="74.0">
                           <columns>
                             <TableColumn fx:id="courseCode" maxWidth="5000.0" minWidth="10.0" prefWidth="84.0" resizable="false" text="Code" />
-                            <TableColumn fx:id="courseName" maxWidth="221.0" minWidth="210.0" prefWidth="210.0" resizable="false" text="Course name" />
+                            <TableColumn fx:id="courseName" maxWidth="221.0" minWidth="210.0" prefWidth="221.0" resizable="false" text="Course name" />
                           </columns>
                         </TableView>
-                        <TableView fx:id="lectureTable" layoutX="75.0" layoutY="66.0" maxHeight="548.0" maxWidth="306.0" minHeight="548.0" minWidth="306.0" prefHeight="548.0" prefWidth="306.0" visible="false" AnchorPane.bottomAnchor="72.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="74.0">
+                        <TableView fx:id="lectureTable" layoutX="75.0" layoutY="66.0" maxHeight="548.0" maxWidth="306.0" minHeight="548.0" minWidth="306.0" prefHeight="548.0" prefWidth="306.0" visible="false" AnchorPane.bottomAnchor="74.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="74.0">
                           <columns>
                             <TableColumn fx:id="lectureNumber" prefWidth="84.0" text="Number" />
-                            <TableColumn fx:id="lectureName" maxWidth="210.0" minWidth="210.0" prefWidth="210.0" text="Lecture name" />
+                            <TableColumn fx:id="lectureName" maxWidth="221.0" minWidth="210.0" prefWidth="221.0" text="Lecture name" />
                           </columns>
                         </TableView>
-                        <TableView fx:id="topicTable" maxHeight="548.0" maxWidth="306.0" minHeight="548.0" minWidth="306.0" onMouseClicked="#displayQuestions" prefHeight="548.0" prefWidth="306.0" visible="false" AnchorPane.bottomAnchor="72.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="74.0">
+                        <TableView fx:id="topicTable" maxHeight="548.0" maxWidth="306.0" minHeight="548.0" minWidth="306.0" onMouseClicked="#displayQuestions" prefHeight="548.0" prefWidth="306.0" visible="false" AnchorPane.bottomAnchor="74.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="74.0">
                           <columns>
                             <TableColumn fx:id="topicNumber" prefWidth="84.0" text="Number" />
-                            <TableColumn fx:id="topicName" maxWidth="210.0" minWidth="210.0" prefWidth="210.0" text="Topic name" />
+                            <TableColumn fx:id="topicName" maxWidth="221.0" minWidth="210.0" prefWidth="221.0" text="Topic name" />
                           </columns>
                         </TableView>
                         <TextField fx:id="search_leftPane" prefHeight="37.0" prefWidth="302.0" promptText="Search..." AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 						            <Button fx:id="sidebarNextButton" mnemonicParsing="false" onAction="#nextButton" prefHeight="37.0" prefWidth="154.0" text="Next" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="37.0" />
                         <Button fx:id="sidebarBackButton" disable="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#backButton" prefHeight="37.0" prefWidth="154.0" text="Back" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="37.0" />
 
-                        <Button fx:id="sidebarAdd" disable="true" layoutY="620.0" mnemonicParsing="false" onAction="#add" prefHeight="37.0" prefWidth="104.0" text="Add" AnchorPane.bottomAnchor="37.0" AnchorPane.leftAnchor="0.0" />
-                        <Button fx:id="sidebarEdit" disable="true" layoutX="103.0" layoutY="620.0" mnemonicParsing="false" onAction="#edit" prefHeight="37.0" prefWidth="104.0" text="Edit" AnchorPane.bottomAnchor="37.0" AnchorPane.leftAnchor="103.0" AnchorPane.rightAnchor="101.0" />
-                        <Button fx:id="sidebarDelete" disable="true" layoutX="205.0" layoutY="620.0" mnemonicParsing="false" onAction="#deleteItem" prefHeight="37.0" prefWidth="104.0" text="Delete" AnchorPane.bottomAnchor="37.0" AnchorPane.rightAnchor="-3.0" />        
+                        <Button fx:id="sidebarAdd" disable="true" layoutY="620.0" mnemonicParsing="false" onAction="#add" prefHeight="37.0" prefWidth="102.0" text="Add" AnchorPane.bottomAnchor="37.0" AnchorPane.leftAnchor="0.0" />
+                        <Button fx:id="sidebarEdit" disable="true" layoutX="103.0" layoutY="620.0" mnemonicParsing="false" onAction="#edit" prefHeight="37.0" prefWidth="102.0" text="Edit" AnchorPane.bottomAnchor="37.0" AnchorPane.leftAnchor="101.0" AnchorPane.rightAnchor="101.0" />
+                        <Button fx:id="sidebarDelete" disable="true" layoutX="205.0" layoutY="620.0" mnemonicParsing="false" onAction="#deleteItem" prefHeight="37.0" prefWidth="102.0" text="Delete" AnchorPane.bottomAnchor="37.0" AnchorPane.rightAnchor="0.0" />        
                      </children>
                   </AnchorPane>
                   <GridPane layoutX="27.0" layoutY="59.0" prefHeight="65.0" prefWidth="306.0">
@@ -63,29 +66,29 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Course code:">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Course code:">
                            <font>
                               <Font size="17.0" />
                            </font>
                         </Text>
-                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Lecture number:" GridPane.rowIndex="1">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Lecture number:" GridPane.rowIndex="1">
                            <font>
                               <Font size="17.0" />
                            </font>
                         </Text>
-                        <Text fx:id="courseIdText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Not selected" GridPane.columnIndex="1">
+                        <Text fx:id="courseIdText" strokeType="OUTSIDE" strokeWidth="0.0" text="Not selected" GridPane.columnIndex="1">
                            <font>
                               <Font size="17.0" />
                            </font>
                         </Text>
-                        <Text fx:id="lectureNumberText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Not selected" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Text fx:id="lectureNumberText" strokeType="OUTSIDE" strokeWidth="0.0" text="Not selected" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <font>
                               <Font size="17.0" />
                            </font>
                         </Text>
                      </children>
                   </GridPane>
-                  <Text fx:id="title_leftPane" fill="WHITE" layoutX="27.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label-header" text="Courses" wrappingWidth="167.00001847743988">
+                  <Text fx:id="title_leftPane" layoutX="27.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Courses" wrappingWidth="167.00001847743988">
                      <font>
                         <Font size="36.0" />
                      </font>
@@ -93,27 +96,39 @@
                </children></AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <TabPane layoutX="268.0" layoutY="94.0" prefHeight="200.0" prefWidth="200.0" styleClass="tabPane" tabClosingPolicy="UNAVAILABLE" tabMinWidth="188.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TabPane layoutX="268.0" layoutY="94.0" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" tabMinWidth="188.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <tabs>
-                      <Tab fx:id="questionTab" styleClass="background" text="Questions">
+                      <Tab fx:id="questionTab" text="Questions">
                         <content>
-                          <AnchorPane fx:id="questionTab" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="tabAnchor">
+                          <AnchorPane fx:id="questionTab" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <TableView fx:id="questionTable" layoutX="46.0" layoutY="45.0" onMouseClicked="#displayAnswer" prefHeight="548.0" prefWidth="755.0" tableMenuButtonVisible="false">
+                                    <TableView fx:id="questionTable" layoutX="46.0" layoutY="45.0" onMouseClicked="#displayAnswer" prefHeight="527.0" prefWidth="755.0" tableMenuButtonVisible="false">
                                        <columns>
                                           <TableColumn fx:id="questionTableQuestion" maxWidth="5000.0" minWidth="0.0" prefWidth="358.0" resizable="false" text="Question" />
                                           <TableColumn fx:id="questionTableAnswer" maxWidth="5000.0" minWidth="0.0" prefWidth="309.0" resizable="false" text="Answer" />
-                                          <TableColumn fx:id="questionTableRating" maxWidth="5000.0" minWidth="0.0" prefWidth="68.0" resizable="false" text="Rating" />
+                                          <TableColumn fx:id="questionTableRating" maxWidth="5000.0" minWidth="0.0" prefWidth="87.0" resizable="false" text="Rating" />
                                        </columns>
                                     </TableView>
-                                    <TextField fx:id="answerInput" alignment="TOP_LEFT" layoutX="124.0" layoutY="593.0" prefHeight="117.0" prefWidth="616.0" promptText="Write your answer to the selected question here..." />
-                                    <Button fx:id="submitAnswer" layoutX="594.0" layoutY="710.0" mnemonicParsing="false" onAction="#answerQuestion" text="Submit Answer" />
+                                    <VBox layoutX="46.0" layoutY="589.0">
+                                       <children>
+                                          <Label fx:id="questionText" maxWidth="740.0" prefWidth="740.0" text="Select a question from the list above" wrapText="true">
+                                             <font>
+                                                <Font size="17.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets left="5.0" />
+                                             </padding>
+                                          </Label>
+                                          <TextArea fx:id="answerInput" prefHeight="109.0" prefWidth="755.0" promptText="Write your answer to the selected question here..." wrapText="true" />
+                                          <Button fx:id="submitAnswer" mnemonicParsing="false" onAction="#answerQuestion" text="Submit Answer" />
+                                       </children>
+                                    </VBox>
                                  </children></AnchorPane>
                         </content>
                       </Tab>
-                      <Tab fx:id="feedbackTab" styleClass="background" text="Feedback">
+                      <Tab fx:id="feedbackTab" text="Feedback">
                         <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="tabAnchor">
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
                                     <StackPane fx:id="feedbackTables" layoutX="38.0" layoutY="96.0" prefHeight="475.0" prefWidth="755.0">
                                        <children>
@@ -130,7 +145,7 @@
                                                 <TableColumn fx:id="feedbackTableLectureNum" prefWidth="76.0" text="Number" />
                                               <TableColumn fx:id="feedbackTableLectureCol" prefWidth="388.0" text="Lecture" />
                                               <TableColumn fx:id="feedbackTableLectureRating" prefWidth="140.0" text="Rating" />
-                                                <TableColumn fx:id="feedbackTableLectureVotes" prefWidth="139.0" text="Number of votes" />
+                                                <TableColumn fx:id="feedbackTableLectureVotes" prefWidth="150.0" text="Number of votes" />
                                             </columns>
                                              <StackPane.margin>
                                                 <Insets />
@@ -162,75 +177,75 @@
                                                 </HBox>
                                                 <HBox fx:id="star0half1" prefHeight="65.0" prefWidth="297.0" visible="false">
                                                    <children>
-                                                      <SVGPath content="M30,0 L30,47 12,60 19,39 0,24 22,24 30,0" fill="WHITE" stroke="WHITE" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L30,47 12,60 19,39 0,24 22,24 30,0" stroke="WHITE" strokeType="OUTSIDE" />
                                                    </children>
                                                 </HBox>
                                                 <HBox fx:id="star11" prefHeight="65.0" prefWidth="297.0" visible="false">
                                                    <children>
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
                                                    </children>
                                                 </HBox>
                                                 <HBox fx:id="star1half1" prefHeight="65.0" prefWidth="297.0" visible="false">
                                                    <children>
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L30,48 12,60 19,39 0,24 22,24 30,0" fill="WHITE" stroke="WHITE" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L30,48 12,60 19,39 0,24 22,24 30,0" stroke="WHITE" strokeType="OUTSIDE" />
                                                    </children>
                                                 </HBox>
                                                 <HBox fx:id="star21" prefHeight="65.0" prefWidth="297.0" visible="false">
                                                    <children>
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
                                                    </children>
                                                 </HBox>
                                                 <HBox fx:id="star2half1" prefHeight="65.0" prefWidth="297.0" visible="false">
                                                    <children>
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L30,48 12,60 19,39 0,24 22,24 30,0" fill="WHITE" stroke="WHITE" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L30,48 12,60 19,39 0,24 22,24 30,0" stroke="WHITE" strokeType="OUTSIDE" />
                                                    </children>
                                                 </HBox>
                                                 <HBox fx:id="star31" prefHeight="65.0" prefWidth="297.0" visible="false">
                                                    <children>
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
                                                    </children>
                                                 </HBox>
                                                 <HBox fx:id="star3half1" prefHeight="65.0" prefWidth="297.0" visible="false">
                                                    <children>
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L30,48 12,60 19,39 0,24 22,24 30,0" fill="WHITE" stroke="WHITE" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L30,48 12,60 19,39 0,24 22,24 30,0" stroke="WHITE" strokeType="OUTSIDE" />
                                                    </children>
                                                 </HBox>
                                                 <HBox fx:id="star41" prefHeight="65.0" prefWidth="297.0" visible="false">
                                                    <children>
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
                                                    </children>
                                                 </HBox>
                                                 <HBox fx:id="star4half1" prefHeight="65.0" prefWidth="297.0" visible="false">
                                                    <children>
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L30,48 12,60 19,39 0,24 22,24 30,0" fill="WHITE" stroke="WHITE" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L30,48 12,60 19,39 0,24 22,24 30,0" stroke="WHITE" strokeType="OUTSIDE" />
                                                    </children>
                                                 </HBox>
                                                 <HBox fx:id="star51" prefHeight="65.0" prefWidth="297.0" visible="false">
                                                    <children>
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
                                                    </children>
                                                 </HBox>
-                                                <Text fx:id="lectureNotRated" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Not yet rated" visible="false" StackPane.alignment="CENTER">
+                                                <Text fx:id="lectureNotRated" strokeType="OUTSIDE" strokeWidth="0.0" text="Not yet rated" visible="false" StackPane.alignment="CENTER">
                                                    <font>
                                                       <Font name="System Italic" size="22.0" />
                                                    </font>
@@ -253,75 +268,75 @@
                                                 </HBox>
                                                 <HBox fx:id="star0half" prefHeight="65.0" prefWidth="297.0" visible="false">
                                                    <children>
-                                                      <SVGPath content="M30,0 L30,47 12,60 19,39 0,24 22,24 30,0" fill="WHITE" stroke="WHITE" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L30,47 12,60 19,39 0,24 22,24 30,0" stroke="WHITE" strokeType="OUTSIDE" />
                                                    </children>
                                                 </HBox>
                                                 <HBox fx:id="star1" prefHeight="65.0" prefWidth="297.0" visible="false">
                                                    <children>
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
                                                    </children>
                                                 </HBox>
                                                 <HBox fx:id="star1half" prefHeight="65.0" prefWidth="297.0" visible="false">
                                                    <children>
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L30,48 12,60 19,39 0,24 22,24 30,0" fill="WHITE" stroke="WHITE" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L30,48 12,60 19,39 0,24 22,24 30,0" stroke="WHITE" strokeType="OUTSIDE" />
                                                    </children>
                                                 </HBox>
                                                 <HBox fx:id="star2" prefHeight="65.0" prefWidth="297.0" visible="false">
                                                    <children>
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
                                                    </children>
                                                 </HBox>
                                                 <HBox fx:id="star2half" prefHeight="65.0" prefWidth="297.0" visible="false">
                                                    <children>
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L30,48 12,60 19,39 0,24 22,24 30,0" fill="WHITE" stroke="WHITE" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L30,48 12,60 19,39 0,24 22,24 30,0" stroke="WHITE" strokeType="OUTSIDE" />
                                                    </children>
                                                 </HBox>
                                                 <HBox fx:id="star3" prefHeight="65.0" prefWidth="297.0" visible="false">
                                                    <children>
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
                                                    </children>
                                                 </HBox>
                                                 <HBox fx:id="star3half" prefHeight="65.0" prefWidth="297.0" visible="false">
                                                    <children>
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L30,48 12,60 19,39 0,24 22,24 30,0" fill="WHITE" stroke="WHITE" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L30,48 12,60 19,39 0,24 22,24 30,0" stroke="WHITE" strokeType="OUTSIDE" />
                                                    </children>
                                                 </HBox>
                                                 <HBox fx:id="star4" prefHeight="65.0" prefWidth="297.0" visible="false">
                                                    <children>
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
                                                    </children>
                                                 </HBox>
                                                 <HBox fx:id="star4half" prefHeight="65.0" prefWidth="297.0" visible="false">
                                                    <children>
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L30,48 12,60 19,39 0,24 22,24 30,0" fill="WHITE" stroke="WHITE" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L30,48 12,60 19,39 0,24 22,24 30,0" stroke="WHITE" strokeType="OUTSIDE" />
                                                    </children>
                                                 </HBox>
                                                 <HBox fx:id="star5" prefHeight="65.0" prefWidth="297.0" visible="false">
                                                    <children>
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="WHITE" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
                                                    </children>
                                                 </HBox>
-                                                <Text fx:id="courseNotRated" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Not yet rated" visible="false" StackPane.alignment="CENTER">
+                                                <Text fx:id="courseNotRated" strokeType="OUTSIDE" strokeWidth="0.0" text="Not yet rated" visible="false" StackPane.alignment="CENTER">
                                                    <font>
                                                       <Font name="System Italic" size="22.0" />
                                                    </font>
@@ -331,44 +346,44 @@
                                                 </Text>
                                              </children>
                                           </StackPane>
-                                          <Text fx:id="courseRatingText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Course average rating" visible="false">
+                                          <Text fx:id="courseRatingText" strokeType="OUTSIDE" strokeWidth="0.0" text="Course average rating" visible="false">
                                              <font>
                                                 <Font size="26.0" />
                                              </font>
                                           </Text>
-                                          <Text fx:id="lectureRatingText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Lecture average rating" visible="false" GridPane.columnIndex="1">
+                                          <Text fx:id="lectureRatingText" strokeType="OUTSIDE" strokeWidth="0.0" text="Lecture average rating" visible="false" GridPane.columnIndex="1">
                                              <font>
                                                 <Font size="26.0" />
                                              </font>
                                           </Text>
-                                          <Text fx:id="courseRatingVotes" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of votes:" visible="false" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                                          <Text fx:id="courseRatingVotes" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of votes:" visible="false" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="TOP">
                                              <GridPane.margin>
                                                 <Insets right="170.0" />
                                              </GridPane.margin>
                                           </Text>
-                                          <Text fx:id="lectureVotes" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="0" visible="false" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                                          <Text fx:id="lectureVotes" strokeType="OUTSIDE" strokeWidth="0.0" text="0" visible="false" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="TOP">
                                              <GridPane.margin>
                                                 <Insets right="100.0" />
                                              </GridPane.margin>
                                           </Text>
-                                          <Text fx:id="courseVotes" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="0" visible="false" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                                          <Text fx:id="courseVotes" strokeType="OUTSIDE" strokeWidth="0.0" text="0" visible="false" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="TOP">
                                              <GridPane.margin>
                                                 <Insets right="100.0" />
                                              </GridPane.margin>
                                           </Text>
-                                          <Text fx:id="lectureRatingVotes" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of votes:" visible="false" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                                          <Text fx:id="lectureRatingVotes" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of votes:" visible="false" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="TOP">
                                              <GridPane.margin>
                                                 <Insets right="170.0" />
                                              </GridPane.margin>
                                           </Text>
                                        </children>
                                     </GridPane>
-                                    <Text fx:id="feedbackTitle" fill="WHITE" layoutX="38.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No course selected">
+                                    <Text fx:id="feedbackTitle" layoutX="38.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No course selected">
                                        <font>
                                           <Font size="25.0" />
                                        </font>
                                     </Text>
-                                    <Text fx:id="feedbackTitle2" fill="WHITE" layoutX="38.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" AnchorPane.topAnchor="100.0224609375">
+                                    <Text fx:id="feedbackTitle2" layoutX="38.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" AnchorPane.topAnchor="100.0224609375">
                                        <font>
                                           <Font size="25.0" />
                                        </font>
@@ -376,35 +391,35 @@
                                  </children></AnchorPane>
                         </content>
                       </Tab>
-                      <Tab fx:id="statisticsTab" styleClass="background" text="Statistics">
+                      <Tab fx:id="statisticsTab" text="Statistics">
                         <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="tabAnchor">
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
                                     <TabPane layoutX="67.0" layoutY="72.0" prefHeight="816.0" prefWidth="907.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                       <tabs>
-                                        <Tab styleClass="background" text="Low rated topics">
+                                        <Tab text="Low rated topics">
                                              <content>
-                                                <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="tabAnchor">
+                                                <AnchorPane prefHeight="200.0" prefWidth="200.0">
                                                    <children>
                                                       <TableView fx:id="statisticsTable" layoutX="43.0" layoutY="75.0" prefHeight="455.0" prefWidth="744.0">
                                                         <columns>
                                                           <TableColumn fx:id="statisticsTableLecture" prefWidth="264.0" text="Lecture" />
                                                           <TableColumn fx:id="statisticsTableTopic" minWidth="1.0" prefWidth="270.0" text="Topic" />
-                                                            <TableColumn fx:id="statisticsTableRating" minWidth="1.0" prefWidth="61.0" text="Rating" />
-                                                            <TableColumn fx:id="statisticsTableVotes" minWidth="1.0" prefWidth="135.0" text="Number of votes" />
+                                                            <TableColumn fx:id="statisticsTableRating" minWidth="1.0" prefWidth="66.0" text="Rating" />
+                                                            <TableColumn fx:id="statisticsTableVotes" minWidth="1.0" prefWidth="143.0" text="Number of votes" />
                                                         </columns>
                                                       </TableView>
-                                                      <Text fill="WHITE" layoutX="43.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Topics with average rating below 3">
+                                                      <Text layoutX="43.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Topics with average rating below 3">
                                                          <font>
                                                             <Font size="25.0" />
                                                          </font>
                                                       </Text>
-                                                      <Text fx:id="statisticsNotEmpty" fill="WHITE" layoutX="57.0" layoutY="571.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Consider revisiting the listed topics." visible="false">
+                                                      <Text fx:id="statisticsNotEmpty" layoutX="57.0" layoutY="571.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Consider revisiting the listed topics." visible="false">
                                                          <font>
                                                             <Font size="16.0" />
                                                          </font>
                                                       </Text>
-                                                      <Text fx:id="statisticsEmpty" fill="WHITE" layoutX="57.0" layoutY="570.0" strokeType="OUTSIDE" strokeWidth="0.0" text="There are no topics rated below 3 in this course. Good work!" visible="false">
+                                                      <Text fx:id="statisticsEmpty" layoutX="57.0" layoutY="570.0" strokeType="OUTSIDE" strokeWidth="0.0" text="There are no topics rated below 3 in this course. Good work!" visible="false">
                                                          <font>
                                                             <Font size="16.0" />
                                                          </font>
@@ -412,9 +427,9 @@
                                                    </children></AnchorPane>
                                              </content>
                                           </Tab>
-                                          <Tab styleClass="background" text="Other stats">
+                                          <Tab text="Other stats">
                                              <content>
-                                                <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="tabAnchor">
+                                                <AnchorPane prefHeight="200.0" prefWidth="200.0">
                                                    <children>
                                                       <GridPane layoutX="44.0" layoutY="56.0" prefHeight="613.0" prefWidth="618.0">
                                                         <columnConstraints>
@@ -442,147 +457,147 @@
                                                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                         </rowConstraints>
                                                          <children>
-                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of votes:" GridPane.rowIndex="11">
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Number of votes:" GridPane.rowIndex="11">
                                                                <font>
                                                                   <Font size="16.0" />
                                                                </font>
                                                             </Text>
-                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of topics:" GridPane.rowIndex="2">
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Number of topics:" GridPane.rowIndex="2">
                                                                <font>
                                                                   <Font size="16.0" />
                                                                </font>
                                                             </Text>
-                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of lectures:" GridPane.rowIndex="1">
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Number of lectures:" GridPane.rowIndex="1">
                                                                <font>
                                                                   <Font size="16.0" />
                                                                </font>
                                                             </Text>
-                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of topics with rating less than 3:" GridPane.rowIndex="13">
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Number of topics with rating less than 3:" GridPane.rowIndex="13">
                                                                <font>
                                                                   <Font size="16.0" />
                                                                </font>
                                                             </Text>
-                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Course stats">
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Course stats">
                                                                <font>
                                                                   <Font size="30.0" />
                                                                </font>
                                                             </Text>
-                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Rating stats" GridPane.rowIndex="10">
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rating stats" GridPane.rowIndex="10">
                                                                <font>
                                                                   <Font size="30.0" />
                                                                </font>
                                                             </Text>
-                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Lowest rated topic(s):" GridPane.rowIndex="17">
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Lowest rated topic(s):" GridPane.rowIndex="17">
                                                                <font>
                                                                   <Font size="16.0" />
                                                                </font>
                                                             </Text>
-                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Highest rated topic(s):" GridPane.rowIndex="16">
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Highest rated topic(s):" GridPane.rowIndex="16">
                                                                <font>
                                                                   <Font size="16.0" />
                                                                </font>
                                                             </Text>
-                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of topics with 5 stars:" GridPane.rowIndex="12">
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Number of topics with 5 stars:" GridPane.rowIndex="12">
                                                                <font>
                                                                   <Font size="16.0" />
                                                                </font>
                                                             </Text>
-                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Question stats" GridPane.rowIndex="4">
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Question stats" GridPane.rowIndex="4">
                                                                <font>
                                                                   <Font size="30.0" />
                                                                </font>
                                                             </Text>
-                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of questions:" GridPane.rowIndex="5">
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Number of questions:" GridPane.rowIndex="5">
                                                                <font>
                                                                   <Font size="16.0" />
                                                                </font>
                                                             </Text>
-                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of answered questions:" GridPane.rowIndex="6">
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Number of answered questions:" GridPane.rowIndex="6">
                                                                <font>
                                                                   <Font size="16.0" />
                                                                </font>
                                                             </Text>
-                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of unanswered questions:" GridPane.rowIndex="7">
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Number of unanswered questions:" GridPane.rowIndex="7">
                                                                <font>
                                                                   <Font size="16.0" />
                                                                </font>
                                                             </Text>
-                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Percentage of questions answered:" GridPane.rowIndex="8">
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Percentage of questions answered:" GridPane.rowIndex="8">
                                                                <font>
                                                                   <Font size="16.0" />
                                                                </font>
                                                             </Text>
-                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of unrated topics:" GridPane.rowIndex="14">
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Number of unrated topics:" GridPane.rowIndex="14">
                                                                <font>
                                                                   <Font size="16.0" />
                                                                </font>
                                                             </Text>
-                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Topic with the most votes:" GridPane.rowIndex="15">
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Topic with the most votes:" GridPane.rowIndex="15">
                                                                <font>
                                                                   <Font size="16.0" />
                                                                </font>
                                                             </Text>
-                                                            <Text fx:id="statisticsOther1" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                            <Text fx:id="statisticsOther1" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                                                <font>
                                                                   <Font size="16.0" />
                                                                </font>
                                                             </Text>
-                                                            <Text fx:id="statisticsOther2" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                            <Text fx:id="statisticsOther2" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                                                <font>
                                                                   <Font size="16.0" />
                                                                </font>
                                                             </Text>
-                                                            <Text fx:id="statisticsOther3" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                                            <Text fx:id="statisticsOther3" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                                                                <font>
                                                                   <Font size="16.0" />
                                                                </font>
                                                             </Text>
-                                                            <Text fx:id="statisticsOther4" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                                                            <Text fx:id="statisticsOther4" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                                                                <font>
                                                                   <Font size="16.0" />
                                                                </font>
                                                             </Text>
-                                                            <Text fx:id="statisticsOther5" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                                                            <Text fx:id="statisticsOther5" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
                                                                <font>
                                                                   <Font size="16.0" />
                                                                </font>
                                                             </Text>
-                                                            <Text fx:id="statisticsOther6" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                                                            <Text fx:id="statisticsOther6" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
                                                                <font>
                                                                   <Font size="16.0" />
                                                                </font>
                                                             </Text>
-                                                            <Text fx:id="statisticsOther7" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="11">
+                                                            <Text fx:id="statisticsOther7" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="11">
                                                                <font>
                                                                   <Font size="16.0" />
                                                                </font>
                                                             </Text>
-                                                            <Text fx:id="statisticsOther8" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="12">
+                                                            <Text fx:id="statisticsOther8" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="12">
                                                                <font>
                                                                   <Font size="16.0" />
                                                                </font>
                                                             </Text>
-                                                            <Text fx:id="statisticsOther9" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="13">
+                                                            <Text fx:id="statisticsOther9" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="13">
                                                                <font>
                                                                   <Font size="16.0" />
                                                                </font>
                                                             </Text>
-                                                            <Text fx:id="statisticsOther10" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="14">
+                                                            <Text fx:id="statisticsOther10" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="14">
                                                                <font>
                                                                   <Font size="16.0" />
                                                                </font>
                                                             </Text>
-                                                            <Text fx:id="statisticsOther11" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="15">
+                                                            <Text fx:id="statisticsOther11" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="15">
                                                                <font>
                                                                   <Font size="16.0" />
                                                                </font>
                                                             </Text>
-                                                            <Text fx:id="statisticsOther12" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="16">
+                                                            <Text fx:id="statisticsOther12" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="16">
                                                                <font>
                                                                   <Font size="16.0" />
                                                                </font>
                                                             </Text>
-                                                            <Text fx:id="statisticsOther13" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="17">
+                                                            <Text fx:id="statisticsOther13" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="17">
                                                                <font>
                                                                   <Font size="16.0" />
                                                                </font>

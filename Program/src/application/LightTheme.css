@@ -1,3 +1,20 @@
-.text {
-	-fx-text-fill: black;
+.table-view .scroll-bar:horizontal .increment-arrow,
+.table-view .scroll-bar:horizontal .decrement-arrow,
+.table-view .scroll-bar:horizontal .increment-button,
+.table-view .scroll-bar:horizontal .decrement-button {
+    -fx-padding:0;
+}
+
+.root{
+	-fx-focus-color: transparent;
+	-fx-faint-focus-color: transparent;
+}
+
+.table-view:focused .table-row-cell:filled:focused:selected {
+    -fx-background-color: grey;
+    -fx-focus-color: red;
+}
+
+.table-row-cell {
+	-fx-focus-color: black;
 }

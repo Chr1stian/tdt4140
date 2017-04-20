@@ -22,11 +22,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -37,10 +39,6 @@ import javafx.stage.Stage;
 import javafx.util.Pair;
 
 public class ProgramController implements Initializable{
-	
-	//private int toggleLeft = 0;
-	
-	private String lastClicked = "";
 	
 	private String sidebarTable = "course";
 	
@@ -55,6 +53,9 @@ public class ProgramController implements Initializable{
 	@FXML
 	private Text title_leftPane, courseNameDisplay, courseIdText, lectureNumberText, lectureVotes, courseVotes, courseRatingText, 
 	lectureRatingText, courseRatingVotes, lectureRatingVotes, courseNotRated, lectureNotRated, feedbackTitle, feedbackTitle2;
+	
+	@FXML
+	private Label questionText;
 	
 	@FXML
 	private Text statisticsOther1, statisticsOther2, statisticsOther3, statisticsOther4, statisticsOther5, statisticsOther6,
@@ -107,8 +108,11 @@ public class ProgramController implements Initializable{
 	private TableColumn<Rating, String> statisticsTableLecture, statisticsTableTopic, statisticsTableRating, statisticsTableVotes;
 	
 	@FXML
-	private TextField lectureIDInput, lectureNameInput, topicNameInput, topicNumberInput, search_leftPane, answerInput;
+	private TextField lectureIDInput, lectureNameInput, topicNameInput, topicNumberInput, search_leftPane;
 
+	@FXML
+	private TextArea answerInput;
+	
 	@FXML
 	private HBox star0, star0half, star1, star1half, star2, star2half, star3, star3half, star4, star4half, star5;
 	
@@ -382,6 +386,7 @@ public class ProgramController implements Initializable{
 				// Question tab
 				updateQuestionTable(Database.Question(courseID, "course"));
 				answerInput.setText("");
+				questionText.setText("Select a question from the list above");
 				
 				// Feedback tab
 				String titleString = courseTable.getSelectionModel().getSelectedItem().getCourseCode() + ": " + courseTable.getSelectionModel().getSelectedItem().getCourseName();
@@ -412,6 +417,7 @@ public class ProgramController implements Initializable{
 				// Question tab
 				updateQuestionTable(Database.Question(lectureTable.getSelectionModel().getSelectedItem().getLectureID(), "lecture"));
 				answerInput.setText("");
+				questionText.setText("Select a question from the list above");
 				
 				// Feedback tab
 				String titleText = "Lecture " + lectureTable.getSelectionModel().getSelectedItem().getlectureNumber() + ": " + lectureTable.getSelectionModel().getSelectedItem().getlectureName();
@@ -445,6 +451,7 @@ public class ProgramController implements Initializable{
 			// Question tab
 			updateQuestionTable(Database.Question(courseTable.getSelectionModel().getSelectedItem().getCourseID(), "course"));
 			answerInput.setText("");
+			questionText.setText("Select a question from the list above");
 			
 			// Feedback tab
 			feedbackTables.setStyle("-fx-padding: 0-0-0-0");
@@ -469,6 +476,7 @@ public class ProgramController implements Initializable{
 			// Question tab
 			updateQuestionTable(Database.Question("empty", null));
 			answerInput.setText("");
+			questionText.setText("Select a question from the list above");
 			
 			// Feedback tab
 			feedbackTitle.setText("No course selected");
@@ -532,11 +540,15 @@ public class ProgramController implements Initializable{
 	
 	@FXML
 	private void displayAnswer(){
-		String answer = questionTable.getSelectionModel().getSelectedItem().getAnswer();
-		if(answer.matches("Not yet answered")){
-			answerInput.setText("");
-		}else{
-			answerInput.setText(answer);
+		if(questionTable.getSelectionModel().getSelectedItem() != null){
+			String question = questionTable.getSelectionModel().getSelectedItem().getQuestion();
+			String answer = questionTable.getSelectionModel().getSelectedItem().getAnswer();
+			questionText.setText(question);
+			if(answer.matches("Not yet answered")){
+				answerInput.setText("");
+			}else{
+				answerInput.setText(answer);
+			}
 		}
 	}
 	
