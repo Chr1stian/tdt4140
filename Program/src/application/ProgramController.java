@@ -85,7 +85,7 @@ public class ProgramController implements Initializable{
 	private TableView<Question> questionTable;
 	
 	@FXML
-	private TableColumn<Question, String> questionTableQuestion, questionTableAnswer; 
+	private TableColumn<Question, String> questionTableQuestion, questionTableAnswer, questionTableRating; 
 	
 	
 	@FXML
@@ -379,8 +379,12 @@ public class ProgramController implements Initializable{
 				title_leftPane.setText("Lectures");
 				courseIdText.setText(courseTable.getSelectionModel().getSelectedItem().getCourseCode());
 
+				// Question tab
+				updateQuestionTable(Database.Question(courseID, "course"));
+				answerInput.setText("");
+				
 				// Feedback tab
-				String titleString = courseID + ": " + courseTable.getSelectionModel().getSelectedItem().getCourseName();
+				String titleString = courseTable.getSelectionModel().getSelectedItem().getCourseCode() + ": " + courseTable.getSelectionModel().getSelectedItem().getCourseName();
 				feedbackTitle.setText(titleString);
 				updateFeedbackTableLecture(Database.lectureRating(courseID));
 				updateCourseRating(Database.courseAvgRating(courseID));
@@ -405,6 +409,9 @@ public class ProgramController implements Initializable{
 				title_leftPane.setText("Topics");
 				lectureNumberText.setText(lectureTable.getSelectionModel().getSelectedItem().getlectureNumber());
 
+				// Question tab
+				updateQuestionTable(Database.Question(lectureTable.getSelectionModel().getSelectedItem().getLectureID(), "lecture"));
+				answerInput.setText("");
 				
 				// Feedback tab
 				String titleText = "Lecture " + lectureTable.getSelectionModel().getSelectedItem().getlectureNumber() + ": " + lectureTable.getSelectionModel().getSelectedItem().getlectureName();
@@ -436,7 +443,8 @@ public class ProgramController implements Initializable{
 			lectureTable.setVisible(true);
 			
 			// Question tab
-			updateQuestionTable(Database.Question("empty"));
+			updateQuestionTable(Database.Question(courseTable.getSelectionModel().getSelectedItem().getCourseID(), "course"));
+			answerInput.setText("");
 			
 			// Feedback tab
 			feedbackTables.setStyle("-fx-padding: 0-0-0-0");
@@ -459,7 +467,8 @@ public class ProgramController implements Initializable{
 			courseTable.setVisible(true);
 			
 			// Question tab
-			updateQuestionTable(Database.Question("empty"));
+			updateQuestionTable(Database.Question("empty", null));
+			answerInput.setText("");
 			
 			// Feedback tab
 			feedbackTitle.setText("No course selected");
@@ -501,36 +510,56 @@ public class ProgramController implements Initializable{
 	 * ------------QUESTION TAB------------
 	 */
 	
+	// Method for finding questions from the clicked topic
+	@FXML
+	private void displayQuestions() throws IOException{
+		if(sidebarTable == "topic"){
+			if(courseTable.getSelectionModel().getSelectedItem() != null){
+				updateQuestionTable(Database.Question(topicTable.getSelectionModel().getSelectedItem().getTopicID(), "topic"));
+			}
+		}
+	}
+	
 	// Method for filling the table in the "Lecture" tab with topics
 	private void updateQuestionTable(ObservableList<Question> questionList){
 		// 0. Initialize the columns.
 		questionTableQuestion.setCellValueFactory(cellData -> cellData.getValue().questionProperty());
 		questionTableAnswer.setCellValueFactory(cellData -> cellData.getValue().answerProperty());
+		questionTableRating.setCellValueFactory(cellData -> cellData.getValue().ratingProperty());
 		// 1. Add data to the table.
 		questionTable.setItems(questionList);
 	}
 	
-	// Method for finding questions from the clicked topic
 	@FXML
-	private void displayQuestions() throws IOException{
-		if(sidebarTable == "topic"){
-			if(topicTable.getSelectionModel().getSelectedItem() != null){
-				updateQuestionTable(Database.Question(topicTable.getSelectionModel().getSelectedItem().getTopicID()));
-			}
+	private void displayAnswer(){
+		String answer = questionTable.getSelectionModel().getSelectedItem().getAnswer();
+		if(answer.matches("Not yet answered")){
+			answerInput.setText("");
+		}else{
+			answerInput.setText(answer);
 		}
 	}
+	
 	
 	//Answering questions asked from students
 	@FXML
 	private void answerQuestion(){
 		String answer =  answerInput.getText();
-		Question question = questionTable.getSelectionModel().getSelectedItem();
-		Database.answerQuestion(question, answer);
-		answerInput.setText("");
-		try {
-			displayQuestions();
-		} catch (IOException e) {
-			e.printStackTrace();
+		if(questionTable.getSelectionModel().getSelectedItem() != null){
+			Question question = questionTable.getSelectionModel().getSelectedItem();
+			Database.answerQuestion(question, answer);
+			answerInput.setText("");
+			try {
+				if(sidebarTable == "lecture"){
+					updateQuestionTable(Database.Question(courseTable.getSelectionModel().getSelectedItem().getCourseID(), "course"));
+				}else if(sidebarTable == "topic"){
+					updateQuestionTable(Database.Question(lectureTable.getSelectionModel().getSelectedItem().getLectureID(), "lecture"));
+				}else{
+					displayQuestions();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	

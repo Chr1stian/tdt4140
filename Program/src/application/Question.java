@@ -10,13 +10,15 @@ public class Question {
 	private final StringProperty userID;
 	private final StringProperty question;
 	private final StringProperty answer;
+	private final StringProperty rating;
 
-	public Question(String questionID, String topicID, String userID, String question, String answer) {
+	public Question(String questionID, String topicID, String userID, String question, String answer, String rating) {
 		this.questionID = new SimpleStringProperty(questionID);
 		this.topicID = new SimpleStringProperty(topicID);
 		this.userID = new SimpleStringProperty(userID);
 		this.question = new SimpleStringProperty(question);
 		this.answer = new SimpleStringProperty(answer);
+		this.rating = new SimpleStringProperty(rating);
 	}
 
 	public String getQuestionID() {
@@ -77,6 +79,18 @@ public class Question {
 	
 	public StringProperty answerProperty(){
 		return answer;
+	}
+	
+	public String getRating(){
+		return rating.get();
+	}
+	
+	public void setRating(String rating){
+		this.rating.set(rating);
+	}
+	
+	public StringProperty ratingProperty(){
+		return rating;
 	}
 
 }

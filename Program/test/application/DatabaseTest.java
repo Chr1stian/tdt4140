@@ -178,25 +178,27 @@ public class DatabaseTest {
 	@Test
 	public void testQuestion(){
 		String testUserID = "1";
-		String testQuest = "Hvor mange ?vinger m? man ha godkjent";
+		String testQuest = "Hvor mange øvinger må man ha godkjent";
 		String testAnswer = "3";
-		Question testQuestion = new Question(null, testTopicID, testUserID, testQuest, testAnswer);
-		ObservableList<Question> questions = db.Question(testTopicID);
+		String testRating = "0";
+		Question testQuestion = new Question(null, testTopicID, testUserID, testQuest, testAnswer, testRating);
+		ObservableList<Question> questions = db.Question(testTopicID, "topic");
 		Question question = questions.get(0);
 		assertEquals(question.getAnswer(), testQuestion.getAnswer());
 		assertEquals(question.getQuestion(), testQuestion.getQuestion());
 		assertEquals(question.getUserID(), testQuestion.getUserID());
 		assertEquals(question.getTopicID(), testQuestion.getTopicID());
+		assertEquals(question.getRating(), testQuestion.getRating());
 	}
 	
 	@SuppressWarnings("static-access")
 	@Test
 	public void testAnswerQuestion(){
 		String testAnswer = "testAnswer";
-		ObservableList<Question> questions = db.Question(testTopicID);
+		ObservableList<Question> questions = db.Question(testTopicID, "topic");
 		Question question = questions.get(0);
 		db.answerQuestion(question, testAnswer);
-		ObservableList<Question> testQuestions = db.Question(testTopicID);
+		ObservableList<Question> testQuestions = db.Question(testTopicID, "topic");
 		Question testQuestion = testQuestions.get(0);
 		assertEquals(testQuestion.getAnswer(), testAnswer);
 		db.answerQuestion(testQuestion, "3");	
