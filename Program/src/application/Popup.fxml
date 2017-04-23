@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="380.0" prefWidth="386.0" styleClass="background" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PopupController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="380.0" prefWidth="386.0" stylesheets="@LightTheme.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PopupController">
    <children>
       <GridPane layoutY="-53.0" prefHeight="342.0" prefWidth="386.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -30,7 +30,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Text fx:id="popupTitle" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+            <Text fx:id="popupTitle" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                <font>
                   <Font size="31.0" />
                </font>
@@ -53,12 +53,12 @@
                   <Insets left="30.0" right="30.0" />
                </GridPane.margin>
             </Button>
-            <Line endX="275.0" fill="WHITE" stroke="WHITE" strokeLineCap="BUTT" strokeWidth="2.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+            <Line endX="275.0" fill="BLACK" stroke="#3b88b5" strokeLineCap="BUTT" strokeWidth="2.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets bottom="15.0" />
                </GridPane.margin>
             </Line>
-            <Text fx:id="popupTopText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+            <Text fx:id="popupTopText" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
                <GridPane.margin>
                   <Insets left="30.0" />
                </GridPane.margin>
@@ -66,7 +66,7 @@
                   <Font size="20.0" />
                </font>
             </Text>
-            <Text fx:id="popupBotText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
+            <Text fx:id="popupBotText" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
                <GridPane.margin>
                   <Insets left="30.0" />
                </GridPane.margin>

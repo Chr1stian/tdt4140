@@ -21,11 +21,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="mainPane" prefHeight="858.0" prefWidth="1303.0" stylesheets="@LightTheme.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ProgramController">
+<AnchorPane fx:id="mainPane" prefHeight="858.0" prefWidth="1303.0" styleClass="anchor" stylesheets="@LightTheme.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ProgramController">
    <children>
       <SplitPane dividerPositions="0.3" layoutX="285.0" layoutY="187.0" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
-          <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="902.0" prefWidth="386.0">
+          <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="902.0" prefWidth="386.0" styleClass="anchor">
                <children>
                   <AnchorPane layoutX="27.0" layoutY="129.0" prefHeight="642.0" prefWidth="306.0">
                      <children>
@@ -100,7 +100,7 @@
                     <tabs>
                       <Tab fx:id="questionTab" text="Questions">
                         <content>
-                          <AnchorPane fx:id="questionTab" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                          <AnchorPane fx:id="questionTab" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="anchor">
                                  <children>
                                     <TableView fx:id="questionTable" layoutX="46.0" layoutY="45.0" onMouseClicked="#displayAnswer" prefHeight="527.0" prefWidth="755.0" tableMenuButtonVisible="false">
                                        <columns>
@@ -128,18 +128,10 @@
                       </Tab>
                       <Tab fx:id="feedbackTab" text="Feedback">
                         <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="anchor">
                                  <children>
                                     <StackPane fx:id="feedbackTables" layoutX="38.0" layoutY="96.0" prefHeight="475.0" prefWidth="755.0">
                                        <children>
-                                          <TableView fx:id="feedbackTopicTable" prefHeight="475.0" prefWidth="755.0" visible="false">
-                                            <columns>
-                                                <TableColumn fx:id="feedbackTableTopicNum" prefWidth="76.0" text="Number" />
-                                              <TableColumn fx:id="feedbackTableTopicCol" prefWidth="388.0" text="Topic" />
-                                              <TableColumn fx:id="feedbackTableTopicRating" prefWidth="140.0" text="Rating" />
-                                                <TableColumn fx:id="feedbackTableTopicVotes" prefWidth="139.0" text="Number of votes" />
-                                            </columns>
-                                          </TableView>
                                           <TableView fx:id="feedbackLectureTable" prefHeight="401.0" prefWidth="755.0">
                                             <columns>
                                                 <TableColumn fx:id="feedbackTableLectureNum" prefWidth="76.0" text="Number" />
@@ -150,6 +142,14 @@
                                              <StackPane.margin>
                                                 <Insets />
                                              </StackPane.margin>
+                                          </TableView>
+                                          <TableView fx:id="feedbackTopicTable" prefHeight="475.0" prefWidth="755.0" visible="false">
+                                            <columns>
+                                                <TableColumn fx:id="feedbackTableTopicNum" prefWidth="76.0" text="Number" />
+                                              <TableColumn fx:id="feedbackTableTopicCol" prefWidth="388.0" text="Topic" />
+                                              <TableColumn fx:id="feedbackTableTopicRating" prefWidth="140.0" text="Rating" />
+                                                <TableColumn fx:id="feedbackTableTopicVotes" prefWidth="150.0" text="Number of votes" />
+                                            </columns>
                                           </TableView>
                                        </children>
                                     </StackPane>
@@ -168,81 +168,81 @@
                                              <children>
                                                 <HBox fx:id="star01" prefHeight="65.0" prefWidth="297.0" visible="false">
                                                    <children>
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="#ffffff00" stroke="WHITE" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="#ffffff00" stroke="WHITE" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="#ffffff00" stroke="WHITE" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="#ffffff00" stroke="WHITE" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="#ffffff00" stroke="WHITE" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="#ffffff00" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="#ffffff00" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="#ffffff00" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="#ffffff00" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="#ffffff00" stroke="BLACK" strokeType="OUTSIDE" />
                                                    </children>
                                                 </HBox>
                                                 <HBox fx:id="star0half1" prefHeight="65.0" prefWidth="297.0" visible="false">
                                                    <children>
-                                                      <SVGPath content="M30,0 L30,47 12,60 19,39 0,24 22,24 30,0" stroke="WHITE" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L30,47 12,60 19,39 0,24 22,24 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
                                                    </children>
                                                 </HBox>
                                                 <HBox fx:id="star11" prefHeight="65.0" prefWidth="297.0" visible="false">
                                                    <children>
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
                                                    </children>
                                                 </HBox>
                                                 <HBox fx:id="star1half1" prefHeight="65.0" prefWidth="297.0" visible="false">
                                                    <children>
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L30,48 12,60 19,39 0,24 22,24 30,0" stroke="WHITE" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L30,48 12,60 19,39 0,24 22,24 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
                                                    </children>
                                                 </HBox>
                                                 <HBox fx:id="star21" prefHeight="65.0" prefWidth="297.0" visible="false">
                                                    <children>
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
                                                    </children>
                                                 </HBox>
                                                 <HBox fx:id="star2half1" prefHeight="65.0" prefWidth="297.0" visible="false">
                                                    <children>
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L30,48 12,60 19,39 0,24 22,24 30,0" stroke="WHITE" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L30,48 12,60 19,39 0,24 22,24 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
                                                    </children>
                                                 </HBox>
                                                 <HBox fx:id="star31" prefHeight="65.0" prefWidth="297.0" visible="false">
                                                    <children>
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
                                                    </children>
                                                 </HBox>
                                                 <HBox fx:id="star3half1" prefHeight="65.0" prefWidth="297.0" visible="false">
                                                    <children>
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L30,48 12,60 19,39 0,24 22,24 30,0" stroke="WHITE" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L30,48 12,60 19,39 0,24 22,24 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
                                                    </children>
                                                 </HBox>
                                                 <HBox fx:id="star41" prefHeight="65.0" prefWidth="297.0" visible="false">
                                                    <children>
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
                                                    </children>
                                                 </HBox>
                                                 <HBox fx:id="star4half1" prefHeight="65.0" prefWidth="297.0" visible="false">
                                                    <children>
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L30,48 12,60 19,39 0,24 22,24 30,0" stroke="WHITE" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L30,48 12,60 19,39 0,24 22,24 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
                                                    </children>
                                                 </HBox>
                                                 <HBox fx:id="star51" prefHeight="65.0" prefWidth="297.0" visible="false">
                                                    <children>
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
                                                    </children>
                                                 </HBox>
                                                 <Text fx:id="lectureNotRated" strokeType="OUTSIDE" strokeWidth="0.0" text="Not yet rated" visible="false" StackPane.alignment="CENTER">
@@ -259,81 +259,81 @@
                                              <children>
                                                 <HBox fx:id="star0" prefHeight="65.0" prefWidth="297.0" visible="false">
                                                    <children>
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="#ffffff00" stroke="WHITE" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="#ffffff00" stroke="WHITE" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="#ffffff00" stroke="WHITE" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="#ffffff00" stroke="WHITE" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="#ffffff00" stroke="WHITE" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="#ffffff00" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="#ffffff00" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="#ffffff00" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="#ffffff00" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="#ffffff00" stroke="BLACK" strokeType="OUTSIDE" />
                                                    </children>
                                                 </HBox>
                                                 <HBox fx:id="star0half" prefHeight="65.0" prefWidth="297.0" visible="false">
                                                    <children>
-                                                      <SVGPath content="M30,0 L30,47 12,60 19,39 0,24 22,24 30,0" stroke="WHITE" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L30,47 12,60 19,39 0,24 22,24 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
                                                    </children>
                                                 </HBox>
                                                 <HBox fx:id="star1" prefHeight="65.0" prefWidth="297.0" visible="false">
                                                    <children>
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
                                                    </children>
                                                 </HBox>
                                                 <HBox fx:id="star1half" prefHeight="65.0" prefWidth="297.0" visible="false">
                                                    <children>
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L30,48 12,60 19,39 0,24 22,24 30,0" stroke="WHITE" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L30,48 12,60 19,39 0,24 22,24 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
                                                    </children>
                                                 </HBox>
                                                 <HBox fx:id="star2" prefHeight="65.0" prefWidth="297.0" visible="false">
                                                    <children>
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
                                                    </children>
                                                 </HBox>
                                                 <HBox fx:id="star2half" prefHeight="65.0" prefWidth="297.0" visible="false">
                                                    <children>
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L30,48 12,60 19,39 0,24 22,24 30,0" stroke="WHITE" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L30,48 12,60 19,39 0,24 22,24 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
                                                    </children>
                                                 </HBox>
                                                 <HBox fx:id="star3" prefHeight="65.0" prefWidth="297.0" visible="false">
                                                    <children>
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
                                                    </children>
                                                 </HBox>
                                                 <HBox fx:id="star3half" prefHeight="65.0" prefWidth="297.0" visible="false">
                                                    <children>
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L30,48 12,60 19,39 0,24 22,24 30,0" stroke="WHITE" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L30,48 12,60 19,39 0,24 22,24 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
                                                    </children>
                                                 </HBox>
                                                 <HBox fx:id="star4" prefHeight="65.0" prefWidth="297.0" visible="false">
                                                    <children>
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
                                                    </children>
                                                 </HBox>
                                                 <HBox fx:id="star4half" prefHeight="65.0" prefWidth="297.0" visible="false">
                                                    <children>
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L30,48 12,60 19,39 0,24 22,24 30,0" stroke="WHITE" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L30,48 12,60 19,39 0,24 22,24 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
                                                    </children>
                                                 </HBox>
                                                 <HBox fx:id="star5" prefHeight="65.0" prefWidth="297.0" visible="false">
                                                    <children>
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
-                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" stroke="#ffffff00" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
+                                                      <SVGPath content="M30,0 L48,60 0,24 60,24 12,60 30,0" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" />
                                                    </children>
                                                 </HBox>
                                                 <Text fx:id="courseNotRated" strokeType="OUTSIDE" strokeWidth="0.0" text="Not yet rated" visible="false" StackPane.alignment="CENTER">
@@ -393,7 +393,7 @@
                       </Tab>
                       <Tab fx:id="statisticsTab" text="Statistics">
                         <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="anchor, innertab">
                                  <children>
                                     <TabPane layoutX="67.0" layoutY="72.0" prefHeight="816.0" prefWidth="907.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                       <tabs>
