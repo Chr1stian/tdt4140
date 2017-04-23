@@ -8,12 +8,13 @@ addons:
     packages:
       - oracle-java8-installer
       
-before_install: cd Program
+before_install: 
+  - cd Program
+  - pip install --user codecov
 
 notifications:
   email: false
   slack: prodoteam:ybnDKIhpodUlM0ZRwMh5qqug
 
 after_success:
-  - if [ -e ./gradlew ]; then ./gradlew jacocoTestReport;else gradle jacocoTestReport;fi
-  - bash <(curl -s https://codecov.io/bash)
+  - codecov
