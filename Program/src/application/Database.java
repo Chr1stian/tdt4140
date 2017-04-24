@@ -1,5 +1,7 @@
 package application;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -236,7 +238,7 @@ public class Database {
             		question.add(rs.getString(i));
             	}
             	if(question.get(4) == null){
-                	questionList.add(new Question(question.get(0), question.get(1), question.get(2), question.get(3), "Not yet answered", question.get(5)));
+                	questionList.add(new Question(question.get(0), question.get(1), question.get(2), question.get(3), "Not answered yet...", question.get(5)));
             	}else{
                 	questionList.add(new Question(question.get(0), question.get(1), question.get(2), question.get(3), question.get(4), question.get(5)));
             	}
@@ -492,6 +494,9 @@ public class Database {
             // Get percentage of questions answered
             if(tQ != 0){
             	Double percentage = aQ/tQ*100;
+            	BigDecimal bd = new BigDecimal(percentage);
+            	bd = bd.setScale(2, RoundingMode.HALF_UP);
+            	percentage = bd.doubleValue();
             	String percentageString = percentage + "%";
             	stats.add(percentageString);
             }else{

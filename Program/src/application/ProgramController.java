@@ -2,29 +2,22 @@ package application;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
@@ -34,9 +27,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.util.Pair;
 
 public class ProgramController implements Initializable{
 	
@@ -51,8 +41,12 @@ public class ProgramController implements Initializable{
 	private SplitPane divider;
 	
 	@FXML
+	private TabPane tabLvl1, tabLvl2;
+	
+	@FXML
 	private Text title_leftPane, courseNameDisplay, courseIdText, lectureNumberText, lectureVotes, courseVotes, courseRatingText, 
-	lectureRatingText, courseRatingVotes, lectureRatingVotes, courseNotRated, lectureNotRated, feedbackTitle, feedbackTitle2;
+	lectureRatingText, courseRatingVotes, lectureRatingVotes, courseNotRated, lectureNotRated, feedbackTitle1, feedbackTitle2,
+	questionTitle1, questionTitle2;
 	
 	@FXML
 	private Label questionText;
@@ -120,7 +114,7 @@ public class ProgramController implements Initializable{
 	private HBox star01, star0half1, star11, star1half1, star21, star2half1, star31, star3half1, star41, star4half1, star51;
 	
 	@FXML
-	private StackPane feedbackTables;
+	private StackPane feedbackTables, questionTableContainer;
 	
 	
 	// Initializes the program by showing the correct table (CourseTable in the sidebar)
@@ -321,27 +315,28 @@ public class ProgramController implements Initializable{
 	private void deleteItem(){
 		
 		if(sidebarTable == "lecture"){
-		
-			Lecture lecture = lectureTable.getSelectionModel().getSelectedItem();
-			String courseID = courseTable.getSelectionModel().getSelectedItem().getCourseID();
-		
-			Alert alert = new Alert(AlertType.CONFIRMATION);
-			alert.setTitle("Delete Lecture");
-			alert.setHeaderText("Are you sure you want to delete the selected lecture?"); 
-		
-			Optional<ButtonType> result = alert.showAndWait();
-			if (result.get() == ButtonType.OK){
-				// ... user chose OK
-				lecture = lectureTable.getSelectionModel().getSelectedItem();
-				courseID = courseTable.getSelectionModel().getSelectedItem().getCourseID();
-				Database.deleteLecture(lecture);
-				updateLectureTable(Database.lectures(courseID));
-			} else {
-				alert.close();// ... user chose CANCEL or closed the dialog
+			if(lectureTable.getSelectionModel().getSelectedItem() != null){
+				Lecture lecture = lectureTable.getSelectionModel().getSelectedItem();
+				String courseID = courseTable.getSelectionModel().getSelectedItem().getCourseID();
+			
+				Alert alert = new Alert(AlertType.CONFIRMATION);
+				alert.setTitle("Delete Lecture");
+				alert.setHeaderText("Are you sure you want to delete the selected lecture?"); 
+			
+				Optional<ButtonType> result = alert.showAndWait();
+				if (result.get() == ButtonType.OK){
+					// ... user chose OK
+					lecture = lectureTable.getSelectionModel().getSelectedItem();
+					courseID = courseTable.getSelectionModel().getSelectedItem().getCourseID();
+					Database.deleteLecture(lecture);
+					updateLectureTable(Database.lectures(courseID));
+				} else {
+					alert.close();// ... user chose CANCEL or closed the dialog
+				}
 			}
 		}
 		else if(sidebarTable == "topic"){
-			
+			if(topicTable.getSelectionModel().getSelectedItem() != null){
 		    	Topic topic = topicTable.getSelectionModel().getSelectedItem();
 		    	String lectureID = lectureTable.getSelectionModel().getSelectedItem().getLectureID();
 				
@@ -362,6 +357,7 @@ public class ProgramController implements Initializable{
 				}
 			}
 		}
+	}
 	
 	/*
 	 * SIDEBAR BACK - NEXT BUTTONS
@@ -384,13 +380,14 @@ public class ProgramController implements Initializable{
 				courseIdText.setText(courseTable.getSelectionModel().getSelectedItem().getCourseCode());
 
 				// Question tab
+				String titleString = courseTable.getSelectionModel().getSelectedItem().getCourseCode() + ": " + courseTable.getSelectionModel().getSelectedItem().getCourseName();
+				questionTitle1.setText(titleString);
 				updateQuestionTable(Database.Question(courseID, "course"));
 				answerInput.setText("");
 				questionText.setText("Select a question from the list above");
 				
 				// Feedback tab
-				String titleString = courseTable.getSelectionModel().getSelectedItem().getCourseCode() + ": " + courseTable.getSelectionModel().getSelectedItem().getCourseName();
-				feedbackTitle.setText(titleString);
+				feedbackTitle1.setText(titleString);
 				updateFeedbackTableLecture(Database.lectureRating(courseID));
 				updateCourseRating(Database.courseAvgRating(courseID));
 				courseVotes.setVisible(true);
@@ -415,12 +412,14 @@ public class ProgramController implements Initializable{
 				lectureNumberText.setText(lectureTable.getSelectionModel().getSelectedItem().getlectureNumber());
 
 				// Question tab
+				String titleText = "Lecture " + lectureTable.getSelectionModel().getSelectedItem().getlectureNumber() + ": " + lectureTable.getSelectionModel().getSelectedItem().getlectureName();
+				questionTableContainer.setStyle("-fx-padding: 40-0-0-0");
+				questionTitle2.setText(titleText);
 				updateQuestionTable(Database.Question(lectureTable.getSelectionModel().getSelectedItem().getLectureID(), "lecture"));
 				answerInput.setText("");
 				questionText.setText("Select a question from the list above");
 				
 				// Feedback tab
-				String titleText = "Lecture " + lectureTable.getSelectionModel().getSelectedItem().getlectureNumber() + ": " + lectureTable.getSelectionModel().getSelectedItem().getlectureName();
 				feedbackTables.setStyle("-fx-padding: 40-0-0-0");
 				feedbackTitle2.setText(titleText);
 				updateFeedbackTableTopic(Database.topicRating(lectureTable.getSelectionModel().getSelectedItem().getLectureID()));
@@ -449,6 +448,8 @@ public class ProgramController implements Initializable{
 			lectureTable.setVisible(true);
 			
 			// Question tab
+			questionTableContainer.setStyle("-fx-padding: 0-0-0-0");
+			questionTitle2.setText("");
 			updateQuestionTable(Database.Question(courseTable.getSelectionModel().getSelectedItem().getCourseID(), "course"));
 			answerInput.setText("");
 			questionText.setText("Select a question from the list above");
@@ -474,12 +475,13 @@ public class ProgramController implements Initializable{
 			courseTable.setVisible(true);
 			
 			// Question tab
+			questionTitle1.setText("No course selected");
 			updateQuestionTable(Database.Question("empty", null));
 			answerInput.setText("");
 			questionText.setText("Select a question from the list above");
 			
 			// Feedback tab
-			feedbackTitle.setText("No course selected");
+			feedbackTitle1.setText("No course selected");
 			hideCourseStars();
 			courseVotes.setVisible(false);
 			courseRatingText.setVisible(false);
@@ -544,7 +546,7 @@ public class ProgramController implements Initializable{
 			String question = questionTable.getSelectionModel().getSelectedItem().getQuestion();
 			String answer = questionTable.getSelectionModel().getSelectedItem().getAnswer();
 			questionText.setText(question);
-			if(answer.matches("Not yet answered")){
+			if(answer.matches("Not answered yet...")){
 				answerInput.setText("");
 			}else{
 				answerInput.setText(answer);
@@ -785,5 +787,46 @@ public class ProgramController implements Initializable{
 		statisticsOther12.setText("");
 		statisticsOther13.setText("");
 	}
+	
+	// ------------REFRESH BUTTON------------
+	@FXML
+	private void refresh(){
+		// If we're in the "questions"-tab
+		if(tabLvl1.getSelectionModel().getSelectedItem().getText().equals("Questions")){
+			// If we're looking at questions from the whole course
+			if(sidebarTable == "lecture"){
+				updateQuestionTable(Database.Question(courseTable.getSelectionModel().getSelectedItem().getCourseID(), "course"));
+			}
+			// If we're looking at the questions from a lecture
+			else if(sidebarTable == "topic"){
+				updateQuestionTable(Database.Question(lectureTable.getSelectionModel().getSelectedItem().getLectureID(), "lecture"));
+			}
+		// If we're in the "feedback"-tab
+		}else if(tabLvl1.getSelectionModel().getSelectedItem().getText().equals("Feedback")){
+			// If we're looking at feedback for the whole course
+			if(sidebarTable == "lecture"){
+				updateFeedbackTableLecture(Database.lectureRating(courseTable.getSelectionModel().getSelectedItem().getCourseID()));
+				updateCourseRating(Database.courseAvgRating(courseTable.getSelectionModel().getSelectedItem().getCourseID()));
+			}
+			// If we're looking at feedback for a lecture
+			else if(sidebarTable == "topic"){
+				updateFeedbackTableTopic(Database.topicRating(lectureTable.getSelectionModel().getSelectedItem().getLectureID()));
+				updateLectureRating(Database.lectureAvgRating(lectureTable.getSelectionModel().getSelectedItem().getLectureID()));
+			}
+		// If we're in the "statistics"-tab
+		}else{
+			// If we're in the "low rated topics"-tab
+			if(tabLvl2.getSelectionModel().getSelectedItem().getText().equals("Low rated topics")){
+				updateStatTable(Database.badTopics(courseTable.getSelectionModel().getSelectedItem().getCourseID()));
+			}
+			// If we're in the "other stats"-tab
+			else{
+				updateOtherStats(Database.getStats(courseTable.getSelectionModel().getSelectedItem().getCourseID()));
+				
+			}
+		}
+	}
+	
+	
 	
 }
