@@ -178,7 +178,7 @@ public class DatabaseTest {
 	@Test
 	public void testQuestion(){
 		String testUserID = "1";
-		String testQuest = "Hvor mange øvinger må man ha godkjent";
+		String testQuest = "Hvor mange ?vinger m? man ha godkjent";
 		String testAnswer = "3";
 		String testRating = "0";
 		Question testQuestion = new Question(null, testTopicID, testUserID, testQuest, testAnswer, testRating);
