@@ -55,10 +55,10 @@ public class PopupController implements Initializable{
 		courseID = lecture.getCourseID();
 		lectureID = lecture.getLectureID();
 		popupTitle.setText("Edit lecture");
-		popupTopText.setText("Topic number");
+		popupTopText.setText("Lecture number");
 		popupTopInput.setText(lecture.getlectureNumber());
 		popupTopInput.setPromptText("Lecture number");
-		popupBotText.setText("Topic name");
+		popupBotText.setText("Lecture name");
 		popupBotInput.setText(lecture.getlectureName());
 		popupBotInput.setPromptText("Lecture name");
 	}

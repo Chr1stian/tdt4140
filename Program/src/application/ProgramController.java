@@ -810,20 +810,16 @@ public class ProgramController implements Initializable{
 			}
 			// If we're looking at feedback for a lecture
 			else if(sidebarTable == "topic"){
+				updateFeedbackTableLecture(Database.lectureRating(courseTable.getSelectionModel().getSelectedItem().getCourseID()));
+				updateCourseRating(Database.courseAvgRating(courseTable.getSelectionModel().getSelectedItem().getCourseID()));
 				updateFeedbackTableTopic(Database.topicRating(lectureTable.getSelectionModel().getSelectedItem().getLectureID()));
 				updateLectureRating(Database.lectureAvgRating(lectureTable.getSelectionModel().getSelectedItem().getLectureID()));
 			}
 		// If we're in the "statistics"-tab
 		}else{
 			// If we're in the "low rated topics"-tab
-			if(tabLvl2.getSelectionModel().getSelectedItem().getText().equals("Low rated topics")){
-				updateStatTable(Database.badTopics(courseTable.getSelectionModel().getSelectedItem().getCourseID()));
-			}
-			// If we're in the "other stats"-tab
-			else{
-				updateOtherStats(Database.getStats(courseTable.getSelectionModel().getSelectedItem().getCourseID()));
-				
-			}
+			updateStatTable(Database.badTopics(courseTable.getSelectionModel().getSelectedItem().getCourseID()));
+			updateOtherStats(Database.getStats(courseTable.getSelectionModel().getSelectedItem().getCourseID()));
 		}
 	}
 	
