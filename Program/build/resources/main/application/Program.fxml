@@ -97,7 +97,7 @@
                     <tabs>
                       <Tab fx:id="questionTab" styleClass="background" text="Questions">
                         <content>
-                          <AnchorPane fx:id="questionTab" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                          <AnchorPane fx:id="questionTab" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="tabAnchor">
                                  <children>
                                     <TableView fx:id="questionTable" layoutX="46.0" layoutY="45.0" prefHeight="548.0" prefWidth="755.0" tableMenuButtonVisible="false">
                                        <columns>
@@ -112,7 +112,7 @@
                       </Tab>
                       <Tab fx:id="feedbackTab" styleClass="background" text="Feedback">
                         <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="tabAnchor">
                                  <children>
                                     <StackPane fx:id="feedbackTables" layoutX="38.0" layoutY="96.0" prefHeight="475.0" prefWidth="755.0">
                                        <children>
@@ -377,7 +377,224 @@
                       </Tab>
                       <Tab fx:id="statisticsTab" styleClass="background" text="Statistics">
                         <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="tabAnchor">
+                                 <children>
+                                    <TabPane layoutX="67.0" layoutY="72.0" prefHeight="816.0" prefWidth="907.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <tabs>
+                                        <Tab styleClass="background" text="Low rated topics">
+                                             <content>
+                                                <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="tabAnchor">
+                                                   <children>
+                                                      <TableView fx:id="statisticsTable" layoutX="43.0" layoutY="75.0" prefHeight="455.0" prefWidth="744.0">
+                                                        <columns>
+                                                          <TableColumn fx:id="statisticsTableLecture" prefWidth="264.0" text="Lecture" />
+                                                          <TableColumn fx:id="statisticsTableTopic" minWidth="1.0" prefWidth="270.0" text="Topic" />
+                                                            <TableColumn fx:id="statisticsTableRating" minWidth="1.0" prefWidth="61.0" text="Rating" />
+                                                            <TableColumn fx:id="statisticsTableVotes" minWidth="1.0" prefWidth="135.0" text="Number of votes" />
+                                                        </columns>
+                                                      </TableView>
+                                                      <Text fill="WHITE" layoutX="43.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Topics with average rating below 3">
+                                                         <font>
+                                                            <Font size="25.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <Text fx:id="statisticsNotEmpty" fill="WHITE" layoutX="57.0" layoutY="571.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Consider revisiting the listed topics." visible="false">
+                                                         <font>
+                                                            <Font size="16.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <Text fx:id="statisticsEmpty" fill="WHITE" layoutX="57.0" layoutY="570.0" strokeType="OUTSIDE" strokeWidth="0.0" text="There are no topics rated below 3 in this course. Good work!" visible="false">
+                                                         <font>
+                                                            <Font size="16.0" />
+                                                         </font>
+                                                      </Text>
+                                                   </children></AnchorPane>
+                                             </content>
+                                          </Tab>
+                                          <Tab styleClass="background" text="Other stats">
+                                             <content>
+                                                <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="tabAnchor">
+                                                   <children>
+                                                      <GridPane layoutX="44.0" layoutY="56.0" prefHeight="613.0" prefWidth="618.0">
+                                                        <columnConstraints>
+                                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                        </columnConstraints>
+                                                        <rowConstraints>
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                        </rowConstraints>
+                                                         <children>
+                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of votes:" GridPane.rowIndex="11">
+                                                               <font>
+                                                                  <Font size="16.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of topics:" GridPane.rowIndex="2">
+                                                               <font>
+                                                                  <Font size="16.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of lectures:" GridPane.rowIndex="1">
+                                                               <font>
+                                                                  <Font size="16.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of topics with rating less than 3:" GridPane.rowIndex="13">
+                                                               <font>
+                                                                  <Font size="16.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Course stats">
+                                                               <font>
+                                                                  <Font size="30.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Rating stats" GridPane.rowIndex="10">
+                                                               <font>
+                                                                  <Font size="30.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Lowest rated topic(s):" GridPane.rowIndex="17">
+                                                               <font>
+                                                                  <Font size="16.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Highest rated topic(s):" GridPane.rowIndex="16">
+                                                               <font>
+                                                                  <Font size="16.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of topics with 5 stars:" GridPane.rowIndex="12">
+                                                               <font>
+                                                                  <Font size="16.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Question stats" GridPane.rowIndex="4">
+                                                               <font>
+                                                                  <Font size="30.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of questions:" GridPane.rowIndex="5">
+                                                               <font>
+                                                                  <Font size="16.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of answered questions:" GridPane.rowIndex="6">
+                                                               <font>
+                                                                  <Font size="16.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of unanswered questions:" GridPane.rowIndex="7">
+                                                               <font>
+                                                                  <Font size="16.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Answered questions percentage:" GridPane.rowIndex="8">
+                                                               <font>
+                                                                  <Font size="16.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of unrated topics:" GridPane.rowIndex="14">
+                                                               <font>
+                                                                  <Font size="16.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Topic with the most votes:" GridPane.rowIndex="15">
+                                                               <font>
+                                                                  <Font size="16.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text fx:id="statisticsOther1" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                               <font>
+                                                                  <Font size="16.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text fx:id="statisticsOther2" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                               <font>
+                                                                  <Font size="16.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text fx:id="statisticsOther3" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                                               <font>
+                                                                  <Font size="16.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text fx:id="statisticsOther4" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                                                               <font>
+                                                                  <Font size="16.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text fx:id="statisticsOther5" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                                                               <font>
+                                                                  <Font size="16.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text fx:id="statisticsOther6" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                                                               <font>
+                                                                  <Font size="16.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text fx:id="statisticsOther7" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="11">
+                                                               <font>
+                                                                  <Font size="16.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text fx:id="statisticsOther8" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="12">
+                                                               <font>
+                                                                  <Font size="16.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text fx:id="statisticsOther9" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="13">
+                                                               <font>
+                                                                  <Font size="16.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text fx:id="statisticsOther10" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="14">
+                                                               <font>
+                                                                  <Font size="16.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text fx:id="statisticsOther11" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="15">
+                                                               <font>
+                                                                  <Font size="16.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text fx:id="statisticsOther12" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="16">
+                                                               <font>
+                                                                  <Font size="16.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text fx:id="statisticsOther13" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="17">
+                                                               <font>
+                                                                  <Font size="16.0" />
+                                                               </font>
+                                                            </Text>
+                                                         </children>
+                                                      </GridPane>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </Tab>
+                                      </tabs>
+                                    </TabPane>
+                                 </children></AnchorPane>
                         </content>
                       </Tab>
                     </tabs>

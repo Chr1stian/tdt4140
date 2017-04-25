@@ -204,6 +204,98 @@ public class DatabaseTest {
 		db.answerQuestion(testQuestion, "3");	
 	}
 	
+	@SuppressWarnings("static-access")
+	@Test
+	public void testGetStats(){
+		ArrayList<String> stats = db.getStats(testCourseID);
+		ArrayList<String> testStats = new ArrayList<String>();
+		testStats.add("4");
+		testStats.add("9");
+		testStats.add("0");
+		testStats.add("0");
+		testStats.add("0");
+		testStats.add("No questions registered in this course yet");
+		testStats.add("0");
+		testStats.add("0");
+		testStats.add("0");
+		testStats.add("9");
+		testStats.add("0 votes on 'Fagintroduksjon' from lecture 1");
+		testStats.add("No ratings registered in this course yet");
+		testStats.add("No ratings registered in this course yet");
+		assertEquals(testStats, stats);
+	}
+	
+	@SuppressWarnings("static-access")
+	@Test
+	public void testLectureRating(){
+		ObservableList<Rating> ratings = db.lectureRating(testCourseID);
+		assertEquals(ratings.get(0).getName(), "Fagintroduksjon");
+	}
+	
+	@SuppressWarnings("static-access")
+	@Test
+	public void testTopicRating(){
+		ObservableList<Rating> ratings = db.topicRating(testLectureID);
+		assertEquals(ratings.get(0).getName(), "Semat");
+	}
+	
+	@SuppressWarnings("static-access")
+	@Test
+	public void testBadTopics(){
+		ObservableList<Rating> ratings = db.badTopics(testCourseID);
+		assertEquals(ratings.size(), 0);
+	}
+	
+	@SuppressWarnings("static-access")
+	@Test
+	public void testCourseAvgRating(){
+		ArrayList<String> ratings = db.courseAvgRating(testCourseID);
+		assertEquals(ratings.get(0), null);
+		assertEquals(ratings.get(1), "0");
+	}
+	
+	@SuppressWarnings("static-access")
+	@Test
+	public void testLectureAvgRating(){
+		ArrayList<String> ratings = db.lectureAvgRating(testLectureID);
+		assertEquals(ratings.get(0), null);
+		assertEquals(ratings.get(1), "0");
+	}
+	
+	@SuppressWarnings("static-access")
+	@Test
+	public void testEditLecture(){
+		Lecture originalLecture = db.lectures(testCourseID).get(2);
+		String testName = "EDITEDNAME";
+		String testID = originalLecture.getLectureID();
+		String testNumber = originalLecture.getlectureNumber();
+		Lecture testLecture = new Lecture(testID, testCourseID, testNumber, testName);
+		db.editLecture(testLecture);
+		ObservableList<Lecture> lecture = db.lectures(testCourseID);
+		assertEquals(lecture.get(2).getlectureName(), testName);
+		assertEquals(lecture.get(2).getLectureID(), testID);
+		assertEquals(lecture.get(2).getCourseID(), testCourseID);
+		assertEquals(lecture.get(2).getlectureNumber(), testNumber);
+		db.editLecture(originalLecture);
+	}
+	
+	@SuppressWarnings("static-access")
+	@Test
+	public void testEditTopic(){
+		Topic originalTopic = db.topics(testLectureID).get(0);
+		String testName = "EDITEDNAME";
+		String testID = originalTopic.getTopicID();
+		String testNumber = originalTopic.getTopicNumber();
+		Topic testTopic = new Topic(testID, testLectureID, testNumber, testName);
+		db.editTopic(testTopic);
+		ObservableList<Topic> topic = db.topics(testCourseID);
+		assertEquals(topic.get(0).getTopicName(), testName);
+		assertEquals(topic.get(0).getTopicID(), testID);
+		assertEquals(topic.get(0).getLectureID(), testLectureID);
+		assertEquals(topic.get(0).getTopicNumber(), testNumber);
+		db.editTopic(originalTopic);
+	}
+	
 	@AfterClass
 	public static void tearDatabase(){
 		List<String> tablename = Arrays.asList("rating", "question", "topic", "lecture", "course", "user");
