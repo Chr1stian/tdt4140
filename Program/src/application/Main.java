@@ -47,7 +47,7 @@ public class Main extends Application{
             Scene popupScene = new Scene(loader.load());
             popupStage.setScene(popupScene);
 
-            // Set the person into the controller.
+            // Set the object into the controller.
             PopupController controller = loader.getController();
             controller.setStage(popupStage);
             if(lecture != null){
