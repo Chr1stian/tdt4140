@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="application.DatabaseTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2017-04-05T13:31:41" hostname="dhcp-10-24-18-191.wlan.ntnu.no" time="15.17">
+<testsuite name="application.DatabaseTest" tests="17" skipped="0" failures="0" errors="0" timestamp="2017-04-25T08:12:39" hostname="Christians-MacBook-Pro-2.local" time="19.673">
   <properties/>
-  <testcase name="testLectures" classname="application.DatabaseTest" time="3.004"/>
-  <testcase name="testDeleteTopic" classname="application.DatabaseTest" time="1.903"/>
-  <testcase name="testAnswerQuestion" classname="application.DatabaseTest" time="1.891"/>
-  <testcase name="testCreateTopic" classname="application.DatabaseTest" time="3.051"/>
-  <testcase name="testQuestion" classname="application.DatabaseTest" time="1.161"/>
-  <testcase name="testCreateLecture" classname="application.DatabaseTest" time="1.409"/>
-  <testcase name="testCourses" classname="application.DatabaseTest" time="0.456"/>
-  <testcase name="testDeleteLecture" classname="application.DatabaseTest" time="1.835"/>
-  <testcase name="testTopics" classname="application.DatabaseTest" time="0.459"/>
+  <testcase name="testBadTopics" classname="application.DatabaseTest" time="2.951"/>
+  <testcase name="testLectures" classname="application.DatabaseTest" time="0.472"/>
+  <testcase name="testDeleteTopic" classname="application.DatabaseTest" time="1.846"/>
+  <testcase name="testAnswerQuestion" classname="application.DatabaseTest" time="1.864"/>
+  <testcase name="testGetStats" classname="application.DatabaseTest" time="1.014"/>
+  <testcase name="testEditTopic" classname="application.DatabaseTest" time="1.844"/>
+  <testcase name="testCourseAvgRating" classname="application.DatabaseTest" time="0.458"/>
+  <testcase name="testCreateTopic" classname="application.DatabaseTest" time="1.379"/>
+  <testcase name="testTopicRating" classname="application.DatabaseTest" time="0.464"/>
+  <testcase name="testLectureRating" classname="application.DatabaseTest" time="0.461"/>
+  <testcase name="testQuestion" classname="application.DatabaseTest" time="0.459"/>
+  <testcase name="testCreateLecture" classname="application.DatabaseTest" time="1.387"/>
+  <testcase name="testCourses" classname="application.DatabaseTest" time="0.459"/>
+  <testcase name="testEditLecture" classname="application.DatabaseTest" time="1.851"/>
+  <testcase name="testLectureAvgRating" classname="application.DatabaseTest" time="0.448"/>
+  <testcase name="testDeleteLecture" classname="application.DatabaseTest" time="1.847"/>
+  <testcase name="testTopics" classname="application.DatabaseTest" time="0.462"/>
   <system-out><![CDATA[-- phpMyAdmin SQL Dump
 -- version 3.5.5
 -- http://www.phpmyadmin.net
