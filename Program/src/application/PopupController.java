@@ -14,11 +14,7 @@ public class PopupController implements Initializable{
 	
 	private Boolean submitClicked = false;
 	
-	private String number, lectureID, courseID, topicID;
-	
-	private Topic topic;
-	
-	private Lecture lecture;
+	private String lectureID, courseID, topicID;
 	
 	@FXML
 	private Text popupTitle, popupTopText, popupBotText;
