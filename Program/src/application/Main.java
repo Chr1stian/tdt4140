@@ -28,7 +28,9 @@ public class Main extends Application{
 		mainLayout = loader.load();
 		Scene scene = new Scene(mainLayout);
 		primaryStage.setScene(scene);
-		primaryStage.getIcons().add(new Image("file:../../resources/minilogo.png"));
+		// Logo doesn't work in the executable jar
+		//primaryStage.getIcons().add(new Image("file:/minilogo.png"));
+		//primaryStage.getIcons().add(new Image("file:../../recourses/minilogo.png"));
 		primaryStage.show();
 		primaryStage.setResizable(false);
 		ProgramController controller = loader.getController();

@@ -114,7 +114,7 @@
 	-fx-color: white;
 	-fx-text-fill: black;
 	-fx-font-weight: normal;
-	-fx-background-image: url('../../resources/refresh_img.png');
+	-fx-background-image: url('/refresh_img.png');
 	-fx-background-size: 75%;
 	-fx-background-repeat: no-repeat;
 	-fx-background-position: center;
